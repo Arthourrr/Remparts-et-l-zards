@@ -1,4 +1,4 @@
-package Programme2;
+package Champion;
 public class Inventaire {
     Objets potion;
     Objets armure;

@@ -1,4 +1,4 @@
-package Programme2;
+package Champion;
 public class Objets {
     int armure;
     int soin;
@@ -13,11 +13,11 @@ public class Objets {
         this.prix=d;
     }
     public void augmenteresistance (Personnage perso){
-        perso.resistance=perso.resistance+armure;
+        perso.setResistance(perso.getResistance()+armure);
         
     }
     public void soigne(Personnage perso){
-        perso.pv=perso.pv+soin;
+        perso.setPv(perso.getPv()+soin);
     }
     public void augmentedegats (Personnage perso){
         

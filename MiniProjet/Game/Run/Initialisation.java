@@ -1,5 +1,6 @@
-package Programme2;
+package Run;
 import java.util.Scanner;
+import Champion.Personnage;	
 public class Initialisation {
 	public Initialisation() {	
 	
@@ -14,7 +15,7 @@ public class Initialisation {
         Scanner clavier= new Scanner(System.in);
         System.out.println("Saisis ton nom :");
         final String nom= clavier.nextLine(); //le joueur saisit son pseudo
-        perso.ordre = numero;
+        perso.setOrdre(numero);
         perso.SetStatistiques(numero, nom);// met à jour les statistiques du perso en fonction de l'ordre choisi
         System.out.print(perso.AfficheStats());
         System.out.println(); 	
@@ -33,14 +34,14 @@ public class Initialisation {
 	public String AfficheStats(Personnage perso){
 		String description;
 		description = "--------------------------\n";
-		description = description+"Bonjour, "+perso.nom+"\n";
-		description = description+"Ta classe est\t"+perso.ordre+"\n\n";
+		description = description+"Bonjour, "+perso.getNom()+"\n";
+		description = description+"Ta classe est\t"+perso.getOrdre()+"\n\n";
 		description = description+"Tes caracteristiques sont :\n\n";
-		description = description+"Agilite :\t"+perso.agilite+"\n";
-		description = description+"Dexterite :\t"+perso.dexterite+"\n";
-		description = description+"Force :\t\t"+perso.force+"\n";
-		description = description+"Resistance :\t"+perso.resistance+"\n";
-		description = description+"Sagesse :\t"+perso.sagesse+"\n\n";
+		description = description+"Agilite :\t"+perso.getAgilite()+"\n";
+		description = description+"Dexterite :\t"+perso.getDexterite()+"\n";
+		description = description+"Force :\t\t"+perso.getForce()+"\n";
+		description = description+"Resistance :\t"+perso.getResistance()+"\n";
+		description = description+"Sagesse :\t"+perso.getSagesse()+"\n\n";
 		description = description+"--------------------------\n";
 		return description;	
 	}
@@ -51,8 +52,8 @@ public class Initialisation {
 		x = (int) (4*Math.random());
 		y = (int) (4*Math.random());
 		}while(x==tempx && y==tempy);
-		perso.position[0]=perso.position[0]+x;
-		perso.position[1]=perso.position[1]+y;
+		perso.getPosition()[0]=perso.getPosition()[0]+x;
+		perso.getPosition()[1]=perso.getPosition()[1]+y;
 	}
 
 
