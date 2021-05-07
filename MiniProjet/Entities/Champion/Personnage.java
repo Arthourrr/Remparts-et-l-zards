@@ -15,7 +15,7 @@ public class Personnage {
 	private int sagesse; //intelligence/ capacite d'utiliser la magie
 	private int force; //augmente attaque
 	private int joueur; //numero du joueur
-	int[] evo;
+	private int[] Evo; //Evolution des pv. [0]= pv+- ; [1]= nb de tours restants
 	private Actions play = new Actions();//Actions
 	private Initialisation init = new Initialisation();
 	DeroulementJeu deroulementjeu = new DeroulementJeu();
@@ -34,12 +34,24 @@ public class Personnage {
 		this.setForce((int) (8+12*Math.random()));
 		this.setJoueur(N);
 		this.stuff = new Inventaire ();
-		this.evo = new int[2];
+		this.Evo = new int[2];
 	}	
  //Mise à jour de la position sur le plateau
 	public void MajPosition (int X, int Y){	//met à jouer la position en faisant avancer/reculer selon X et Y
 		this.getPosition()[0]=this.getPosition()[0]+X;
 		this.getPosition()[1]=this.getPosition()[1]+Y;
+	}
+	//Mise a jour des stats de personnage
+	public void MajStats() {
+		if(this.Evo[0]<0 && this.Evo[1]>0) {
+			this.setPv(this.getPv()+Evo[0]);
+			this.Evo[1]--;
+			System.out.println("Vous subissez "+ -Evo[0]+ " degats.");
+		} else if (this.Evo[0]>0 && this.Evo[1]>0){
+			this.setPv(this.getPv()+Evo[0]);
+			this.Evo[1]--;
+			System.out.println("Vous gagnez "+ Evo[0]+ " pv.");
+		}
 	}
 //Fait apparaître le personnage aleatoirement sur le plateau en debut de partie
 	public void Spawn (int tempx, int tempy){//Fait apparaître les personnages sur le plateau aleatoirement et pas sur la même place
@@ -92,11 +104,7 @@ public class Personnage {
 	}
 //Affiche les pv/mana/pa/po
 	public String AffichePerso (){
-		if(this.evo[0]<0 && this.evo[1]>0) {
-			this.setPv(this.getPv()-evo[0]);
-			this.evo[1]--;
-			System.out.println("Vous subissez "+ evo[0]+ " degats.");
-		}
+		
 		String description = "Personnage\n";
 		description = description+"PV 	\t :	\t"+this.getPv()+"\n";
 		description = description+"Mana \t\t :	\t"+this.mana+"\n";	
@@ -193,5 +201,12 @@ public class Personnage {
 	}
 	public void setInit(Initialisation init) {
 		this.init = init;
+	}
+	public int[] getEvo() {
+		return Evo;
+	}
+	public void setEvo(int[]Evo) {
+		this.Evo[0] = this.Evo[0] + Evo[0];
+		this.Evo[1] = this.Evo[1] + Evo[1];
 	}
 }

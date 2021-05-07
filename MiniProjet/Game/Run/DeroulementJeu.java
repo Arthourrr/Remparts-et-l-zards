@@ -6,7 +6,7 @@ public class DeroulementJeu {
 	public DeroulementJeu() {	
 	
 	}
-//Fait tourner la partie tant que aucun personnage n’est mort
+//Fait tourner la partie tant que aucun personnage n'est mort
 //Compteur base sur pair/impair
 //Affiche le gagnant à la fin
 	public static void DeroulementPartie(Personnage perso1, Personnage perso2, Jeu tabledejeu){
@@ -40,6 +40,7 @@ public class DeroulementJeu {
 		int fight=1;
 		System.out.print(tabledejeu.AffichePlateau());
 		System.out.println(persoA.getNom() +" c'est a� toi !");
+		persoA.MajStats();
 		while (persoA.getPa()>0){
 		System.out.println(persoA.AffichePerso());
 		System.out.println("Que choisis-tu de faire ? ");
