@@ -1,5 +1,6 @@
 package World;
 import Champion.Personnage;
+import Run.Affichage;
 public class Jeu {
 	private int[][] Plateau;//Plateau du jeu
 	//DeroulementJeu deroulementjeu = new DeroulementJeu();
@@ -7,12 +8,17 @@ public class Jeu {
 	public Jeu (){
 		this.setPlateau(InitJeu());
 	} 
-	//Cree un tableau 10x10
+	//Cree un tableau 5x5
 	public int[][] InitJeu(){
 		int[][] PlateauDeJeu = new int[5][5];
 		return PlateauDeJeu;
 	}
 	//Depose les pions sur le plateau en des positions x et y predefinies
+	/**
+	 * @param x
+	 * @param y
+	 * @param perso
+	 */
 	public void PosePion(int x,int y, Personnage perso){
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
@@ -47,6 +53,7 @@ public class Jeu {
 	//Un JX à la place du joueur
 	//Rien si pas de joueur
 	public String AffichePlateau (){	
+	
 		String description = "\n-----------------------------------------\n";
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
