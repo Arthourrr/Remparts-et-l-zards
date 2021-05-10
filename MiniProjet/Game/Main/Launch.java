@@ -25,7 +25,7 @@ public class Launch {
 		Initialisation.InitPerso(Perso2);
 		Perso2.getInit().Spawn(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso2);
 		TableDeJeu.PosePion(Perso2.getPosition()[0],Perso2.getPosition()[1],Perso2);//pose le joueur sur un pt du tableau	
-		System.out.println("\\\\\\\\\\"+Perso1.getNom() +"VS"+ Perso2.getNom()+"/////////");
+		System.out.println("\\\\\\\\\\\\\\\\\\"+Perso1.getNom() +" VS "+ Perso2.getNom()+"/////////");
 		DeroulementJeu.DeroulementPartie(Perso1,Perso2,TableDeJeu);
 		DeroulementJeu.Gagnant(compteur,Perso1,Perso2);
     }	

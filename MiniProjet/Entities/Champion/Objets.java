@@ -5,14 +5,18 @@ public class Objets {
     int quantite;
     int prix;
     int force; 
+    double portee; //utilisé pour "coefdist" dans actions.arc Plus la valeur est grande plus la répartition est homogène.
+    boolean dispo;
     
     Personnage perso;
     public Objets (int a, int b, int c, int d, int e){
-        this.armure=a;
+        this.dispo = true;
+    	this.armure=a;
         this.soin=b;
         this.quantite=c;
         this.prix=d;
         this.force=e;
+        this.portee= 1.2;
     }
     public void augmenteresistance (Personnage perso){
         perso.setResistance(perso.getResistance()+armure);
@@ -29,5 +33,6 @@ public class Objets {
         this.augmentedegats(perso);
         this.augmentedegats(perso);
         this.soigne(perso);
+        this.quantite--;
     }
 }

@@ -19,7 +19,7 @@ public class Personnage {
 	private Actions play = new Actions();//Actions
 	private Initialisation init = new Initialisation();
 	DeroulementJeu deroulementjeu = new DeroulementJeu();
-	Inventaire stuff;
+	private Inventaire stuff;
  //objet Personnage avec ses diff caracteristiques
  //Initialise : stats/po/pa/pv/numero de personnage
 	public Personnage(int N){
@@ -33,7 +33,7 @@ public class Personnage {
 		this.setDexterite((int) (8+12*Math.random()));
 		this.setForce((int) (8+12*Math.random()));
 		this.setJoueur(N);
-		this.stuff = new Inventaire ();
+		this.setStuff(new Inventaire ());
 		this.Evo = new int[2];
 	}	
  //Mise à jour de la position sur le plateau
@@ -208,5 +208,11 @@ public class Personnage {
 	public void setEvo(int[]Evo) {
 		this.Evo[0] = this.Evo[0] + Evo[0];
 		this.Evo[1] = this.Evo[1] + Evo[1];
+	}
+	public Inventaire getStuff() {
+		return stuff;
+	}
+	public void setStuff(Inventaire stuff) {
+		this.stuff = stuff;
 	}
 }
