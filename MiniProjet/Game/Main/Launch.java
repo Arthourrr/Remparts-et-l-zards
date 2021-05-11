@@ -13,7 +13,7 @@ import java.util.TimerTask;
 public class Launch {
 	public static void main (String[] arg){
 	    
-		AePlayWave Intro = new AePlayWave("A:\\Documents\\INSA\\20-21\\Info\\Projet1\\MiniProjet\\Audio\\Title_Screen01.wav");
+		AePlayWave Intro = new AePlayWave("C:\\Users\\antoi\\git\\SuperjeuKitue\\MiniProjet\\Audio\\Title_Screen01.wav");
 		Intro.start();
 	    
 		DeroulementJeu FaisTournerLaPartie = new DeroulementJeu();
