@@ -36,17 +36,14 @@ public class Jeu {
 	
 	//Deplace les pions de +x ou +y
 	public void DeplacePion(int x,int y, Personnage perso){
-		
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
-				
 				if(this.getPlateau()[i][j]==-perso.getJoueur()){
 					this.getPlateau()[i][j]=0;
 				}
 				else{
 					this.getPlateau()[i][j]=this.getPlateau()[i][j];
 				}
-				
 			}
 		}	
 		this.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]]=-perso.getJoueur();
@@ -72,10 +69,10 @@ public class Jeu {
 				}else if(this.getPlateau()[i][j]==-2){
 					description = description+"|  J2\t";
 				}else{
-					description = description+"|"+this.getPlateau()[i][j]+"or\t";
+					description = description+"|  °°°\t";
 				}
 			}
-		description = description+"|\n";
+				description = description+"|\n";
 			for(int j=0; j<this.getPlateau()[0].length; j++){
 					description = description+"|\t";
 			}
@@ -91,7 +88,7 @@ public class Jeu {
 		int z = (int) (100*Math.random());
 		int g;
 		
-		if(z<=20) {
+		if(z<40) {
 			for(int i=0; i<3; i++) {
 				x = (int) (4*Math.random());
 				y = (int) (4*Math.random());
@@ -103,6 +100,18 @@ public class Jeu {
 				}	
 			}
 		}
+	}
+	
+	public void SpawnGoldRegulier() {
+		int x=0;
+		int y=0;
+		do {
+			x = (int) (4*Math.random());
+			y = (int) (4*Math.random());
+			if(this.getPlateau()[x][y] != -1 && this.getPlateau()[x][y] != -2){ 	
+				this.getPlateau()[x][y]=10;
+			}
+		}while(this.getPlateau()[x][y] != 10);
 	}
 	
 	public int[][] getPlateau() {

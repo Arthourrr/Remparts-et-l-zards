@@ -5,7 +5,7 @@ public class Personnage {
 	private int ordre; //classe du personnage
 	private String nom; //nom du perso
 	private int pv; //point de vie du perso
-	int mana; //points de mana pour lancer les sorts/attaques speciales  
+	private int mana; //points de mana pour lancer les sorts/attaques speciales  
 	private int pa; //point d'action du perso
 	private int po; //pièces d'or
 	private int[] position = new int[2]; //position du perso sur le jeu
@@ -27,6 +27,7 @@ public class Personnage {
 		this.setPv(100);
 		this.setPa(3);//point d'action
 		this.setPo(100);
+		this.setMana(100);
 		this.setResistance((int) (12+8*Math.random())); // nombre aleatoire entre 12 et 20
 		this.setAgilite((int) (12+8*Math.random()));
 		this.setSagesse((int) (12+8*Math.random()));
@@ -224,5 +225,11 @@ public class Personnage {
 	}
 	public void setStuff(Inventaire stuff) {
 		this.stuff = stuff;
+	}
+	public int getMana() {
+		return mana;
+	}
+	public void setMana(int mana) {
+		this.mana = mana;
 	}
 }

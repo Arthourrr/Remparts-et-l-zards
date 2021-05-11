@@ -20,7 +20,7 @@ public class Actions{
 				break;
 			case 3 :
 				p1.getPlay().sort(p1, p2);
-				break; 
+				break;
 			}
 			break;
 		case 1 :
@@ -30,7 +30,7 @@ public class Actions{
 				break;
 			case 2:
 				System.out.println("Bienvenue au marché. Voici les articles disponibles:");
-	            System.out.println("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)\t 4= Potion de soin ("+p1.getStuff().potion.prix +"po) \t 5= Amulette ("+p1.getStuff().amulette.prix +"po) \t 6= Bisoumagique ("+p1.getStuff().bisoumagique.prix +"po)");
+	            System.out.println("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)\t 4= Potion de soin ("+p1.getStuff().potionSoin.prix +"po) \t 5= Amulette ("+p1.getStuff().amulette.prix +"po) \t 6= Bisoumagique ("+p1.getStuff().bisoumagique.prix +"po) \t 7 = Potion de Mana ("+p1.getStuff().potionMana.prix +"po)");
 	            System.out.println("Vous possédez "+p1.getPo()+" pièces d'or.");
 	            Scanner d = new Scanner(System.in); 
 	            final int c = d.nextInt();
@@ -38,14 +38,15 @@ public class Actions{
 			break;
 			
 			case 3 :
-				if(p1.getStuff().potion.quantite==0 && p1.getStuff().armure.quantite==0 && p1.getStuff().epee.quantite==0 && p1.getStuff().bisoumagique.quantite==0 && p1.getStuff().amulette.quantite==0 && p1.getStuff().arc.quantite==0) {
+				if(p1.getStuff().potionMana.quantite==0 && p1.getStuff().potionSoin.quantite==0 && p1.getStuff().armure.quantite==0 && p1.getStuff().epee.quantite==0 && p1.getStuff().bisoumagique.quantite==0 && p1.getStuff().amulette.quantite==0 && p1.getStuff().arc.quantite==0) {
 		    		System.out.println("Vous ne possédez aucun objet. Rendez vous au marché pour vous en procurer.");
 				} else {
 				System.out.println("Vous disposez des objets suivants. Lequel souhaitez vous utiliser?");
 				String contenu = new String();
 				contenu = (p1.getStuff().amulette.quantite>0)? contenu+ "- 1: Amulette enchantée" : contenu;
-				contenu = (p1.getStuff().potion.quantite>0)? contenu+ "- 2: Potion de soin" : contenu;
+				contenu = (p1.getStuff().potionSoin.quantite>0)? contenu+ "- 2: Potion de soin" : contenu;
 				contenu = (p1.getStuff().bisoumagique.quantite>0)? contenu+ "- 3: Bisou magique" : contenu; 
+				contenu = (p1.getStuff().potionMana.quantite>0)? contenu+ "- 4: Potion de mana" : contenu;
 	            System.out.println(contenu);
 				Scanner e = new Scanner(System.in); 
 	            final int choix = e.nextInt();
@@ -109,8 +110,9 @@ public class Actions{
 		}
 	}
 	public void sort (Personnage p1, Personnage p2) {
-		if(p1.getPa()>=2) {
+		if(p1.getPa()>=2 && p1.getMana()>=20) {
 			p1.setPa(p1.getPa()-2);
+			p1.setMana(p1.getMana()-20);
 			int duree;
 			int degats= (int)(1.5*Math.random()*p1.getDexterite());
 			if (degats>(0.5*p2.getResistance())) {
@@ -171,9 +173,9 @@ public class Actions{
             break;
             }
         case(4):
-        	if(p1.getStuff().potion.dispo && p1.getPo()>p1.getStuff().potion.prix) {
-            p1.getStuff().potion.quantite++;
-            p1.setPo(p1.getPo() - p1.getStuff().potion.prix);
+        	if(p1.getStuff().potionSoin.dispo && p1.getPo()>p1.getStuff().potionSoin.prix) {
+            p1.getStuff().potionSoin.quantite++;
+            p1.setPo(p1.getPo() - p1.getStuff().potionSoin.prix);
             p1.setPa(p1.getPa() - 1);
             break;
         	}
@@ -184,20 +186,27 @@ public class Actions{
         	p1.setPa(p1.getPa() - 1);
         	break;
         	}
-        case 5:
+        case (5):
         	if(p1.getStuff().amulette.dispo && p1.getPo()>p1.getStuff().amulette.prix){
         		p1.getStuff().amulette.quantite++;
         		p1.setPo(p1.getPo() - p1.getStuff().amulette.prix);
             	p1.setPa(p1.getPa() - 1);
         	break;
            	}
+        case (7):
+        	if(p1.getStuff().potionMana.dispo && p1.getPo()>p1.getStuff().potionMana.prix) {
+                p1.getStuff().potionMana.quantite++;
+                p1.setPo(p1.getPo() - p1.getStuff().potionMana.prix);
+                p1.setPa(p1.getPa() - 1);
+                break;
+            	}        	
         }
     }
     public void utiliser (Personnage p1, int a) {
         switch (a) {
         case(2):
-            if(p1.getStuff().potion.quantite>0) {
-            p1.getStuff().potion.use(p1);
+            if(p1.getStuff().potionSoin.quantite>0) {
+            p1.getStuff().potionSoin.use(p1);
             break;
             }
         case 3:
@@ -206,6 +215,11 @@ public class Actions{
              p1.getStuff().bisoumagique.quantite--;
              break;
             }
+        case(4):
+            if(p1.getStuff().potionMana.quantite>0) {
+            p1.getStuff().potionMana.use(p1);
+            break;
+            }        	 
         case 1:
         	if(p1.getStuff().amulette.quantite>0) {
         		p1.getStuff().amulette.quantite--;

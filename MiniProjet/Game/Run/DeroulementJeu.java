@@ -12,7 +12,7 @@ public class DeroulementJeu {
 	public static void DeroulementPartie(Personnage perso1, Personnage perso2, Jeu tabledejeu){
         int compteur=1;
         while (!Fini(perso1,perso2)){
-        	tabledejeu.RandomGoldSpawn();
+        	
             if (compteur%2!=0){
 				Tour(perso1,perso2,tabledejeu, compteur);
                 compteur++;
@@ -20,7 +20,7 @@ public class DeroulementJeu {
 				Tour(perso2,perso1,tabledejeu, compteur);
                 compteur++;
             }
-            
+            tabledejeu.SpawnGoldRegulier(); 
         }
         Gagnant(compteur, perso1, perso2);
     }

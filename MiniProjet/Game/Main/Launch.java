@@ -9,7 +9,6 @@ import Champion.Personnage;
 import World.Jeu;
 import java.util.Timer;
 import java.util.TimerTask;
-
 public class Launch {
 	public static void main (String[] arg){
 	    //music INTRO
