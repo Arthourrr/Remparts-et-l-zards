@@ -22,7 +22,7 @@ public class Jeu {
 	public void PosePion(int x,int y, Personnage perso){
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
-				if(this.getPlateau()[i][j]==perso.getJoueur()){
+				if(this.getPlateau()[i][j]==-perso.getJoueur()){
 					this.getPlateau()[i][j]=0;
 				}
 				else{
@@ -30,15 +30,17 @@ public class Jeu {
 				}
 			}
 		}	
-		this.getPlateau()[x][y]=perso.getJoueur();
+		this.getPlateau()[x][y]=-perso.getJoueur();
 	}
+	
+	
 	//Deplace les pions de +x ou +y
 	public void DeplacePion(int x,int y, Personnage perso){
 		
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
 				
-				if(this.getPlateau()[i][j]==perso.getJoueur()){
+				if(this.getPlateau()[i][j]==-perso.getJoueur()){
 					this.getPlateau()[i][j]=0;
 				}
 				else{
@@ -47,12 +49,12 @@ public class Jeu {
 				
 			}
 		}	
-		this.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]]=perso.getJoueur();
+		this.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]]=-perso.getJoueur();
 	}	
 	//Affiche le tableau
 	//Un JX à la place du joueur
 	//Rien si pas de joueur
-	public String AffichePlateau (){	
+	public String AffichePlateau (){
 	
 		String description = "\n-----------------------------------------\n";
 		for(int i=0; i<this.getPlateau().length; i++){
@@ -65,29 +67,51 @@ public class Jeu {
 				
 				if(this.getPlateau()[i][j]==0){
 					description = description+"|\t";
-				}else if(this.getPlateau()[i][j]==1){
+				}else if(this.getPlateau()[i][j]==-1){
 					description = description+"|  J1\t";
-				}else if(this.getPlateau()[i][j]==2){
+				}else if(this.getPlateau()[i][j]==-2){
 					description = description+"|  J2\t";
+				}else{
+					description = description+"|"+this.getPlateau()[i][j]+"or\t";
 				}
-				
 			}
-			description = description+"|\n";
-			
+		description = description+"|\n";
 			for(int j=0; j<this.getPlateau()[0].length; j++){
 					description = description+"|\t";
 			}
-			
 		description = description+"|\n-----------------------------------------\n";	
 		}
 		return description;
 	}
+	
+	//20% de chances de faire spawn de l'or
+	public void RandomGoldSpawn () {
+		int x=0;
+		int y=0;
+		int z = (int) (100*Math.random());
+		int g;
+		
+		if(z<=20) {
+			for(int i=0; i<3; i++) {
+				x = (int) (4*Math.random());
+				y = (int) (4*Math.random());
+				if(this.getPlateau()[x][y] != -1 && this.getPlateau()[x][y] != -2){ 
+					do{
+						g = (int) (100*Math.random());
+					}while(g==0);	
+					this.getPlateau()[x][y]=(int) (100*Math.random());
+				}	
+			}
+		}
+	}
+	
 	public int[][] getPlateau() {
 		return Plateau;
 	}
 	public void setPlateau(int[][] plateau) {
 		Plateau = plateau;
-	}	
+	}
+
 }
 	
 

@@ -12,16 +12,17 @@ import java.util.TimerTask;
 
 public class Launch {
 	public static void main (String[] arg){
-	    
+	    //music INTRO
 		AePlayWave Intro = new AePlayWave("C:\\Users\\antoi\\git\\SuperjeuKitue\\MiniProjet\\Audio\\Title_Screen01.wav");
 		Intro.start();
 	    
 		DeroulementJeu FaisTournerLaPartie = new DeroulementJeu();
 		Jeu TableDeJeu = new Jeu();
-		System.out.println("Joueur 1 à toi");
+		System.out.println("Joueur 1 à toi\n");
 
 		int compteur=1;
 		
+		//init perso1
 		Personnage Perso1 = new Personnage(1);
 		Perso1.getInit();
 		Initialisation.InitPerso(Perso1);
@@ -29,25 +30,25 @@ public class Launch {
 		TableDeJeu.PosePion(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso1);//pose le joueur sur un pt du tableau
 		compteur++;
 		
-		System.out.println("Joueur 2 à toi");
+		//init perso2
+		System.out.println("Joueur 2 à toi\n");
 		Personnage Perso2 = new Personnage(2);
 		Perso2.getInit();
 		Initialisation.InitPerso(Perso2);
 		Perso2.getInit().Spawn(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso2);
 		TableDeJeu.PosePion(Perso2.getPosition()[0],Perso2.getPosition()[1],Perso2);//pose le joueur sur un pt du tableau	
 		
-		System.out.println("\\\\\\\\\\\\\\\\\\ "+Perso1.getNom() +" VS "+ Perso2.getNom()+" /////////");
+		//à changer trouver un bel affichage
+		System.out.println(Perso1.getNom() +"   VS   "+ Perso2.getNom());
+		//music début
 		Intro.stop();	
 		Timer timer = new Timer(true);
 		TimerTask PlayCbt1 = new IntroCombat();
 		TimerTask PlayCbt2 = new PlayCombat();
 		timer.schedule(PlayCbt1, 0);
 		timer.scheduleAtFixedRate(PlayCbt2, 0, 87000 );
+		//partie
 		DeroulementJeu.DeroulementPartie(Perso1,Perso2,TableDeJeu);
-		DeroulementJeu.Gagnant(compteur,Perso1,Perso2);
-		
-		
-
-		
+		DeroulementJeu.Gagnant(compteur,Perso1,Perso2);		
     }	
 }	

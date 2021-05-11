@@ -12,6 +12,7 @@ public class DeroulementJeu {
 	public static void DeroulementPartie(Personnage perso1, Personnage perso2, Jeu tabledejeu){
         int compteur=1;
         while (!Fini(perso1,perso2)){
+        	tabledejeu.RandomGoldSpawn();
             if (compteur%2!=0){
 				Tour(perso1,perso2,tabledejeu, compteur);
                 compteur++;
@@ -73,6 +74,7 @@ public class DeroulementJeu {
 						}						
 					case 3 :
 						persoA.setPa(0);
+						break;
 					case 4 :
 						System.out.println("1 = Epee \t 2 = Arc \t 3 = Sort"); // /!\methodes manquantes
 						Scanner a = new Scanner(System.in); 
@@ -81,7 +83,7 @@ public class DeroulementJeu {
 						break;						
 				}
 			}else{
-				System.out.println("1=Objets, Entrainements \t 2=me deplacer\t 3=Ne rien faire \t 0=Aide");
+				System.out.println("1=Objets, Entrainements \t 2=me deplacer\t 3=Ne rien faire \t 0=Infos");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
 				switch(numero){
@@ -111,9 +113,11 @@ public class DeroulementJeu {
 			}
 		}
 		persoA.setPa(3);
+		/*
 		for(int i=0;i<50;i++){
 			System.out.println();	
-		}	
+		}
+		*/	
 	}
 //Permet de commander les mouvements du personnage sur le plateau
 //Utilisation de switch
@@ -128,10 +132,13 @@ public class DeroulementJeu {
         if(numero==6){numero=4;}
         if(numero==8){numero=1;}
         if(numero==2){numero=2;}
+        int newposval;
 			switch(numero){
 				case 1 :
 					if(perso.getPosition()[0]!=0){
-						if(tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]]==0){
+						newposval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]];
+						if(newposval!= -1 && newposval!= -2){
+							perso.setPo(perso.getPo()+newposval);
 							mouvement[0]=-1;
 							mouvement[2]=1;
 						}
@@ -139,7 +146,9 @@ public class DeroulementJeu {
 					break;
 				case 2 :
 					if(perso.getPosition()[0]!=tabledejeu.getPlateau().length-1){
-						if(tabledejeu.getPlateau()[perso.getPosition()[0]+1][perso.getPosition()[1]]==0){	
+						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]+1][perso.getPosition()[1]];
+						if(newposval!= -1 && newposval!= -2){
+							perso.setPo(perso.getPo()+newposval);
 							mouvement[0]=1;
 							mouvement[2]=1;
 						}
@@ -147,7 +156,9 @@ public class DeroulementJeu {
 					break;
 				case 3 :
 					if(perso.getPosition()[1]!=0){
-						if(tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]-1]==0){
+						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]-1];
+						if(newposval!= -1 && newposval!= -2){
+							perso.setPo(perso.getPo()+newposval);
 							mouvement[1]=-1;
 							mouvement[2]=1;
 						}
@@ -155,7 +166,9 @@ public class DeroulementJeu {
 					break;
 				case 4 :
 					if(perso.getPosition()[1]!=tabledejeu.getPlateau()[0].length-1){
-						if(tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]+1]==0){
+						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]+1];	
+						if(newposval!= -1 && newposval!= -2){
+							perso.setPo(perso.getPo()+newposval);
 							mouvement[1]=1;
 							mouvement[2]=1;
 						}
@@ -184,6 +197,7 @@ public class DeroulementJeu {
             perso2.setPo(perso2.getPo()+100);
         }
     }
+ //Affichage de l'aide
     public static void Aide(Personnage p1) {
     	System.out.println("1: Inventaire\t 2: Objets\t 3:Attaques");
     	Scanner sc = new Scanner(System.in); 

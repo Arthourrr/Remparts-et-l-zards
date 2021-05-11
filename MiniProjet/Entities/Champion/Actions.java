@@ -2,8 +2,6 @@ package Champion;
 import java.util.Scanner;
 public class Actions{	
 
-	
-	
 	public Actions() {
 		
 	}
