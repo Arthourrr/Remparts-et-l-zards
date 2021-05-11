@@ -111,11 +111,4 @@ public class Jeu {
 	public void setPlateau(int[][] plateau) {
 		Plateau = plateau;
 	}
-
 }
-	
-
-	
-	
-	
-	
