@@ -46,14 +46,14 @@ public class DeroulementJeu {
 		System.out.println("Que choisis-tu de faire ? ");
 		int[] mouvement;
 			if(fight!=0 && persoA.getPa()>=2){
-				System.out.println("1= Utiliser un objet \t 2=Me deplacer \t 3=Ne rien faire\t 4=Combattre \t 0=Infos");
+				System.out.println("1= Objets, Entrainements \t 2=Me deplacer \t 3=Ne rien faire\t 4=Combattre \t 0=Infos");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
 				switch(numero){
 					case 0 :
 						Aide(persoA);
 					case 1 :
-						System.out.println("1 = Force \t 2 = Acheter Objet  \t 3 = Objet 3 \n 0=retour"); // /!\methodes manquantes
+						System.out.println("1 = S'entraîner au maniement de l'épée \t 2 = Marché  \t 3 = Utiliser un objet \n 0=retour"); // /!\methodes manquantes
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
 						
@@ -81,12 +81,12 @@ public class DeroulementJeu {
 						break;						
 				}
 			}else{
-				System.out.println("1=Utiliser un objet \t 2=me deplacer\t 3=Ne rien faire");
+				System.out.println("1=Objets, Entrainements \t 2=me deplacer\t 3=Ne rien faire \t 0=Aide");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
 				switch(numero){
 					case 1 :
-						System.out.println("1 = Force \t 2 = Objet 2 \t 3 = Objet 3"); // /!\methodes manquantes
+						System.out.println("1 = S'entraîner au maniement de l'épée \t 2 = Marché \t 3 = Utiliser un objet"); // /!\methodes manquantes
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
 						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur);
@@ -104,6 +104,9 @@ public class DeroulementJeu {
 						}
 					case 3 :
 						persoA.setPa(0);
+						break;
+					case 0 :
+						Aide(persoA);
 				}
 			}
 		}
@@ -206,5 +209,6 @@ public class DeroulementJeu {
     		break;
     	}
     }
+
 
 }

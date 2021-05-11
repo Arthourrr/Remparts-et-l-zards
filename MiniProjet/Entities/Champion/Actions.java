@@ -10,8 +10,7 @@ public class Actions{
 	
 	
 	public void choixAction (int a, int b, Personnage p1, Personnage p2, int count) { 
-		//if(a==4){a=1;}
-		//if(a==1){a=2;}
+		
 		switch(a){
 		case 4 :	
 			switch(b) {
@@ -30,15 +29,31 @@ public class Actions{
 			switch(b) {
 			case 1: 
 				p1.getPlay().trainForce(p1);
+				break;
 			case 2:
-	            System.out.println("1 = Arc du feu de Dieu \t 2 = Armure des tenebres  \t 3 = Epee Kipik \t 4= Potion de soin");
+				System.out.println("Bienvenue au marché. Voici les articles disponibles:");
+	            System.out.println("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)\t 4= Potion de soin ("+p1.getStuff().potion.prix +"po) \t 5= Amulette ("+p1.getStuff().amulette.prix +"po) \t 6= Bisoumagique ("+p1.getStuff().bisoumagique.prix +"po)");
+	            System.out.println("Vous possédez "+p1.getPo()+" pièces d'or.");
 	            Scanner d = new Scanner(System.in); 
 	            final int c = d.nextInt();
 			    p1.getPlay().acheter(p1, c);
-			}
-			break;	
+			break;
+			
 			case 3 :
-				p1.getPlay().utiliser(p1, a);
+				if(p1.getStuff().potion.quantite==0 && p1.getStuff().armure.quantite==0 && p1.getStuff().epee.quantite==0 && p1.getStuff().bisoumagique.quantite==0 && p1.getStuff().amulette.quantite==0 && p1.getStuff().arc.quantite==0) {
+		    		System.out.println("Vous ne possédez aucun objet. Rendez vous au marché pour vous en procurer.");
+				} else {
+				System.out.println("Vous disposez des objets suivants. Lequel souhaitez vous utiliser?");
+				String contenu = new String();
+				contenu = (p1.getStuff().amulette.quantite>0)? contenu+ "- 1: Amulette enchantée" : contenu;
+				contenu = (p1.getStuff().potion.quantite>0)? contenu+ "- 2: Potion de soin" : contenu;
+				contenu = (p1.getStuff().bisoumagique.quantite>0)? contenu+ "- 3: Bisou magique" : contenu; 
+	            System.out.println(contenu);
+				Scanner e = new Scanner(System.in); 
+	            final int choix = e.nextInt();
+				p1.getPlay().utiliser(p1, choix);
+				}
+			}
 		}
 	}
 	
@@ -99,7 +114,7 @@ public class Actions{
 		if(p1.getPa()>=2) {
 			p1.setPa(p1.getPa()-2);
 			int duree;
-			int degats= (int)(Math.random()*p1.getDexterite());
+			int degats= (int)(1.5*Math.random()*p1.getDexterite());
 			if (degats>(0.5*p2.getResistance())) {
 				degats= (int)(degats-0.5*p2.getResistance());
 			}else {
@@ -149,7 +164,7 @@ public class Actions{
         	break;
         	}
         case(3):
-            if (p1.getStuff().epee.dispo) {
+            if (p1.getStuff().epee.dispo && p1.getPo()>p1.getStuff().epee.prix) {
             p1.getStuff().epee.quantite++;
             p1.setPo(p1.getPo() - p1.getStuff().epee.prix);
             p1.setPa(p1.getPa() - 1);
@@ -158,21 +173,21 @@ public class Actions{
             break;
             }
         case(4):
-        	if(p1.getStuff().potion.dispo) {
+        	if(p1.getStuff().potion.dispo && p1.getPo()>p1.getStuff().potion.prix) {
             p1.getStuff().potion.quantite++;
             p1.setPo(p1.getPo() - p1.getStuff().potion.prix);
             p1.setPa(p1.getPa() - 1);
             break;
         	}
-        case(5):
-        	if(p1.getStuff().bisoumagique.dispo) {
+        case(6):
+        	if(p1.getStuff().bisoumagique.dispo && p1.getPo()>p1.getStuff().bisoumagique.prix) {
         	p1.getStuff().bisoumagique.quantite++;
         	p1.setPo(p1.getPo() - p1.getStuff().bisoumagique.prix);
         	p1.setPa(p1.getPa() - 1);
         	break;
         	}
-        case 6:
-        	if(p1.getStuff().amulette.dispo){
+        case 5:
+        	if(p1.getStuff().amulette.dispo && p1.getPo()>p1.getStuff().amulette.prix){
         		p1.getStuff().amulette.quantite++;
         		p1.setPo(p1.getPo() - p1.getStuff().amulette.prix);
             	p1.setPa(p1.getPa() - 1);
@@ -182,21 +197,22 @@ public class Actions{
     }
     public void utiliser (Personnage p1, int a) {
         switch (a) {
-        case(1):
+        case(2):
             if(p1.getStuff().potion.quantite>0) {
             p1.getStuff().potion.use(p1);
             break;
             }
-        case 2:
+        case 3:
         	 if(p1.getStuff().bisoumagique.quantite>0) {
              p1.setPv(p1.getPv()+p1.getStuff().bisoumagique.soin);
              p1.getStuff().bisoumagique.quantite--;
              break;
             }
-        case 3:
+        case 1:
         	if(p1.getStuff().amulette.quantite>0) {
         		p1.getStuff().amulette.quantite--;
-        		p1.setEvo(null);
+        		int[] tmp = {0, 0};
+        		p1.setEvo(tmp);
         		System.out.println("Les sortilèges ont été levés.");
         	}
         }

@@ -27,11 +27,11 @@ public class Personnage {
 		this.setPv(100);
 		this.setPa(3);//point d'action
 		this.setPo(100);
-		this.setResistance((int) (8+12*Math.random())); // nombre aleatoire entre 8 et 20
-		this.setAgilite((int) (8+13*Math.random()));
-		this.setSagesse((int) (8+12*Math.random()));
-		this.setDexterite((int) (8+12*Math.random()));
-		this.setForce((int) (8+12*Math.random()));
+		this.setResistance((int) (12+8*Math.random())); // nombre aleatoire entre 12 et 20
+		this.setAgilite((int) (12+8*Math.random()));
+		this.setSagesse((int) (12+8*Math.random()));
+		this.setDexterite((int) (12+8*Math.random()));
+		this.setForce((int) (12+8*Math.random()));
 		this.setJoueur(N);
 		this.setStuff(new Inventaire ());
 		this.Evo = new int[2];
@@ -51,6 +51,9 @@ public class Personnage {
 			this.setPv(this.getPv()+Evo[0]);
 			this.Evo[1]--;
 			System.out.println("Vous gagnez "+ Evo[0]+ " pv.");
+		}
+		if (this.Evo[1]==0) {
+			this.Evo[0]=0;
 		}
 	}
 //Fait apparaître le personnage aleatoirement sur le plateau en debut de partie
@@ -108,7 +111,7 @@ public class Personnage {
 		String description = "Personnage\n";
 		description = description+"PV 	\t :	\t"+this.getPv()+"\n";
 		description = description+"Mana \t\t :	\t"+this.mana+"\n";	
-		description = description+"PO 	\t :	\t"+this.getPv()+"\n";
+		description = description+"PO 	\t :	\t"+this.getPo()+"\n";
 		description = description+"PA	\t :	\t"+this.getPa()+"\n";
 		description = description+"--------------------------\n";				
 		return description;
