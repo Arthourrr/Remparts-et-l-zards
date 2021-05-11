@@ -109,6 +109,7 @@ public class DeroulementJeu {
 						break;
 					case 0 :
 						Aide(persoA);
+						break;
 				}
 			}
 		}

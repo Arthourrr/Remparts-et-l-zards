@@ -24,10 +24,10 @@ public class Initialisation {
 	public static void AfficherLesClasses (){ //methode pour afficher les choix d'ordres
         System.out.println("Voici les classes disponibles, avec leurs caracteristiques.");
         System.out.println();
-        System.out.println("1= Archer (+1 en dexterite; +1 en agilite)");
-        System.out.println("2= Assassin (+1 agilite, +1 en sagesse)");
-        System.out.println("3= Guerrier (+1 en force, +1 en resistance)");
-        System.out.println("4= Mage (+2 en dexterite, +3 en sagesse, -3 en resistance)");
+        System.out.println("1= Archer (+9 agilite; -6 en sagesse; -6 force; -3 resistance)");
+        System.out.println("2= Assassin (+6 dexterite; -6 sagesse; -6 force; -3 resistance)");
+        System.out.println("3= Guerrier (+3 force, +3 resistance; -6 sagesse; -6 agilité)");
+        System.out.println("4= Mage (+9sagesse; -6 force; -6 sagesse; -3 resistance)");
         System.out.println();
     }
 

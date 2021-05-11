@@ -71,21 +71,28 @@ public class Personnage {
 	public void SetStatistiques(int numero, String nom){ //ajout de pts de stats aux personnages selon la classe choisie
 		switch(numero){
 			case 1 :
-				this.setDexterite(this.getDexterite()+1);
-				this.setAgilite(this.getAgilite()+1);
+				this.setAgilite(this.getAgilite() +9);
+				this.setSagesse(this.getSagesse() -6);
+				this.setResistance(this.getResistance() -3);
+				this.setForce(this.getForce() -6);				
 				break;
 			case 2 :
-				this.setAgilite(this.getAgilite()+1);
-				this.setSagesse(this.getSagesse() + 1);
+				this.setDexterite(this.getDexterite() +9);
+				this.setSagesse(this.getSagesse() -3);
+				this.setResistance(this.getResistance() -3);
+				this.setForce(this.getForce() -3);	
 				break;
 			case 3 :
-				this.setForce(this.getForce() + 1);
-				this.setResistance(this.getResistance() + 1);
+				this.setAgilite(this.getAgilite() -6);
+				this.setSagesse(this.getSagesse() -6);
+				this.setResistance(this.getResistance() +6);
+				this.setForce(this.getForce() +6);	
 				break;
 			case 4 :
-				this.setDexterite(this.getDexterite()+2);
-				this.setSagesse(this.getSagesse()+3);
-				this.setForce(this.getForce()-3);
+				this.setAgilite(this.getAgilite() -3);
+				this.setSagesse(this.getSagesse() +9);
+				this.setResistance(this.getResistance() -3);
+				this.setForce(this.getForce() -3);	
 				break;  
 		}
 		this.setNom(nom);       
