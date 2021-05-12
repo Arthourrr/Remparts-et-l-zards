@@ -1,7 +1,11 @@
 package Run;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.awt.*;
 
 /**
@@ -9,6 +13,10 @@ import java.awt.*;
  * @author Brice Chardin, modifiee par Jean-Francois TREGOUET
  */
 public class Affichage extends JFrame {
+	
+	//BufferedImage img1 = new BufferedImage(50,50, BufferedImage.TYPE_INT_RGB);
+	
+	
     private static Affichage world = null;
     private PanneauGrille pg;
 
@@ -75,8 +83,9 @@ public class Affichage extends JFrame {
         private void dessineMonde(Graphics g) {
             int nbL = monde.length;
             int nbC = monde[0].length;
-            // couleur de fond
-           // g.
+            
+            AfficheImage("C:\\Users\\Arthur\\Pictures\\Image2.png", g, nbC, nbL);
+           /* // couleur de fond
             g.setColor(Color.WHITE);
             g.fillRect(0,0,res*nbC,res*nbL);
             // cellules
@@ -95,12 +104,36 @@ public class Affichage extends JFrame {
                         		g.fillRect(res*j, res*i, res, res);
                         	}
                     	}
-                    } 
-           }
+                    }*/  
+        }
+        
+        
         public void paint(Graphics g) {
             Graphics gw = worldImage.getGraphics();
             dessineMonde(gw);
             g.drawImage(worldImage,0,0,null);
+        }
+        
+        public void AfficheImage(String filepath, Graphics g, int nbC, int nbL) {
+        	
+        	 File img = new File (filepath);
+             if (!img.exists()) { 
+                 System.err.println("Image file not found: " + getName());
+                 return;
+             }
+             
+             try {
+             	Image sprite = ImageIO.read(img);
+             	g.drawImage(sprite, 0, 0, 605, 340, 0, 0, res*nbC, res*nbL, new ImageObserver() {
+     				
+     				@Override
+     				public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+     					System.out.println("Image redimmensionnee");					return false;
+     				}
+     			});
+             } catch (IOException e) {
+             	e.printStackTrace();
+             } 
         }
     }
 }       
