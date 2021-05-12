@@ -53,13 +53,15 @@ public class DeroulementJeu {
 				switch(numero){
 					case 0 :
 						Aide(persoA);
+						pause(5000);
+						break;
 					case 1 :
 						System.out.println("1 = S'entraîner au maniement de l'épée \t 2 = Marché  \t 3 = Utiliser un objet \n 0=retour"); // /!\methodes manquantes
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
 						
 						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur);
-						
+						pause(1200);
 						break;
 					case 2 :
 						mouvement = Mouvement(persoA,tabledejeu);
@@ -80,6 +82,7 @@ public class DeroulementJeu {
 						Scanner a = new Scanner(System.in); 
 						final int numerobis = a.nextInt();
 						persoA.getPlay().choixAction(numero, numerobis, persoA, persoB, compteur); //numero= categorie d'action, numerobis= sous-categorie.
+						pause(1200);
 						break;						
 				}
 			}else{
@@ -92,6 +95,7 @@ public class DeroulementJeu {
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
 						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur);
+						pause(1200);
 						break;
 					case 2 :
 						mouvement = Mouvement(persoA,tabledejeu);
@@ -109,6 +113,7 @@ public class DeroulementJeu {
 						break;
 					case 0 :
 						Aide(persoA);
+						pause(5000);
 						break;
 				}
 			}
@@ -140,8 +145,10 @@ public class DeroulementJeu {
 						newposval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]];
 						if(newposval!= -1 && newposval!= -2){
 							perso.setPo(perso.getPo()+newposval);
+							System.out.println((!(newposval == 0))? "Vous ramassez "+newposval+" pièces d'or!" : "");
 							mouvement[0]=-1;
 							mouvement[2]=1;
+							pause ( (!(newposval == 0))? 1200 : 0);
 						}
 					}
 					break;
@@ -200,7 +207,7 @@ public class DeroulementJeu {
     }
  //Affichage de l'aide
     public static void Aide(Personnage p1) {
-    	System.out.println("1: Inventaire\t 2: Objets\t 3:Attaques");
+    	System.out.println("1: Mon inventaire\t 2: Mes stats\t 3: Objets ?\t 4: Attaques ?");
     	Scanner sc = new Scanner(System.in); 
     	int a = sc.nextInt();
     	switch (a) {
@@ -208,6 +215,10 @@ public class DeroulementJeu {
     		System.out.println(p1.getStuff().AfficheInv());
     		break;
     	case 2:
+    		System.out.println(p1.AfficheStats());
+    		
+    	break;
+    	case 3:
     		System.out.println("Vous pouvez acheter les objets au marché contre des pièces d'or.\n Voici les objets existants:");
     		System.out.println("-Potion de soin: régénère 5 PV par tour pendant 3 tours.");
     		System.out.println("-Bisoumagique: vous soigne instantanément de 9 PV");
@@ -216,13 +227,19 @@ public class DeroulementJeu {
     		System.out.println("-Arc du feu de Dieu: vous permet d'être précis à toute distance et augmente votre agilité de 3.");
     		System.out.println("-Amulette: lève tous les sorts et effets qui vous affectent. Attention, annule aussi les soins!");
     		break;
-    	case 3:
+    	case 4:
     		System.out.println("-Attaque à l'épée: réservée au corps à corps. Dégats aléatoires dépendant de la force de votre personnage.\n Attention, vous pouvez subir des dégâts en cas d'échec.");
     		System.out.println("-Attaque à l'arc: dégats aléatoires dépendant de votre agilité et de la distance. La portée optimale est de 3 cases.");
     		System.out.println("-Sortilège: dégats magiques aléatoires sur plusieurs tours. Votre sagesse augmente la durée du sort, la dextérité augmente les dégats.");
     		System.out.println("\nVous infligerez parfois des coups critiques à l'arc et à l'épée. Les dégats sont alors doulés.");
     		break;
     	}
+    }
+    public static void pause(long lag) {
+    	try {
+			Thread.sleep(lag);
+		} catch (InterruptedException e) {
+		}
     }
 
 

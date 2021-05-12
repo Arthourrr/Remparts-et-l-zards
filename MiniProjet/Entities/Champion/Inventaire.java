@@ -46,8 +46,8 @@ public class Inventaire {
     	contenu = (this.armure.quantite != 0)? contenu+ "- L'armure des ténèbres" : contenu;
     	contenu = (this.epee.quantite != 0)? contenu+ "- L'épée Kipik" : contenu;
     	contenu = (this.amulette.quantite == 0)? contenu : 
-    		(this.amulette.quantite==1)? contenu + "- "+ this.amulette.quantite+ " bisoumagique\n":
-    		(this.amulette.quantite>1)? contenu + "- "+ this.amulette.quantite+ " bisoumagiques \n": 
+    		(this.amulette.quantite==1)? contenu + "- "+ this.amulette.quantite+ " amulette \n":
+    		(this.amulette.quantite>1)? contenu + "- "+ this.amulette.quantite+ " amulettes \n": 
     		contenu;
     	}
     	return contenu;

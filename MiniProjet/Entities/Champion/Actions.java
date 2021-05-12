@@ -1,5 +1,7 @@
 package Champion;
 import java.util.Scanner;
+
+import Run.AePlayWave;
 public class Actions{	
 
 	public Actions() {
@@ -35,7 +37,8 @@ public class Actions{
 	            Scanner d = new Scanner(System.in); 
 	            final int c = d.nextInt();
 			    p1.getPlay().acheter(p1, c);
-			break;
+			    System.out.println("Objet acheté. Allez voir l'inventaire!");
+			    break;
 			
 			case 3 :
 				if(p1.getStuff().potionMana.quantite==0 && p1.getStuff().potionSoin.quantite==0 && p1.getStuff().armure.quantite==0 && p1.getStuff().epee.quantite==0 && p1.getStuff().bisoumagique.quantite==0 && p1.getStuff().amulette.quantite==0 && p1.getStuff().arc.quantite==0) {
@@ -51,14 +54,17 @@ public class Actions{
 				Scanner e = new Scanner(System.in); 
 	            final int choix = e.nextInt();
 				p1.getPlay().utiliser(p1, choix);
+				break;
 				}
 			}
 		}
 	}
 	
 	public void melee(Personnage p1, Personnage p2) {
+		AePlayWave sword = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Sword.wav");
 		if (p1.distance(p2)<2&& p1.getPa()>=2) { //Conditions de distance et PA
 			p1.setPa(p1.getPa()-2);
+			  sword.start();
 			int degats= (int)(2*Math.random()*p1.getForce()); // Degats aleatoires, proportionnels a la force
 			if (degats<7) { //En dessous de 5, l'attaque echoue et les degats se retournent vers l'attaquant.
 				p1.setPv(p1.getPv()-degats);
@@ -88,6 +94,8 @@ public class Actions{
 	public void arc(Personnage p1, Personnage p2) {
 		if (p1.getPa()>=2) {
 			p1.setPa(p1.getPa()-2); // PA consommes
+			AePlayWave bow = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Bow.wav");
+			bow.start();
 			double coefdist= Math.exp(-(Math.pow(p1.distance(p2)-3,2)/p1.getStuff().arc.portee)); //dagats max pour une distance de 4, repartitionn gaussienne
 			int degats= (int)(2*Math.random()*p1.getAgilite()*coefdist);		// Degats aleatoires, proportionnels a l'agilite
 			int tmp= degats;
@@ -139,7 +147,6 @@ public class Actions{
 			p1.setForce(p1.getForce() + 1);
 			p1.setPa(p1.getPa()-2);
 			System.out.println("Vos efforts acharnés portent leurs fruits. Vous gagnez +1 de force!");
-			System.out.println(p1.AfficheStats());
 		}
 	}	
 	public void acheter (Personnage p1, int a) {
@@ -213,6 +220,8 @@ public class Actions{
         	 if(p1.getStuff().bisoumagique.quantite>0) {
              p1.setPv(p1.getPv()+p1.getStuff().bisoumagique.soin);
              p1.getStuff().bisoumagique.quantite--;
+             AePlayWave wololo = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Wololo_01.wav");
+             wololo.start();
              break;
             }
         case(4):
@@ -223,9 +232,10 @@ public class Actions{
         case 1:
         	if(p1.getStuff().amulette.quantite>0) {
         		p1.getStuff().amulette.quantite--;
-        		int[] tmp = {0, 0};
-        		p1.setEvo(tmp);
+        		p1.getEvo()[0]=0;
+        		p1.getEvo()[1]=0;
         		System.out.println("Les sortilèges ont été levés.");
+        		break;
         	}
         }
     }

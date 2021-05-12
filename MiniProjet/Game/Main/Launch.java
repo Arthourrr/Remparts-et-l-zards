@@ -9,10 +9,11 @@ import Champion.Personnage;
 import World.Jeu;
 import java.util.Timer;
 import java.util.TimerTask;
+
 public class Launch {
 	public static void main (String[] arg){
 	    //music INTRO
-		AePlayWave Intro = new AePlayWave("C:\\Users\\antoi\\git\\SuperjeuKitue\\MiniProjet\\Audio\\Title_Screen01.wav");
+		AePlayWave Intro = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Title_Screen01.wav");
 		Intro.start();
 	    
 		DeroulementJeu FaisTournerLaPartie = new DeroulementJeu();
