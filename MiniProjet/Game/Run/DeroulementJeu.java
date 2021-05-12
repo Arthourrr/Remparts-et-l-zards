@@ -40,6 +40,7 @@ public class DeroulementJeu {
     public static void Tour(Personnage persoA, Personnage persoB, Jeu tabledejeu, int compteur){
 		int fight=1;
 		System.out.print(tabledejeu.AffichePlateau());
+		//Affichage.afficherMonde(tabledejeu.getPlateau());
 		System.out.println(persoA.getNom() +" c'est a  toi !");
 		persoA.MajStats();
 		while (persoA.getPa()>0){

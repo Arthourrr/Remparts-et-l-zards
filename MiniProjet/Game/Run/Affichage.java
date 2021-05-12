@@ -76,20 +76,26 @@ public class Affichage extends JFrame {
             int nbL = monde.length;
             int nbC = monde[0].length;
             // couleur de fond
+           // g.
             g.setColor(Color.WHITE);
             g.fillRect(0,0,res*nbC,res*nbL);
             // cellules
             for (int i = 0; i < nbL; i++)
                 for (int j = 0; j < nbC; j++)
-                    if (monde[i][j]==1) {
+                    if (monde[i][j]==-1) {
                     	g.setColor(Color.BLUE);
                         g.fillRect(res*j,res*i,res,res);
                     } else {
-                    	if (monde[i][j]==2) {
+                    	if (monde[i][j]==-2) {
                     		g.setColor(Color.RED);
                     		g.fillRect(res*j, res*i, res, res);
+                    	} else {
+                        	if (monde[i][j]>0 && monde[i][j]<100) {
+                        		g.setColor(Color.YELLOW);
+                        		g.fillRect(res*j, res*i, res, res);
+                        	}
                     	}
-                    }
+                    } 
            }
         public void paint(Graphics g) {
             Graphics gw = worldImage.getGraphics();
