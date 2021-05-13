@@ -67,6 +67,7 @@ public class Affichage extends JFrame {
         Rectangle bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds(); // Taille zone utile
         resC = Math.min((int)(bounds.height*p)/monde.length,(int)(bounds.width*p)/monde[0].length);
         resC = Math.max(1,resC); // valeur planche de 1
+        resC= 100;
         return resC;
     }
     
@@ -83,8 +84,22 @@ public class Affichage extends JFrame {
         private void dessineMonde(Graphics g) {
             int nbL = monde.length;
             int nbC = monde[0].length;
+            System.out.println(res);
+            AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Plateau.png", g, 1783, 1783, 165*5, 165*5, 0, 0, 0, 0);
             
-            AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Plateau.png", g, nbC, nbL, 850, 850, 0, 0, 0, 0);
+            for (int i = 0; i < nbL; i++)
+                for (int j = 0; j < nbC; j++)
+                    if (monde[i][j]==-1) {
+                    	AfficheEntite("GuerrierB1.png", g, i, j);
+                    } else if (monde[i][j]==-2) {
+                    		AfficheEntite("GuerrierR1.png", g, i, j);
+                    	}/* else {
+                        	if (monde[i][j]>0 && monde[i][j]<100) {
+                        		g.setColor(Color.YELLOW);
+                        		g.fillRect(res*j, res*i, res, res);
+                        	}
+                    	}
+                    }*/
            /* // couleur de fond
             g.setColor(Color.WHITE);
             g.fillRect(0,0,res*nbC,res*nbL);
@@ -113,7 +128,9 @@ public class Affichage extends JFrame {
             dessineMonde(gw);
             g.drawImage(worldImage,0,0,null);
         }
-        
+        public void AfficheEntite (String fileName, Graphics g, int i, int j) {
+        	AfficheImage(System.getProperty("user.dir") +"\\Graphics\\" +fileName, g, 1783, 1783, i*100+600, j*96+600, j*96+20, i*96+20, 0, 0); 
+        }
         public void AfficheImage(String filepath, Graphics g, int nbC, int nbL, int h, int w, int x1, int y1, int x2, int y2 ) {
         	
         	 File img = new File (filepath);
@@ -126,7 +143,9 @@ public class Affichage extends JFrame {
              	Image sprite = ImageIO.read(img);
              	//int h = sprite.getHeight(rootPane);
              	//int w = sprite.getWidth(rootPane);
-             	g.drawImage(sprite, 0, 0, w, h, 0, 0, res*nbC, res*nbL, new ImageObserver() { 
+             	//h = (int)(0.*h);
+             	//w = (int)(0.8*w);
+             	g.drawImage(sprite, x1, y1, w, h, x2, y2, nbC, nbL, new ImageObserver() { 
              		//ordre params: x.tlcorner, y.tlcorner, largeur, hauteur, x.brcorner, y.brcorner
      				
      				@Override
