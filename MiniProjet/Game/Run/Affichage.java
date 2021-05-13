@@ -27,7 +27,7 @@ public class Affichage extends JFrame {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
         setVisible(true);
     }
     
@@ -84,7 +84,7 @@ public class Affichage extends JFrame {
             int nbL = monde.length;
             int nbC = monde[0].length;
             
-            AfficheImage("C:\\Users\\Arthur\\Pictures\\Image2.png", g, nbC, nbL);
+            AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Plateau.png", g, nbC, nbL, 850, 850, 0, 0, 0, 0);
            /* // couleur de fond
             g.setColor(Color.WHITE);
             g.fillRect(0,0,res*nbC,res*nbL);
@@ -114,7 +114,7 @@ public class Affichage extends JFrame {
             g.drawImage(worldImage,0,0,null);
         }
         
-        public void AfficheImage(String filepath, Graphics g, int nbC, int nbL) {
+        public void AfficheImage(String filepath, Graphics g, int nbC, int nbL, int h, int w, int x1, int y1, int x2, int y2 ) {
         	
         	 File img = new File (filepath);
              if (!img.exists()) { 
@@ -124,7 +124,10 @@ public class Affichage extends JFrame {
              
              try {
              	Image sprite = ImageIO.read(img);
-             	g.drawImage(sprite, 0, 0, 605, 340, 0, 0, res*nbC, res*nbL, new ImageObserver() {
+             	//int h = sprite.getHeight(rootPane);
+             	//int w = sprite.getWidth(rootPane);
+             	g.drawImage(sprite, 0, 0, w, h, 0, 0, res*nbC, res*nbL, new ImageObserver() { 
+             		//ordre params: x.tlcorner, y.tlcorner, largeur, hauteur, x.brcorner, y.brcorner
      				
      				@Override
      				public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
@@ -135,6 +138,30 @@ public class Affichage extends JFrame {
              	e.printStackTrace();
              } 
         }
+        public void AfficheImage(String filepath, Graphics g, int nbC, int nbL, int x1, int y1, int x2, int y2 ) {//surcharge avec dimensions auto
+        	
+       	 File img = new File (filepath);
+            if (!img.exists()) { 
+                System.err.println("Image file not found: " + getName());
+                return;
+            }
+            
+            try {
+            	Image sprite = ImageIO.read(img);
+            	int h = sprite.getHeight(rootPane);
+            	int w = sprite.getWidth(rootPane);
+            	g.drawImage(sprite, 0, 0, w, h, 0, 0, res*nbC, res*nbL, new ImageObserver() { 
+            		//ordre params: x.tlcorner, y.tlcorner, largeur, hauteur, x.brcorner, y.brcorner
+    				
+    				@Override
+    				public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+    					System.out.println("Image redimmensionnee");					return false;
+    				}
+    			});
+            } catch (IOException e) {
+            	e.printStackTrace();
+            } 
+       }
     }
 }       
 
