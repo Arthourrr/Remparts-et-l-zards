@@ -84,7 +84,7 @@ public class Affichage extends JFrame {
         private void dessineMonde(Graphics g) {
             int nbL = monde.length;
             int nbC = monde[0].length;
-            System.out.println(res);
+            //System.out.println(res);
             AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Plateau.png", g, 1783, 1783, 165*5, 165*5, 0, 0, 0, 0);
             
             for (int i = 0; i < nbL; i++)
@@ -93,13 +93,9 @@ public class Affichage extends JFrame {
                     	AfficheEntite("GuerrierB1.png", g, i, j);
                     } else if (monde[i][j]==-2) {
                     		AfficheEntite("GuerrierR1.png", g, i, j);
-                    	}/* else {
-                        	if (monde[i][j]>0 && monde[i][j]<100) {
-                        		g.setColor(Color.YELLOW);
-                        		g.fillRect(res*j, res*i, res, res);
-                        	}
-                    	}
-                    }*/
+                    	} else if (monde[i][j]>0 && monde[i][j]<100) {
+                    		AfficheEntite("Pièces.png", g, i, j);
+                    }
            /* // couleur de fond
             g.setColor(Color.WHITE);
             g.fillRect(0,0,res*nbC,res*nbL);
