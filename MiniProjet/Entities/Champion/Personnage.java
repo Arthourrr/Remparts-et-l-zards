@@ -17,6 +17,7 @@ public class Personnage {
 	private int force; //augmente attaque
 	private int joueur; //numero du joueur
 	private int[] Evo; //Evolution des pv. [0]= pv+- ; [1]= nb de tours restants
+	private int chance; //chance du joueur
 	private Actions play = new Actions();//Actions
 	private Initialisation init = new Initialisation();//appel objet initialisation
 	DeroulementJeu deroulementjeu = new DeroulementJeu();//appel objet deroulementjeu
@@ -38,6 +39,7 @@ public class Personnage {
 		this.setJoueur(N);
 		this.setStuff(new Inventaire ());
 		this.Evo = new int[2];
+		this.setchance(50);
 	}	
 	//met à jour le tableau de position du personnage en X et Y
 	public void MajPosition (int X, int Y){	//met à jouer la position en faisant avancer/reculer selon X et Y
@@ -63,28 +65,28 @@ public class Personnage {
 	public void SetStatistiques(int numero, String nom){ //ajout de pts de stats aux personnages selon la classe choisie
 		switch(numero){
 		case 1 :
-			this.setAgilite(this.getAgilite() +9);
-			this.setSagesse(this.getSagesse() -6);
-			this.setResistance(this.getResistance() -3);
-			this.setForce(this.getForce() -6);				
+			this.setAgilite(this.getAgilite() +4);
+			this.setSagesse(this.getSagesse() -10);
+			this.setResistance(this.getResistance() -5);
+			this.setForce(this.getForce() -10);				
 			break;
 		case 2 :
-			this.setDexterite(this.getDexterite() +9);
-			this.setSagesse(this.getSagesse() -3);
-			this.setResistance(this.getResistance() -3);
-			this.setForce(this.getForce() -3);	
+			this.setDexterite(this.getDexterite() +10);
+			this.setSagesse(this.getSagesse() -5);
+			this.setResistance(this.getResistance() -5);
+			this.setForce(this.getForce() -5);	
 			break;
 		case 3 :
-			this.setAgilite(this.getAgilite() -6);
-			this.setSagesse(this.getSagesse() -6);
-			this.setResistance(this.getResistance() +6);
-			this.setForce(this.getForce() +6);	
+			this.setAgilite(this.getAgilite() -5);
+			this.setSagesse(this.getSagesse() -10);
+			this.setResistance(this.getResistance() +10);
+			this.setForce(this.getForce() +10);	
 			break;
 		case 4 :
-			this.setAgilite(this.getAgilite() -3);
-			this.setSagesse(this.getSagesse() +9);
-			this.setResistance(this.getResistance() -3);
-			this.setForce(this.getForce() -3);	
+			this.setAgilite(this.getAgilite() -5);
+			this.setSagesse(this.getSagesse() +10);
+			this.setResistance(this.getResistance() -5);
+			this.setForce(this.getForce() -10);	
 			break;  
 		}
 		this.setNom(nom);       
@@ -223,5 +225,11 @@ public class Personnage {
 	}
 	public void setMana(int mana) {
 		this.mana = mana;
+	}
+	public int getchance() {
+		return chance;
+	}
+	public void setchance(int chance) {
+		this.chance = chance;
 	}
 }

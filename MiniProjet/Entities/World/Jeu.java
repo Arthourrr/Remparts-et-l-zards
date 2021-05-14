@@ -5,7 +5,6 @@ public class Jeu {
 	private int[][] Plateau;//Plateau du jeu
 	Map ChoixCarte = new Map();
 	public Jeu (){
-		this.setPlateau(InitJeu());
 	} 
 	//initialise un tableau 5x5 prédéfini
 	public int[][] InitJeu(){
