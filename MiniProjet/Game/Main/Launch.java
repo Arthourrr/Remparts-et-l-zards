@@ -18,7 +18,6 @@ public class Launch {
 		//DeroulementJeu FaisTournerLaPartie = new DeroulementJeu();
 		
 		Jeu TableDeJeu = new Jeu();
-		TableDeJeu.InitJeu();
 		System.out.println("Joueur 1 à toi\n");
 
 		int compteur=1;
