@@ -28,24 +28,35 @@ public class Launch {
 		Initialisation.InitPerso(Perso1);
 		
 		do {
-		Perso1.getInit().Spawn(0,0,Perso1);
-		}while(TableDeJeu.getPlateau()[Perso1.getPosition()[0]][Perso1.getPosition()[1]]!=-3);
+			Perso1.getPosition()[0]=0;
+			Perso1.getPosition()[1]=0;
+			Perso1.getInit().Spawn(0,0,Perso1,TableDeJeu);
+			System.out.println(TableDeJeu.getPlateau()[Perso1.getPosition()[0]][Perso1.getPosition()[1]]);
+		}while(TableDeJeu.getPlateau()[Perso1.getPosition()[0]][Perso1.getPosition()[1]]==-3);
 		
 		
 		TableDeJeu.PosePion(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso1);//pose le joueur sur un pt du tableau
 		compteur++;
+		
+		
 		
 		//init perso2
 		System.out.println("Joueur 2 à toi\n");
 		Personnage Perso2 = new Personnage(2);
 		Perso2.getInit();
 		Initialisation.InitPerso(Perso2);
-		
 		do {
-			Perso2.getInit().Spawn(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso2);//pose le joueur sur un pt du tableau	
-		}while(TableDeJeu.getPlateau()[Perso2.getPosition()[0]][Perso2.getPosition()[1]]!=-3);
+			Perso2.getPosition()[0]=0;
+			Perso2.getPosition()[1]=0;
+			Perso2.getInit().Spawn(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso2,TableDeJeu);	
+		}while(TableDeJeu.getPlateau()[Perso2.getPosition()[0]][Perso2.getPosition()[1]]==-3);
 		
+		
+		TableDeJeu.PosePion(Perso2.getPosition()[0],Perso2.getPosition()[1],Perso2);//pose le joueur sur un pt du tableau
+
 		//à changer trouver un bel affichage
+		
+		
 		System.out.println(Perso1.getNom() +"   VS   "+ Perso2.getNom());
 		//music début
 		Intro.stop();	

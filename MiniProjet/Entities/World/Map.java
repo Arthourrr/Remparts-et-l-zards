@@ -11,7 +11,7 @@ public class Map {
 	public void InitCarte() {
 		boolean Verif = false;
 		while(Verif == false) {
-			System.out.println("Choisir carte de 1 à n");
+			System.out.println("Choisir carte de 1 à 3");
 			Scanner n = new Scanner(System.in); 
 			final int numero = n.nextInt();
 			switch(numero){
@@ -66,7 +66,7 @@ public class Map {
 	public boolean ValidationCarte() {
 		System.out.println(AffichePlateau(this.carte));
 		Affichage.afficherMonde(this.carte);
-		System.out.println("Etes-vous sûr ? (1: oui, 2: non)");
+		System.out.println("Etes-vous sûr ? (1: oui ; 0: retour)");
 		Scanner V = new Scanner(System.in); 
 		final int verif = V.nextInt();
 		if(verif==1) {

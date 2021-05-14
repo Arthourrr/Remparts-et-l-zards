@@ -20,23 +20,17 @@ public class DeroulementJeu {
 				Tour(perso2,perso1,tabledejeu, compteur);
                 compteur++;
             }
-            tabledejeu.SpawnGoldRegulier(); 
+            tabledejeu.SpawnGoldRegulier();
+            tabledejeu.RandomGoldSpawn();
         }
         Gagnant(compteur, perso1, perso2);
     }
-//Met Ã  jour la position de lâ€™objet personnage
-//Deplace le pion sur le plateau   
+//Mise à jour de la position du personnage vers un point de coordonnées X,Y 
  	public static void Move (Personnage perso, Jeu tabledejeu, int X, int Y){
 		perso.MajPosition(X,Y);
 		tabledejeu.DeplacePion(X,Y,perso);
 	}
-//Permet de choisir :
-//Dâ€™attaquer
-//Dâ€™utiliser un objet (boutique Ã  implementer)
-//De se deplacer
-//Utilisation de switch pour les cas
-//Utilisation de PA
-//Boucle while tant que le perso a des PA
+//Interface permettant d’activer chaque action possible par tour pour un personnage dans les objets correspondants
     public static void Tour(Personnage persoA, Personnage persoB, Jeu tabledejeu, int compteur){
 		int fight=1;
 		System.out.print(tabledejeu.AffichePlateau());
@@ -121,15 +115,8 @@ public class DeroulementJeu {
 			}
 		}
 		persoA.setPa(3);
-		/*
-		for(int i=0;i<50;i++){
-			System.out.println();	
-		}
-		*/	
 	}
-//Permet de commander les mouvements du personnage sur le plateau
-//Utilisation de switch
-//Numeros arranges mais on sait pas trop comment Ã§a fonctionne ptdr
+//Permet l’action "mouvement de personnage" (à bouger dans actions ? ? ?)
 	public static int[] Mouvement (Personnage perso, Jeu tabledejeu){
 		int[] mouvement = new int[3];
 		mouvement[2]=0;
@@ -187,7 +174,7 @@ public class DeroulementJeu {
 			}
 			return mouvement;
 	}
-//methode pour savoir si l'un des 2 joueur est mort
+//Vérifie si un personnage est mort
     public static boolean Fini (Personnage perso1, Personnage perso2) { 
         boolean mort=false;
         if (perso1.getPv()<=0||perso2.getPv()<=0){
@@ -195,7 +182,7 @@ public class DeroulementJeu {
         }
         return mort;
     }	
-//Fin de partie, affiche le gagnant	
+//Affiche la fin de partie et le gagnant /!\ to fix
     public static void Gagnant(int compteur,Personnage perso1, Personnage perso2){
         System.out.println("La partie est terminee.");
         if (compteur%2==0){
@@ -207,7 +194,7 @@ public class DeroulementJeu {
             perso2.setPo(perso2.getPo()+100);
         }
     }
- //Affichage de l'aide
+ //Affichage des aides pendant une partie
     public static void Aide(Personnage p1) {
     	System.out.println("1: Mon inventaire\t 2: Mes stats\t 3: Objets ?\t 4: Attaques ?");
     	Scanner sc = new Scanner(System.in); 
@@ -243,6 +230,4 @@ public class DeroulementJeu {
 		} catch (InterruptedException e) {
 		}
     }
-
-
 }

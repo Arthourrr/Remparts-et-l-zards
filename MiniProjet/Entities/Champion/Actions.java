@@ -3,14 +3,12 @@ import java.util.Scanner;
 
 import Run.AePlayWave;
 public class Actions{	
-
 	public Actions() {
-		
+
 	}
-	
-	
+	//Interface entre le choix d’actions de DeroulementJeu et les lanceurs d’actions de cet objet. Permet de mettre en application ces actions.
 	public void choixAction (int a, int b, Personnage p1, Personnage p2, int count) { 
-		
+
 		switch(a){
 		case 4 :	
 			switch(b) {
@@ -32,39 +30,42 @@ public class Actions{
 				break;
 			case 2:
 				System.out.println("Bienvenue au marché. Voici les articles disponibles:");
-	            System.out.println("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)\t 4= Potion de soin ("+p1.getStuff().potionSoin.prix +"po) \t 5= Amulette ("+p1.getStuff().amulette.prix +"po) \t 6= Bisoumagique ("+p1.getStuff().bisoumagique.prix +"po) \t 7 = Potion de Mana ("+p1.getStuff().potionMana.prix +"po)");
-	            System.out.println("Vous possédez "+p1.getPo()+" pièces d'or.");
-	            Scanner d = new Scanner(System.in); 
-	            final int c = d.nextInt();
-			    p1.getPlay().acheter(p1, c);
-			    System.out.println("Objet acheté. Allez voir l'inventaire!");
-			    break;
-			
+				System.out.println("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)\t 4= Potion de soin ("+p1.getStuff().potionSoin.prix +"po) \t 5= Amulette ("+p1.getStuff().amulette.prix +"po) \t 6= Bisoumagique ("+p1.getStuff().bisoumagique.prix +"po) \t 7 = Potion de Mana ("+p1.getStuff().potionMana.prix +"po)");
+				System.out.println("Vous possédez "+p1.getPo()+" pièces d'or.");
+				Scanner d = new Scanner(System.in); 
+				final int c = d.nextInt();
+				p1.getPlay().acheter(p1, c);
+				System.out.println("Objet acheté. Allez voir l'inventaire!");
+				break;
+
 			case 3 :
 				if(p1.getStuff().potionMana.quantite==0 && p1.getStuff().potionSoin.quantite==0 && p1.getStuff().armure.quantite==0 && p1.getStuff().epee.quantite==0 && p1.getStuff().bisoumagique.quantite==0 && p1.getStuff().amulette.quantite==0 && p1.getStuff().arc.quantite==0) {
-		    		System.out.println("Vous ne possédez aucun objet. Rendez vous au marché pour vous en procurer.");
+					System.out.println("Vous ne possédez aucun objet. Rendez vous au marché pour vous en procurer.");
 				} else {
-				System.out.println("Vous disposez des objets suivants. Lequel souhaitez vous utiliser?");
-				String contenu = new String();
-				contenu = (p1.getStuff().amulette.quantite>0)? contenu+ "- 1: Amulette enchantée" : contenu;
-				contenu = (p1.getStuff().potionSoin.quantite>0)? contenu+ "- 2: Potion de soin" : contenu;
-				contenu = (p1.getStuff().bisoumagique.quantite>0)? contenu+ "- 3: Bisou magique" : contenu; 
-				contenu = (p1.getStuff().potionMana.quantite>0)? contenu+ "- 4: Potion de mana" : contenu;
-	            System.out.println(contenu);
-				Scanner e = new Scanner(System.in); 
-	            final int choix = e.nextInt();
-				p1.getPlay().utiliser(p1, choix);
-				break;
+					System.out.println("Vous disposez des objets suivants. Lequel souhaitez vous utiliser?");
+					String contenu = new String();
+					contenu = (p1.getStuff().amulette.quantite>0)? contenu+ "- 1: Amulette enchantée" : contenu;
+					contenu = (p1.getStuff().potionSoin.quantite>0)? contenu+ "- 2: Potion de soin" : contenu;
+					contenu = (p1.getStuff().bisoumagique.quantite>0)? contenu+ "- 3: Bisou magique" : contenu; 
+					contenu = (p1.getStuff().potionMana.quantite>0)? contenu+ "- 4: Potion de mana" : contenu;
+					System.out.println(contenu);
+					Scanner e = new Scanner(System.in); 
+					final int choix = e.nextInt();
+					p1.getPlay().utiliser(p1, choix);
+					break;
 				}
 			}
 		}
 	}
-	
+	//Gestion des attaques de mêlée. Fonctionne sur une base
+	//aléatoire en fonction de la force du joueur, avec une
+	//chance de doubler les dégâts (critique) selon la dextérité
+	//du joueur	
 	public void melee(Personnage p1, Personnage p2) {
 		AePlayWave sword = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Sword.wav");
 		if (p1.distance(p2)<2&& p1.getPa()>=2) { //Conditions de distance et PA
 			p1.setPa(p1.getPa()-2);
-			  sword.start();
+			sword.start();
 			int degats= (int)(2*Math.random()*p1.getForce()); // Degats aleatoires, proportionnels a la force
 			if (degats<7) { //En dessous de 5, l'attaque echoue et les degats se retournent vers l'attaquant.
 				p1.setPv(p1.getPv()-degats);
@@ -75,13 +76,13 @@ public class Actions{
 					degats= (int)(degats-0.5*p2.getResistance());
 				}else {
 					degats=0;
-					}
+				}
 				double critique= Math.random();
 				if(critique<(p1.getDexterite()/100)) { //Maxi 20% de chances de faire un coup critique, depend de la dexterite
 					degats = degats + tmp;
 					p2.setPv((int)(p2.getPv()-degats));
 					System.out.println("Coup critique! Vous infligez "+ degats+" degats a l'adversaire.");
-					}
+				}
 				else {p2.setPv((int)(p2.getPv()-degats));}//La resistance absorbe une partie des degats.
 				System.out.println("L'attaque a reussi. Vous infligez "+ degats+" degats a l'adversaire.");
 			}
@@ -89,8 +90,11 @@ public class Actions{
 			System.out.println("Bien essayé petit malin... Vous ne pouvez pas attaquer à distance avec une épée!");
 		}
 	}
-	
-	
+	//Gestion des attaques à distance non-magiques. Basées
+	//sur l’agilité avec un coefficient de réduction de dégâts lié
+	//à la distance. Impossible de tirer à bout portant,
+	//distance optimale à 3 cases d’écart. Comme pour la
+	//mêlée, possibilité de coup critique	
 	public void arc(Personnage p1, Personnage p2) {
 		if (p1.getPa()>=2) {
 			p1.setPa(p1.getPa()-2); // PA consommes
@@ -103,20 +107,25 @@ public class Actions{
 				degats= (int)(degats-0.5*p2.getResistance());
 			}else {
 				degats=0;
-				}
+			}
 			double critique= Math.random();
-			
+
 			if(critique<(p1.getDexterite()/100)) {
 				degats= degats+tmp;
 				p2.setPv((int)(p2.getPv()-degats));
 				System.out.println("Coup critique! Vous infligez "+ degats+" degats a l'adversaire.");
-				}
+			}
 			else {
 				p2.setPv((int)(p2.getPv()-degats));
 				System.out.println("L'attaque a reussi. Vous infligez "+ degats+" degats a l'adversaire.");
-				}
+			}
 		}
 	}
+	//Attaque magique consommant du Mana, avec pour but
+	//des dégats plus ou moins élevés qui agissent dans le
+	//temps (x dégâts pendant y tours). Pas d’incidence de
+	//distance, la sagesse permet d’allonger le nombre de
+	//tours où les dégats s’inflingent.
 	public void sort (Personnage p1, Personnage p2) {
 		if(p1.getPa()>=2 && p1.getMana()>=20) {
 			p1.setPa(p1.getPa()-2);
@@ -127,7 +136,7 @@ public class Actions{
 				degats= (int)(degats-0.5*p2.getResistance());
 			}else {
 				degats=1;
-				}
+			}
 			if(p1.getSagesse()<10) {
 				duree=1;
 			}else if(p1.getSagesse()<14) {
@@ -142,106 +151,107 @@ public class Actions{
 			p2.setEvo(effet);
 		}
 	}
+	//Améliore la force du personnage
 	public void trainForce (Personnage p1) {
 		if(p1.getPa()>=1) {
 			p1.setForce(p1.getForce() + 1);
 			p1.setPa(p1.getPa()-2);
 			System.out.println("Vos efforts acharnés portent leurs fruits. Vous gagnez +1 de force!");
 		}
-	}	
+	}
+	//selon un choix fait dans choixAction, permet d’ajouter
+	//un objet de la classe objet dans l’inventaire du
+	//personnage courant
 	public void acheter (Personnage p1, int a) {
-        switch (a) {
-        case (1):
-            if (p1.getStuff().arc.dispo && p1.getPo()>p1.getStuff().arc.prix) {
-            p1.getStuff().arc.quantite ++;
-            p1.setPo(p1.getPo()-p1.getStuff().arc.prix);
-            p1.setPa(p1.getPa() - 1);
-            p1.getStuff().arc.portee= 3;
-            p1.setAgilite(p1.getAgilite()+3);
-            p1.getStuff().arc.dispo= false;
-            break;
-            }
-        case(2):
-        	if (p1.getStuff().armure.dispo && p1.getPo()>p1.getStuff().armure.prix) {
-            p1.getStuff().armure.quantite++;
-            p1.setPo(p1.getPo() - p1.getStuff().armure.prix);
-            p1.setPa(p1.getPa() - 1);
-            p1.getStuff().armure.augmenteresistance(p1);
-        	p1.getStuff().armure.dispo= false;
-        	break;
-        	}
-        case(3):
-            if (p1.getStuff().epee.dispo && p1.getPo()>p1.getStuff().epee.prix) {
-            p1.getStuff().epee.quantite++;
-            p1.setPo(p1.getPo() - p1.getStuff().epee.prix);
-            p1.setPa(p1.getPa() - 1);
-            p1.getStuff().epee.use(p1);
-            p1.getStuff().epee.dispo=false;
-            break;
-            }
-        case(4):
-        	if(p1.getStuff().potionSoin.dispo && p1.getPo()>p1.getStuff().potionSoin.prix) {
-            p1.getStuff().potionSoin.quantite++;
-            p1.setPo(p1.getPo() - p1.getStuff().potionSoin.prix);
-            p1.setPa(p1.getPa() - 1);
-            break;
-        	}
-        case(6):
-        	if(p1.getStuff().bisoumagique.dispo && p1.getPo()>p1.getStuff().bisoumagique.prix) {
-        	p1.getStuff().bisoumagique.quantite++;
-        	p1.setPo(p1.getPo() - p1.getStuff().bisoumagique.prix);
-        	p1.setPa(p1.getPa() - 1);
-        	break;
-        	}
-        case (5):
-        	if(p1.getStuff().amulette.dispo && p1.getPo()>p1.getStuff().amulette.prix){
-        		p1.getStuff().amulette.quantite++;
-        		p1.setPo(p1.getPo() - p1.getStuff().amulette.prix);
-            	p1.setPa(p1.getPa() - 1);
-        	break;
-           	}
-        case (7):
-        	if(p1.getStuff().potionMana.dispo && p1.getPo()>p1.getStuff().potionMana.prix) {
-                p1.getStuff().potionMana.quantite++;
-                p1.setPo(p1.getPo() - p1.getStuff().potionMana.prix);
-                p1.setPa(p1.getPa() - 1);
-                break;
-            	}        	
-        }
-    }
-    public void utiliser (Personnage p1, int a) {
-        switch (a) {
-        case(2):
-            if(p1.getStuff().potionSoin.quantite>0) {
-            p1.getStuff().potionSoin.use(p1);
-            break;
-            }
-        case 3:
-        	 if(p1.getStuff().bisoumagique.quantite>0) {
-             p1.setPv(p1.getPv()+p1.getStuff().bisoumagique.soin);
-             p1.getStuff().bisoumagique.quantite--;
-             AePlayWave wololo = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Wololo_01.wav");
-             wololo.start();
-             break;
-            }
-        case(4):
-            if(p1.getStuff().potionMana.quantite>0) {
-            p1.getStuff().potionMana.use(p1);
-            break;
-            }        	 
-        case 1:
-        	if(p1.getStuff().amulette.quantite>0) {
-        		p1.getStuff().amulette.quantite--;
-        		p1.getEvo()[0]=0;
-        		p1.getEvo()[1]=0;
-        		System.out.println("Les sortilèges ont été levés.");
-        		break;
-        	}
-        }
-    }
-	/*Jeu TableDeJeu = new Jeu(); // renvoie Ã  une methode de deplacement pour y acceder depuis perso.play
-	public static void Move (Personnage p1, Jeu TableDeJeu, int X, int Y){
-		p1.MajPosition(X,Y);
-		TableDeJeu.DeplacePion(X,Y,perso);
-	}*/
+		switch (a) {
+		case (1):
+			if (p1.getStuff().arc.dispo && p1.getPo()>p1.getStuff().arc.prix) {
+				p1.getStuff().arc.quantite ++;
+				p1.setPo(p1.getPo()-p1.getStuff().arc.prix);
+				p1.setPa(p1.getPa() - 1);
+				p1.getStuff().arc.portee= 3;
+				p1.setAgilite(p1.getAgilite()+3);
+				p1.getStuff().arc.dispo= false;
+				break;
+			}
+		case(2):
+			if (p1.getStuff().armure.dispo && p1.getPo()>p1.getStuff().armure.prix) {
+				p1.getStuff().armure.quantite++;
+				p1.setPo(p1.getPo() - p1.getStuff().armure.prix);
+				p1.setPa(p1.getPa() - 1);
+				p1.getStuff().armure.augmenteresistance(p1);
+				p1.getStuff().armure.dispo= false;
+				break;
+			}
+		case(3):
+			if (p1.getStuff().epee.dispo && p1.getPo()>p1.getStuff().epee.prix) {
+				p1.getStuff().epee.quantite++;
+				p1.setPo(p1.getPo() - p1.getStuff().epee.prix);
+				p1.setPa(p1.getPa() - 1);
+				p1.getStuff().epee.use(p1);
+				p1.getStuff().epee.dispo=false;
+				break;
+			}
+		case(4):
+			if(p1.getStuff().potionSoin.dispo && p1.getPo()>p1.getStuff().potionSoin.prix) {
+				p1.getStuff().potionSoin.quantite++;
+				p1.setPo(p1.getPo() - p1.getStuff().potionSoin.prix);
+				p1.setPa(p1.getPa() - 1);
+				break;
+			}
+		case(6):
+			if(p1.getStuff().bisoumagique.dispo && p1.getPo()>p1.getStuff().bisoumagique.prix) {
+				p1.getStuff().bisoumagique.quantite++;
+				p1.setPo(p1.getPo() - p1.getStuff().bisoumagique.prix);
+				p1.setPa(p1.getPa() - 1);
+				break;
+			}
+		case (5):
+			if(p1.getStuff().amulette.dispo && p1.getPo()>p1.getStuff().amulette.prix){
+				p1.getStuff().amulette.quantite++;
+				p1.setPo(p1.getPo() - p1.getStuff().amulette.prix);
+				p1.setPa(p1.getPa() - 1);
+				break;
+			}
+		case (7):
+			if(p1.getStuff().potionMana.dispo && p1.getPo()>p1.getStuff().potionMana.prix) {
+				p1.getStuff().potionMana.quantite++;
+				p1.setPo(p1.getPo() - p1.getStuff().potionMana.prix);
+				p1.setPa(p1.getPa() - 1);
+				break;
+			}        	
+		}
+	}
+	//Permet d’utiliser un objet consommable dans son
+	//inventaire (potions, bisoumagique, amulette)
+	public void utiliser (Personnage p1, int a) {
+		switch (a) {
+		case(2):
+			if(p1.getStuff().potionSoin.quantite>0) {
+				p1.getStuff().potionSoin.use(p1);
+				break;
+			}
+		case 3:
+			if(p1.getStuff().bisoumagique.quantite>0) {
+				p1.setPv(p1.getPv()+p1.getStuff().bisoumagique.soin);
+				p1.getStuff().bisoumagique.quantite--;
+				AePlayWave wololo = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Wololo_01.wav");
+				wololo.start();
+				break;
+			}
+		case(4):
+			if(p1.getStuff().potionMana.quantite>0) {
+				p1.getStuff().potionMana.use(p1);
+				break;
+			}        	 
+		case 1:
+			if(p1.getStuff().amulette.quantite>0) {
+				p1.getStuff().amulette.quantite--;
+				p1.getEvo()[0]=0;
+				p1.getEvo()[1]=0;
+				System.out.println("Les sortilèges ont été levés.");
+				break;
+			}
+		}
+	}
 }

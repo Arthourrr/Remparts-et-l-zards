@@ -1,15 +1,16 @@
 package Champion;
 import Run.Initialisation;
 import Run.DeroulementJeu;
+import World.Jeu;
 public class Personnage {
 	private int ordre; //classe du personnage
-	private String nom; //nom du perso
-	private int pv; //point de vie du perso
+	private String nom; //nom
+	private int pv; //points de vie
 	private int mana; //points de mana pour lancer les sorts/attaques speciales  
-	private int pa; //point d'action du perso
-	private int po; //pièces d'or
-	private int[] position = new int[2]; //position du perso sur le jeu
-	private int resistance; // resistance aux attaques
+	private int pa; //points d'action du perso
+	private int po; //pieces d'or
+	private int[] position = new int[2]; //position du perso sur le plateau
+	private int resistance; //resistance aux attaques
 	private int agilite; //augmente proba de toucher adveraire,
 	private int dexterite; //chance de coup critique
 	private int sagesse; //intelligence/ capacite d'utiliser la magie
@@ -17,11 +18,12 @@ public class Personnage {
 	private int joueur; //numero du joueur
 	private int[] Evo; //Evolution des pv. [0]= pv+- ; [1]= nb de tours restants
 	private Actions play = new Actions();//Actions
-	private Initialisation init = new Initialisation();
-	DeroulementJeu deroulementjeu = new DeroulementJeu();
-	private Inventaire stuff;
- //objet Personnage avec ses diff caracteristiques
- //Initialise : stats/po/pa/pv/numero de personnage
+	private Initialisation init = new Initialisation();//appel objet initialisation
+	DeroulementJeu deroulementjeu = new DeroulementJeu();//appel objet deroulementjeu
+	private Inventaire stuff;//appel objet inventaire
+	
+	//objet Personnage avec ses diff caracteristiques
+	//Initialise : stats/po/pa/pv/numero de personnage
 	public Personnage(int N){
 		this.setNom("Inconnu");
 		this.setPv(100);
@@ -37,12 +39,12 @@ public class Personnage {
 		this.setStuff(new Inventaire ());
 		this.Evo = new int[2];
 	}	
- //Mise à jour de la position sur le plateau
+	//met à jour le tableau de position du personnage en X et Y
 	public void MajPosition (int X, int Y){	//met à jouer la position en faisant avancer/reculer selon X et Y
 		this.getPosition()[0]=this.getPosition()[0]+X;
 		this.getPosition()[1]=this.getPosition()[1]+Y;
 	}
-	//Mise a jour des stats de personnage
+	//met à jour les statistiques du personnage (pour les PV notamment avec une potion de vie ou des dégats de durée magiques
 	public void MajStats() {
 		if(this.Evo[0]<0 && this.Evo[1]>0) {
 			this.setPv(this.getPv()+Evo[0]);
@@ -57,48 +59,37 @@ public class Personnage {
 			this.Evo[0]=0;
 		}
 	}
-//Fait apparaître le personnage aleatoirement sur le plateau en debut de partie
-	public void Spawn (int tempx, int tempy){//Fait apparaître les personnages sur le plateau aleatoirement et pas sur la même place
-		int x=0;
-		int y=0;
-		do{	
-		x = (int) (4*Math.random());
-		y = (int) (4*Math.random());
-		}while(x==tempx && y==tempy);
-		this.getPosition()[0]=this.getPosition()[0]+x;
-		this.getPosition()[1]=this.getPosition()[1]+y;
-	}
-//Associe les amelioration selon la classe (l’ordre) du joueur choisit manuellement avec un numero de 1 à 4
+	//apporte des variations de statistiques selon la classe de personnage choisie
 	public void SetStatistiques(int numero, String nom){ //ajout de pts de stats aux personnages selon la classe choisie
 		switch(numero){
-			case 1 :
-				this.setAgilite(this.getAgilite() +9);
-				this.setSagesse(this.getSagesse() -6);
-				this.setResistance(this.getResistance() -3);
-				this.setForce(this.getForce() -6);				
-				break;
-			case 2 :
-				this.setDexterite(this.getDexterite() +9);
-				this.setSagesse(this.getSagesse() -3);
-				this.setResistance(this.getResistance() -3);
-				this.setForce(this.getForce() -3);	
-				break;
-			case 3 :
-				this.setAgilite(this.getAgilite() -6);
-				this.setSagesse(this.getSagesse() -6);
-				this.setResistance(this.getResistance() +6);
-				this.setForce(this.getForce() +6);	
-				break;
-			case 4 :
-				this.setAgilite(this.getAgilite() -3);
-				this.setSagesse(this.getSagesse() +9);
-				this.setResistance(this.getResistance() -3);
-				this.setForce(this.getForce() -3);	
-				break;  
+		case 1 :
+			this.setAgilite(this.getAgilite() +9);
+			this.setSagesse(this.getSagesse() -6);
+			this.setResistance(this.getResistance() -3);
+			this.setForce(this.getForce() -6);				
+			break;
+		case 2 :
+			this.setDexterite(this.getDexterite() +9);
+			this.setSagesse(this.getSagesse() -3);
+			this.setResistance(this.getResistance() -3);
+			this.setForce(this.getForce() -3);	
+			break;
+		case 3 :
+			this.setAgilite(this.getAgilite() -6);
+			this.setSagesse(this.getSagesse() -6);
+			this.setResistance(this.getResistance() +6);
+			this.setForce(this.getForce() +6);	
+			break;
+		case 4 :
+			this.setAgilite(this.getAgilite() -3);
+			this.setSagesse(this.getSagesse() +9);
+			this.setResistance(this.getResistance() -3);
+			this.setForce(this.getForce() -3);	
+			break;  
 		}
 		this.setNom(nom);       
 	}	
-//Affiche les stats du personnage
+	//affiche les stats du personnage
 	public String AfficheStats(){
 		String description;
 		description = "--------------------------\n";
@@ -113,9 +104,9 @@ public class Personnage {
 		description = description+"--------------------------\n";
 		return description;
 	}
-//Affiche les pv/mana/pa/po
+	//affiche l’état du personnage (pv,pa,po,mana)
 	public String AffichePerso (){
-		
+
 		String description = "Personnage\n";
 		description = description+"PV 	\t :	\t"+this.getPv()+"\n";
 		description = description+"Mana \t\t :	\t"+this.mana+"\n";	
@@ -124,11 +115,12 @@ public class Personnage {
 		description = description+"--------------------------\n";				
 		return description;
 	}
-//Donne la distance entre les deux personnages
+	//donne la distance entre les personnages (utile notamment pour le tir à l’arc)
 	public double distance(Personnage p2) {
 		double d = Math.sqrt(Math.pow(this.getPosition()[0]-p2.getPosition()[0],2)+Math.pow(this.getPosition()[1]-p2.getPosition()[1],2));
 		return d;
 	}
+	//getters / setters
 	public int getJoueur() {
 		return joueur;
 	}
