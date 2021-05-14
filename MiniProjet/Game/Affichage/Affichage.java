@@ -1,4 +1,4 @@
-package Run;
+package Affichage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,6 +19,7 @@ public class Affichage extends JFrame {
 	
     private static Affichage world = null;
     private PanneauGrille pg;
+    private static String det;
 
     private Affichage(int[][] monde, int maRes) {
         super("Tourelles et Gargouilles");
@@ -37,8 +38,8 @@ public class Affichage extends JFrame {
      * de l'ecran.
      * @param monde le monde à afficher
      */
-    public static void afficherMonde(int[][] monde) {
-        afficherMonde(monde,calcRes(monde));
+    public static void afficherMonde(int[][] monde, int a) {
+        afficherMonde(monde,calcRes(monde), a);
     }
     
     /**
@@ -46,12 +47,13 @@ public class Affichage extends JFrame {
      * @param monde le monde à afficher
      * @param res longueur d'un coté de cellule (en nombre de pixel)
      */
-    public static void afficherMonde(int[][] monde, int maRes) {
+    public static void afficherMonde(int[][] monde, int maRes, int a) {
         if (world==null) {
             world = new Affichage(monde,maRes);
         }
         world.pg.monde = monde;
         world.repaint();
+        det= ""+a;
     }
     
     /**
@@ -71,7 +73,7 @@ public class Affichage extends JFrame {
         return resC;
     }
     
-    class PanneauGrille extends JPanel {
+    static class PanneauGrille extends JPanel {
         private int res;
         private BufferedImage worldImage;
         public int[][] monde;
@@ -90,11 +92,18 @@ public class Affichage extends JFrame {
             for (int i = 0; i < nbL; i++)
                 for (int j = 0; j < nbC; j++)
                     if (monde[i][j]==-1) {
-                    	AfficheEntite("GuerrierB1.png", g, i, j);
+                    	AfficheEntite("GuerrierB"+det+".png", g, i, j);
+                    	//System.out.println("Thread affichage = "+det);
+                    	//ShowImage Show= new ShowImage("GuerrierB"+det+".png", g, i, j);
+                    	//Show.start();
+                    	
+                    	
                     } else if (monde[i][j]==-2) {
-                    		AfficheEntite("GuerrierR1.png", g, i, j);
+                    	AfficheEntite("GuerrierR"+det+".png", g, i, j);
+                    	//ShowImage Show= new ShowImage("GuerrierR"+det+".png", g, i, j);
+                    	//Show.start();
                     	} else if (monde[i][j]>0 && monde[i][j]<100) {
-                    		AfficheEntite("Pièces.png", g, i, j);
+                    		AfficheEntite("Pièces"+det+".png", g, i, j);
                     }
            /* // couleur de fond
             g.setColor(Color.WHITE);
@@ -124,14 +133,14 @@ public class Affichage extends JFrame {
             dessineMonde(gw);
             g.drawImage(worldImage,0,0,null);
         }
-        public void AfficheEntite (String fileName, Graphics g, int i, int j) {
+        public static void AfficheEntite (String fileName, Graphics g, int i, int j) {
         	AfficheImage(System.getProperty("user.dir") +"\\Graphics\\" +fileName, g, 1783, 1783, i*100+600, j*96+600, j*96+20, i*96+20, 0, 0); 
         }
-        public void AfficheImage(String filepath, Graphics g, int nbC, int nbL, int h, int w, int x1, int y1, int x2, int y2 ) {
+        public static void AfficheImage(String filepath, Graphics g, int nbC, int nbL, int h, int w, int x1, int y1, int x2, int y2 ) {
         	
         	 File img = new File (filepath);
              if (!img.exists()) { 
-                 System.err.println("Image file not found: " + getName());
+                 System.err.println("Image file not found: " + img.getName());
                  return;
              }
              
@@ -153,7 +162,7 @@ public class Affichage extends JFrame {
              	e.printStackTrace();
              } 
         }
-        public void AfficheImage(String filepath, Graphics g, int nbC, int nbL, int x1, int y1, int x2, int y2 ) {//surcharge avec dimensions auto
+        /*public void AfficheImage(String filepath, Graphics g, int nbC, int nbL, int x1, int y1, int x2, int y2 ) {//surcharge avec dimensions auto
         	
        	 File img = new File (filepath);
             if (!img.exists()) { 
@@ -176,7 +185,13 @@ public class Affichage extends JFrame {
             } catch (IOException e) {
             	e.printStackTrace();
             } 
-       }
+       }*/
+    }
+    public static void pause(long lag) {
+    	try {
+			Thread.sleep(lag);
+		} catch (InterruptedException e) {
+		}
     }
 }       
 

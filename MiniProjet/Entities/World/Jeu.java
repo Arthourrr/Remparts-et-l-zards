@@ -1,6 +1,7 @@
 package World;
 import Champion.Personnage;
 import Run.Affichage;
+import Run.Display;
 public class Jeu {
 	private int[][] Plateau;//Plateau du jeu
 	//DeroulementJeu deroulementjeu = new DeroulementJeu();
@@ -52,7 +53,7 @@ public class Jeu {
 	//Un JX à la place du joueur
 	//Rien si pas de joueur
 	public String AffichePlateau (){
-	
+		
 		String description = "\n-----------------------------------------\n";
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){

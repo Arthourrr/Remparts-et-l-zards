@@ -1,5 +1,4 @@
 package Main;
-import java.util.Scanner;
 import Run.AePlayWave;
 import Run.DeroulementJeu;
 import Run.Initialisation;

@@ -1,5 +1,9 @@
 package Run;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import Affichage.RefreshAff;
 import Champion.Personnage;
 import World.Jeu;
 public class DeroulementJeu {
@@ -10,7 +14,7 @@ public class DeroulementJeu {
 //Compteur base sur pair/impair
 //Affiche le gagnant Ã  la fin
 	public static void DeroulementPartie(Personnage perso1, Personnage perso2, Jeu tabledejeu){
-        int compteur=1;
+		int compteur=1;
         while (!Fini(perso1,perso2)){
         	
             if (compteur%2!=0){
@@ -38,9 +42,14 @@ public class DeroulementJeu {
 //Utilisation de PA
 //Boucle while tant que le perso a des PA
     public static void Tour(Personnage persoA, Personnage persoB, Jeu tabledejeu, int compteur){
-		int fight=1;
+    		//Auto-refresh de l'Affichage 
+    	Timer loop= new Timer();
+		TimerTask Refresh = new RefreshAff(tabledejeu.getPlateau());
+		loop.scheduleAtFixedRate(Refresh, 0, 300 );
+    	
+    	int fight=1;
 		System.out.print(tabledejeu.AffichePlateau());
-		Affichage.afficherMonde(tabledejeu.getPlateau());
+		//Affichage.afficherMonde(tabledejeu.getPlateau());
 		System.out.println(persoA.getNom() +" c'est a  toi !");
 		persoA.MajStats();
 		while (persoA.getPa()>0){
@@ -70,7 +79,7 @@ public class DeroulementJeu {
 							Move(persoA,tabledejeu,mouvement[0],mouvement[1]);
 							persoA.setPa(persoA.getPa() - 1);
 							System.out.print(tabledejeu.AffichePlateau());
-							Affichage.afficherMonde(tabledejeu.getPlateau());
+							//Affichage.afficherMonde(tabledejeu.getPlateau());
 							break;
 						}else{
 							System.out.println("Action Impossible");
