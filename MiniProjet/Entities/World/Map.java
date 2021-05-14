@@ -1,7 +1,7 @@
 package World;
 import java.util.Scanner;
 import Run.Affichage;
-import World.Jeu;
+//import World.Jeu;
 public class Map {
 	int[][] carte;	
 	public Map (){

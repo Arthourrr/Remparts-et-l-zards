@@ -1,6 +1,6 @@
 package World;
 import Champion.Personnage;
-import Run.Affichage;
+//import Run.Affichage;
 public class Jeu {
 	private int[][] Plateau;//Plateau du jeu
 	Map ChoixCarte = new Map();
@@ -85,7 +85,7 @@ public class Jeu {
 			for(int i=0; i<3; i++) {
 				x = (int) (this.Plateau.length*Math.random());
 				y = (int) (this.Plateau[0].length*Math.random());
-				if(this.getPlateau()[x][y] != -1 && this.getPlateau()[x][y] != -2){ 
+				if(this.getPlateau()[x][y] == 0){ 
 					do{
 						g = (int) (100*Math.random());
 					}while(g==0);	

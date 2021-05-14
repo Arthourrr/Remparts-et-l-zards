@@ -1,7 +1,7 @@
 package Champion;
 import Run.Initialisation;
 import Run.DeroulementJeu;
-import World.Jeu;
+//import World.Jeu;
 public class Personnage {
 	private int ordre; //classe du personnage
 	private String nom; //nom

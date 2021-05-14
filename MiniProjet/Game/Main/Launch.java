@@ -1,5 +1,5 @@
 package Main;
-import java.util.Scanner;
+//import java.util.Scanner;
 import Run.AePlayWave;
 import Run.DeroulementJeu;
 import Run.Initialisation;
@@ -15,7 +15,7 @@ public class Launch {
 		AePlayWave Intro = new AePlayWave("C:\\Users\\antoi\\git\\SuperjeuKitue\\MiniProjet\\Audio\\Title_Screen01.wav");
 		Intro.start();
 	    
-		DeroulementJeu FaisTournerLaPartie = new DeroulementJeu();
+		//DeroulementJeu FaisTournerLaPartie = new DeroulementJeu();
 		
 		Jeu TableDeJeu = new Jeu();
 		System.out.println("Joueur 1 à toi\n");
