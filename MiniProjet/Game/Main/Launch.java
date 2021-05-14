@@ -9,14 +9,14 @@ import Champion.Personnage;
 import World.Jeu;
 import java.util.Timer;
 import java.util.TimerTask;
-
 public class Launch {
 	public static void main (String[] arg){
 	    //music INTRO
-		AePlayWave Intro = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Title_Screen01.wav");
+		AePlayWave Intro = new AePlayWave("C:\\Users\\antoi\\git\\SuperjeuKitue\\MiniProjet\\Audio\\Title_Screen01.wav");
 		Intro.start();
 	    
 		DeroulementJeu FaisTournerLaPartie = new DeroulementJeu();
+		
 		Jeu TableDeJeu = new Jeu();
 		System.out.println("Joueur 1 à toi\n");
 
@@ -26,7 +26,12 @@ public class Launch {
 		Personnage Perso1 = new Personnage(1);
 		Perso1.getInit();
 		Initialisation.InitPerso(Perso1);
+		
+		do {
 		Perso1.getInit().Spawn(0,0,Perso1);
+		}while(TableDeJeu.getPlateau()[Perso1.getPosition()[0]][Perso1.getPosition()[1]]!=-3);
+		
+		
 		TableDeJeu.PosePion(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso1);//pose le joueur sur un pt du tableau
 		compteur++;
 		
@@ -35,9 +40,9 @@ public class Launch {
 		Personnage Perso2 = new Personnage(2);
 		Perso2.getInit();
 		Initialisation.InitPerso(Perso2);
-		Perso2.getInit().Spawn(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso2);
-		TableDeJeu.PosePion(Perso2.getPosition()[0],Perso2.getPosition()[1],Perso2);//pose le joueur sur un pt du tableau	
-		
+		do {
+			Perso2.getInit().Spawn(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso2);//pose le joueur sur un pt du tableau	
+		}while(TableDeJeu.getPlateau()[Perso2.getPosition()[0]][Perso2.getPosition()[1]]!=-3);
 		//à changer trouver un bel affichage
 		System.out.println(Perso1.getNom() +"   VS   "+ Perso2.getNom());
 		//music début

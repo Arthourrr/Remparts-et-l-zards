@@ -3,14 +3,19 @@ import Champion.Personnage;
 import Run.Affichage;
 public class Jeu {
 	private int[][] Plateau;//Plateau du jeu
+	Map ChoixCarte = new Map();
 	//DeroulementJeu deroulementjeu = new DeroulementJeu();
 	//Initialise le plateau du jeu
+	
 	public Jeu (){
 		this.setPlateau(InitJeu());
 	} 
 	//Cree un tableau 5x5
 	public int[][] InitJeu(){
-		int[][] PlateauDeJeu = new int[5][5];
+		//int[][] PlateauDeJeu = new int[5][5];
+		int[][] PlateauDeJeu;
+		ChoixCarte.InitCarte();
+		PlateauDeJeu = ChoixCarte.carte;
 		return PlateauDeJeu;
 	}
 	//Depose les pions sur le plateau en des positions x et y predefinies
@@ -32,8 +37,6 @@ public class Jeu {
 		}	
 		this.getPlateau()[x][y]=-perso.getJoueur();
 	}
-	
-	
 	//Deplace les pions de +x ou +y
 	public void DeplacePion(int x,int y, Personnage perso){
 		for(int i=0; i<this.getPlateau().length; i++){
@@ -113,11 +116,18 @@ public class Jeu {
 			}
 		}while(this.getPlateau()[x][y] != 10);
 	}
+
+	public void PlaceObstacles (int X, int Y) {
+		this.getPlateau()[X][Y]=-3;
+	}	
 	
 	public int[][] getPlateau() {
 		return Plateau;
 	}
+	
 	public void setPlateau(int[][] plateau) {
 		Plateau = plateau;
 	}
+	
+
 }

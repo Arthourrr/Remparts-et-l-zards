@@ -145,7 +145,7 @@ public class DeroulementJeu {
 				case 1 :
 					if(perso.getPosition()[0]!=0){
 						newposval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]];
-						if(newposval!= -1 && newposval!= -2){
+						if(newposval!= -1 && newposval!= -2 && newposval!=-3){
 							perso.setPo(perso.getPo()+newposval);
 							System.out.println((!(newposval == 0))? "Vous ramassez "+newposval+" pièces d'or!" : "");
 							mouvement[0]=-1;
@@ -157,7 +157,7 @@ public class DeroulementJeu {
 				case 2 :
 					if(perso.getPosition()[0]!=tabledejeu.getPlateau().length-1){
 						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]+1][perso.getPosition()[1]];
-						if(newposval!= -1 && newposval!= -2){
+						if(newposval!= -1 && newposval!= -2 && newposval!=-3){
 							perso.setPo(perso.getPo()+newposval);
 							mouvement[0]=1;
 							mouvement[2]=1;
@@ -167,7 +167,7 @@ public class DeroulementJeu {
 				case 3 :
 					if(perso.getPosition()[1]!=0){
 						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]-1];
-						if(newposval!= -1 && newposval!= -2){
+						if(newposval!= -1 && newposval!= -2 && newposval!=-3){
 							perso.setPo(perso.getPo()+newposval);
 							mouvement[1]=-1;
 							mouvement[2]=1;
@@ -177,7 +177,7 @@ public class DeroulementJeu {
 				case 4 :
 					if(perso.getPosition()[1]!=tabledejeu.getPlateau()[0].length-1){
 						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]+1];	
-						if(newposval!= -1 && newposval!= -2){
+						if(newposval!= -1 && newposval!= -2 && newposval!=-3){
 							perso.setPo(perso.getPo()+newposval);
 							mouvement[1]=1;
 							mouvement[2]=1;
