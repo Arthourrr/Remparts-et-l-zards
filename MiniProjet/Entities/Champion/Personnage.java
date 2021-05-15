@@ -65,7 +65,7 @@ public class Personnage {
 	public void SetStatistiques(int numero, String nom){ //ajout de pts de stats aux personnages selon la classe choisie
 		switch(numero){
 		case 1 :
-			this.setAgilite(this.getAgilite() +4);
+			this.setAgilite(this.getAgilite() +10);
 			this.setSagesse(this.getSagesse() -10);
 			this.setResistance(this.getResistance() -5);
 			this.setForce(this.getForce() -10);				
@@ -77,15 +77,15 @@ public class Personnage {
 			this.setForce(this.getForce() -5);	
 			break;
 		case 3 :
-			this.setAgilite(this.getAgilite() -5);
+			this.setAgilite(this.getAgilite() -10);
 			this.setSagesse(this.getSagesse() -10);
-			this.setResistance(this.getResistance() +10);
+			this.setResistance(this.getResistance() +5);
 			this.setForce(this.getForce() +10);	
 			break;
 		case 4 :
-			this.setAgilite(this.getAgilite() -5);
+			this.setAgilite(this.getAgilite() -10);
 			this.setSagesse(this.getSagesse() +10);
-			this.setResistance(this.getResistance() -5);
+			this.setResistance(this.getResistance() -10);
 			this.setForce(this.getForce() -10);	
 			break;  
 		}

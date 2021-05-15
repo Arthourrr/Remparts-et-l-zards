@@ -310,13 +310,14 @@ public class Actions{
 			if(Crit) {
 				degats = (int)(degats+degats*(CCrit/100));
 			}
+			degats = (int) (degats*0.5);
 		}else if(Diff<0) {
 			Joueur.setchance((int)(Joueur.getchance()+Math.random()*20));
 				degats = - (int)(Math.random()*10);
 		}else{
 			degats = 0;
 		}
-		degats = (int) (degats*0.75);
+		
 		return degats;
 	}
 	
@@ -330,7 +331,7 @@ public class Actions{
 	
 	public void AppliqueAttaque (int Degats, Personnage Joueur, Personnage Adversaire) {
 		if(Degats<0) {
-			Joueur.setPv(Joueur.getPv()-Degats);
+			Joueur.setPv(Joueur.getPv()+Degats);
 		}else {
 			Adversaire.setPv(Adversaire.getPv()-Degats);
 		}
@@ -342,7 +343,21 @@ public class Actions{
 		final int c = d.nextInt();	
 		switch(c) {
 			case 1 :
-				AppliqueAttaque(degats(p1.getSagesse(),p2.getForce(),p1,p2),p1,p2);
+				int degatInflige;
+				degatInflige = (int)(0.7*degats(p1.getSagesse(),p2.getSagesse(),p1,p2));
+				AppliqueAttaque(degatInflige,p1,p2);
+				
+				if(degatInflige==0) {
+					System.out.println("Votre sort a échoué. L'incantation n'était pas parfait et vous pestez contre votre mémoire défaillante.");
+					System.out.println("Vos barrières psychiques vous ont cependant protégé, au prix de quelque peu de mana.");
+				}else if(degatInflige<0) {
+					System.out.println("Vous lancez votre boule de feu, qui s'avance et... revient vers vous... ");
+					System.out.println("VOus cheveux sentent le roussi, vous l'avez échappé belle. De petites brulures vous font perdre "+degatInflige+"PV");
+				}else {
+					System.out.println("Vous invoquez le feu et votre adversaire voit les enfers se déchaîner sur lui, lui infligeant "+degatInflige+"PV");
+				}
+				p1.setPa(p1.getPa()-2);
+				break;
 			case 2 :
 				if(p1.getPa()>=2 && p1.getMana()>=20) {
 						p1.setPa(p1.getPa()-2);
@@ -367,6 +382,7 @@ public class Actions{
 						int[] effet = {-degats, duree};
 						p2.setEvo(effet);
 					}
+				break;
 		}
 	}
 
@@ -379,10 +395,10 @@ public class Actions{
 				if(p1.distance(p2)<2&& p1.getPa()>=2) {
 					degatInflige = degats(p1.getForce(),p2.getForce(),p1,p2);
 					AppliqueAttaque(degatInflige,p1,p2);
-					if(N==0) {
+					if(degatInflige==0) {
 						System.out.println("Vous n'avez pu saisir une ouverture dans la défense de votre adversaire.");
 						System.out.println("Mais heureusement, vous ne lui avez pas laissé le temps de vous attaquer !");
-					}else if(N<0) {
+					}else if(degatInflige<0) {
 						System.out.println("L'attaque a échoué... l'adversaire vous a touché et vous perdez "+degatInflige+"PV");
 					}else {
 						System.out.println("Vous sortez victorieux de cette passe d'armes ! Votre adversaire a subi des blessures, et perd "+degatInflige+"PV");
@@ -396,9 +412,9 @@ public class Actions{
 				}
 			case 2:
 				degatInflige = ArcDegatsChange(degats(p1.getAgilite(),p2.getAgilite(),p1,p2),p1,p2);
-				if(N==0) {
+				if(degatInflige==0) {
 					System.out.println("Vous avez raté votre coup de peu ! La prochaine sera la bonne !");
-				}else if(N<0) {
+				}else if(degatInflige<0) {
 					System.out.println("Votre flèche est partie au loin, vous pestez contre le vent en vous préparant à encaisser le prochain assaut ennemi");
 				}else {
 					AppliqueAttaque(degatInflige,p1,p2);
