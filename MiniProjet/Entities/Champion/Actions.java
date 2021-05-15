@@ -392,6 +392,7 @@ public class Actions{
 		int degatInflige;
 		switch(N) {
 			case 1:
+				AePlayWave sword = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Sword.wav");
 				if(p1.distance(p2)<2&& p1.getPa()>=2) {
 					degatInflige = degats(p1.getForce(),p2.getForce(),p1,p2);
 					AppliqueAttaque(degatInflige,p1,p2);
@@ -411,6 +412,7 @@ public class Actions{
 					break;
 				}
 			case 2:
+				AePlayWave bow = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Bow.wav");
 				degatInflige = ArcDegatsChange(degats(p1.getAgilite(),p2.getAgilite(),p1,p2),p1,p2);
 				if(degatInflige==0) {
 					System.out.println("Vous avez raté votre coup de peu ! La prochaine sera la bonne !");
