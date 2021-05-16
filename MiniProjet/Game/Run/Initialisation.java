@@ -25,12 +25,13 @@ public class Initialisation {
 	public static void AfficherLesClasses (){ //methode pour afficher les choix d'ordres
 		System.out.println("Voici les classes disponibles, avec leurs caracteristiques.");
 		System.out.println();
-		System.out.println("1= Archer (+9 agilite; -6 en sagesse; -6 force; -3 resistance)");
-		System.out.println("2= Assassin (+6 dexterite; -6 sagesse; -6 force; -3 resistance)");
-		System.out.println("3= Guerrier (+3 force, +3 resistance; -6 sagesse; -6 agilité)");
-		System.out.println("4= Mage (+9sagesse; -6 force; -6 sagesse; -3 resistance)");
+		System.out.println("1= Archer (+10 agilite; -10 en sagesse; -10 force; -5 resistance)");
+		System.out.println("2= Assassin (+10 dexterite; -5 sagesse; -5 force; -5 resistance)");
+		System.out.println("3= Guerrier (+10 force, +5 resistance; -10 sagesse; -10 agilité)");
+		System.out.println("4= Mage (+10 sagesse; -10 force; -10 agilité; -10 resistance)");
 		System.out.println();
 	}
+	
 	//Permet d’afficher les statistiques du personnages courant
 	public String AfficheStats(Personnage perso){
 		String description;

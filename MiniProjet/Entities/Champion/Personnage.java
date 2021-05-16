@@ -95,9 +95,9 @@ public class Personnage {
 	public String AfficheStats(){
 		String description;
 		description = "--------------------------\n";
-		description = description+"Bonjour, "+this.getNom()+"\n";
-		description = description+"Ta classe est\t"+this.getOrdre()+"\n\n";
-		description = description+"Tes caracteristiques sont :\n\n";
+		description = description+this.getNom()+"\n";
+		description = description+"Classe :\t"+this.getOrdre()+"\n\n";
+		description = description+"Caractéristiques :\n\n";
 		description = description+"Agilite :\t"+this.getAgilite()+"\n";
 		description = description+"Dexterite :\t"+this.getDexterite()+"\n";
 		description = description+"Force :\t\t"+this.getForce()+"\n";

@@ -35,7 +35,9 @@ public class Actions{
 				break;
 			case 2:
 				System.out.println("Bienvenue au marché. Voici les articles disponibles:");
-				System.out.println("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)\t 4= Potion de soin ("+p1.getStuff().potionSoin.prix +"po) \t 5= Amulette ("+p1.getStuff().amulette.prix +"po) \t 6= Bisoumagique ("+p1.getStuff().bisoumagique.prix +"po) \t 7 = Potion de Mana ("+p1.getStuff().potionMana.prix +"po)");
+				System.out.println("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)");
+				System.out.println("4= Potion de soin (\"+p1.getStuff().potionSoin.prix +\"po) \\t 5= Amulette (\"+p1.getStuff().amulette.prix +\"po) \t 6= Bisou magique ("+p1.getStuff().bisoumagique.prix +"po)");
+				System.out.println("7 = Potion de Mana ("+p1.getStuff().potionMana.prix +"po)");
 				System.out.println("Vous possédez "+p1.getPo()+" pièces d'or.");
 				Scanner d = new Scanner(System.in); 
 				final int c = d.nextInt();
@@ -317,7 +319,6 @@ public class Actions{
 		}else{
 			degats = 0;
 		}
-		
 		return degats;
 	}
 	
@@ -344,7 +345,7 @@ public class Actions{
 		switch(c) {
 			case 1 :
 				int degatInflige;
-				degatInflige = (int)(0.7*degats(p1.getSagesse(),p2.getSagesse(),p1,p2));
+				degatInflige = (int)(1.2*degats(p1.getSagesse(),p2.getSagesse(),p1,p2));
 				AppliqueAttaque(degatInflige,p1,p2);
 				
 				if(degatInflige==0) {
@@ -357,6 +358,7 @@ public class Actions{
 					System.out.println("Vous invoquez le feu et votre adversaire voit les enfers se déchaîner sur lui, lui infligeant "+degatInflige+"PV");
 				}
 				p1.setPa(p1.getPa()-2);
+				p1.setMana(p1.getMana()-15);
 				break;
 			case 2 :
 				if(p1.getPa()>=2 && p1.getMana()>=20) {
@@ -400,14 +402,14 @@ public class Actions{
 						System.out.println("Vous n'avez pu saisir une ouverture dans la défense de votre adversaire.");
 						System.out.println("Mais heureusement, vous ne lui avez pas laissé le temps de vous attaquer !");
 					}else if(degatInflige<0) {
-						System.out.println("L'attaque a échoué... l'adversaire vous a touché et vous perdez "+degatInflige+"PV");
+						System.out.println("L'attaque a échoué... l'adversaire vous a touché \net vous perdez "+degatInflige+"PV");
 					}else {
-						System.out.println("Vous sortez victorieux de cette passe d'armes ! Votre adversaire a subi des blessures, et perd "+degatInflige+"PV");
+						System.out.println("Vous sortez victorieux de cette passe d'armes ! \nVotre adversaire a subi des blessures, et perd "+degatInflige+"PV");
 					}
 					p1.setPa(p1.getPa()-2);
 					break;
 				}else {
-					System.out.println("Bien essayé petit malin, attaquer à distance avec une épée, quelle idée ! Tu perds tes points d'actions si c'est comme ça !");
+					System.out.println("Bien essayé petit malin, attaquer à distance avec une épée,\n quelle idée ! Tu perds tes points d'actions si c'est comme ça !");
 					p1.setPa(0);
 					break;
 				}

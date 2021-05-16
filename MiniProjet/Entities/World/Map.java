@@ -11,7 +11,7 @@ public class Map {
 	public void InitCarte() {
 		boolean Verif = false;
 		while(Verif == false) {
-			System.out.println("Choisir carte de 1 à 3");
+			System.out.println("Vous et votre adversaire vous concertez pour savoir quel sera le terrain de votre glorieux affrontement. Choisissez votre terrain (1,2 ou 3):");			
 			Scanner n = new Scanner(System.in); 
 			final int numero = n.nextInt();
 			switch(numero){

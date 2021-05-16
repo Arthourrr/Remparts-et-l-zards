@@ -12,7 +12,6 @@ public class DeroulementJeu {
 	public static void DeroulementPartie(Personnage perso1, Personnage perso2, Jeu tabledejeu){
         int compteur=1;
         while (!Fini(perso1,perso2)){
-        	
             if (compteur%2!=0){
 				Tour(perso1,perso2,tabledejeu, compteur);
                 compteur++;
@@ -35,23 +34,23 @@ public class DeroulementJeu {
 		int fight=1;
 		System.out.print(tabledejeu.AffichePlateau());
 		Affichage.afficherMonde(tabledejeu.getPlateau());
-		System.out.println(persoA.getNom() +" c'est a  toi !");
+		System.out.println(persoA.getNom() +" à ton tour !");
 		persoA.MajStats();
 		while (persoA.getPa()>0){
 		System.out.println(persoA.AffichePerso());
-		System.out.println("Que choisis-tu de faire ? ");
+		System.out.println("Que choisis-tu de faire ?");
 		int[] mouvement;
 			if(fight!=0 && persoA.getPa()>=2){
-				System.out.println("1= Objets, Entrainements \t 2=Me deplacer \t 3=Ne rien faire\t 4=Combattre \t 0=Infos");
+				System.out.println("1 = Objets, Entraînement \t 2 = Déplacement \t 3 = Fin du tour\t 4 = Combat \t0 = Infos");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
 				switch(numero){
 					case 0 :
 						Aide(persoA);
-						pause(5000);
+						pause(4000);
 						break;
 					case 1 :
-						System.out.println("1 = S'entraîner au maniement de l'épée \t 2 = Marché  \t 3 = Utiliser un objet \n 0=retour"); // /!\methodes manquantes
+						System.out.println("1 = Améliorer la force \t 2 = Marché  \t 3 = Utiliser un objet \n 0 = retour");
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
 						
@@ -67,14 +66,14 @@ public class DeroulementJeu {
 							Affichage.afficherMonde(tabledejeu.getPlateau());
 							break;
 						}else{
-							System.out.println("Action Impossible");
+							System.out.println("\n\nAction Impossible\n\n");
 							break;
 						}						
 					case 3 :
 						persoA.setPa(0);
 						break;
 					case 4 :
-						System.out.println("1 = Epee \t 2 = Arc \t 3 = Sort"); // /!\methodes manquantes
+						System.out.println("1 = Epée \t 2 = Arc \t 3 = Sort"); // /!\methodes manquantes
 						Scanner a = new Scanner(System.in); 
 						final int numerobis = a.nextInt();
 						persoA.getPlay().choixAction(numero, numerobis, persoA, persoB, compteur); //numero= categorie d'action, numerobis= sous-categorie.
@@ -82,12 +81,12 @@ public class DeroulementJeu {
 						break;						
 				}
 			}else{
-				System.out.println("1=Objets, Entrainements \t 2=me deplacer\t 3=Ne rien faire \t 0=Infos");
+				System.out.println("1 = Objets, Entraînements \t 2 = Déplacement\t 3 = Fin du tour \t0 = Infos");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
 				switch(numero){
 					case 1 :
-						System.out.println("1 = S'entraîner au maniement de l'épée \t 2 = Marché \t 3 = Utiliser un objet"); // /!\methodes manquantes
+						System.out.println("1 = Améliorer la force  \t 2 = Marché \t 3 = Utiliser un objet \\n 0 = retour"); // /!\methodes manquantes
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
 						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur);
@@ -114,6 +113,7 @@ public class DeroulementJeu {
 				}
 			}
 		}
+		pause(3000);
 		persoA.setPa(3);
 	}
 //Permet l’action "mouvement de personnage" (à bouger dans actions ? ? ?)
@@ -184,19 +184,16 @@ public class DeroulementJeu {
     }	
 //Affiche la fin de partie et le gagnant /!\ to fix
     public static void Gagnant(int compteur,Personnage perso1, Personnage perso2){
-        System.out.println("La partie est terminee.");
+        System.out.println("Le combat est terminé.");
         if (compteur%2==0){
-            perso1.setPo(perso1.getPo()+100);
-            System.out.println(perso1.getNom()+" a gagne ! Tu reçois 100 piÃ¨ces d'or");
-            
+            System.out.println(perso1.getNom()+" a gagné ! Par le sang ou les flammes, tu as su vaincre ton adversaire. Le public t'acclame, et sous les cris de tes admirateurs en furie, dignement, tu t'en va face au soleil couchant.");
         }else{
-            System.out.println(perso2.getNom()+" a gagne ! Tu reçois 100 piÃ¨ces d'or");
-            perso2.setPo(perso2.getPo()+100);
+            System.out.println(perso2.getNom()+" a gagné ! Par le sang ou les flammes, tu as su vaincre ton adversaire. Le public t'acclame, et sous les cris de tes admirateurs en furie, dignement, tu t'en va face au soleil couchant.");
         }
     }
  //Affichage des aides pendant une partie
     public static void Aide(Personnage p1) {
-    	System.out.println("1: Mon inventaire\t 2: Mes stats\t 3: Objets ?\t 4: Attaques ?");
+    	System.out.println("1 : Mon inventaire\t 2 : Mes stats\t 3 : Objets ?\t 4 : Attaques ?");
     	Scanner sc = new Scanner(System.in); 
     	int a = sc.nextInt();
     	switch (a) {
@@ -217,10 +214,10 @@ public class DeroulementJeu {
     		System.out.println("-Amulette: lève tous les sorts et effets qui vous affectent. Attention, annule aussi les soins!");
     		break;
     	case 4:
-    		System.out.println("-Attaque à l'épée: réservée au corps à corps. Dégats aléatoires dépendant de la force de votre personnage.\n Attention, vous pouvez subir des dégâts en cas d'échec.");
-    		System.out.println("-Attaque à l'arc: dégats aléatoires dépendant de votre agilité et de la distance. La portée optimale est de 3 cases.");
-    		System.out.println("-Sortilège: dégats magiques aléatoires sur plusieurs tours. Votre sagesse augmente la durée du sort, la dextérité augmente les dégats.");
-    		System.out.println("\nVous infligerez parfois des coups critiques à l'arc et à l'épée. Les dégats sont alors doulés.");
+    		System.out.println("-Attaque à l'épée: réservée au corps à corps. Dégats dépendant de la force de votre personnage.\n Attention, vous pouvez subir des dégâts en cas d'échec.");
+    		System.out.println("-Attaque à l'arc: dégats aléatoires dépendant de votre agilité et de la distance de tir. La portée optimale de base est de 3 cases.");
+    		System.out.println("-Sortilège: dégats magiques sur plusieurs tours (dégénérescence) ou lancer de boule de feu, essentiellement améliorés par la sagesse.");
+    		System.out.println("\nVous infligerez parfois des coups critiques. Les dégats sont alors démultipliés.");
     		break;
     	}
     }
