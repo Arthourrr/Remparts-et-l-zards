@@ -21,6 +21,13 @@ public class Initialisation {
 		System.out.print(perso.AfficheStats());
 		System.out.println(); 	
 	}
+	
+	
+	
+	
+	
+	
+	
 	//Permet l’affichage des classes (pour InitPerso)
 	public static void AfficherLesClasses (){ //methode pour afficher les choix d'ordres
 		System.out.println("Voici les classes disponibles, avec leurs caracteristiques.");

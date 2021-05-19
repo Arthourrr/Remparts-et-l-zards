@@ -17,8 +17,8 @@ public class Test {
 	public static void main (String[] arg){
 		Actions play = new Actions();
 		//Jeu TableDeJeu = new Jeu();
-		Personnage Perso1 = new Personnage(1);
-		Personnage Perso2 = new Personnage(2);
+		Personnage Perso1 = new Personnage(1,1);
+		Personnage Perso2 = new Personnage(2,1);
 		Perso1.SetStatistiques(4, "J1");
 		Perso2.SetStatistiques(4, "J2");
 		Perso1.MajPosition(0, 0);

@@ -20,12 +20,15 @@ public class Personnage {
 	private int chance; //chance du joueur
 	private Actions play = new Actions();//Actions
 	private Initialisation init = new Initialisation();//appel objet initialisation
+	private int team;
 	DeroulementJeu deroulementjeu = new DeroulementJeu();//appel objet deroulementjeu
 	private Inventaire stuff;//appel objet inventaire
 	
 	//objet Personnage avec ses diff caracteristiques
 	//Initialise : stats/po/pa/pv/numero de personnage
-	public Personnage(int N){
+	public Personnage(int N, int T){
+		this.getPosition()[0]=0;
+		this.getPosition()[1]=0;
 		this.setNom("Inconnu");
 		this.setPv(100);
 		this.setPa(3);//point d'action
@@ -40,6 +43,7 @@ public class Personnage {
 		this.setStuff(new Inventaire ());
 		this.Evo = new int[2];
 		this.setchance(50);
+		this.setteam(T);
 	}	
 	//met à jour le tableau de position du personnage en X et Y
 	public void MajPosition (int X, int Y){	//met à jouer la position en faisant avancer/reculer selon X et Y
@@ -231,5 +235,11 @@ public class Personnage {
 	}
 	public void setchance(int chance) {
 		this.chance = chance;
+	}
+	public int getteam() {
+		return team;
+	}
+	public void setteam(int team) {
+		this.team = team;
 	}
 }
