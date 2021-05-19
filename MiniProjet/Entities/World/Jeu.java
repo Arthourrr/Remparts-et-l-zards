@@ -1,25 +1,19 @@
 package World;
 import Champion.Personnage;
-import Run.Affichage;
-import Run.Display;
 public class Jeu {
 	private int[][] Plateau;//Plateau du jeu
-	//DeroulementJeu deroulementjeu = new DeroulementJeu();
-	//Initialise le plateau du jeu
+	Map ChoixCarte = new Map();
 	public Jeu (){
 		this.setPlateau(InitJeu());
 	} 
-	//Cree un tableau 5x5
+	//initialise un tableau 5x5 prédéfini
 	public int[][] InitJeu(){
-		int[][] PlateauDeJeu = new int[5][5];
+		int[][] PlateauDeJeu;
+		ChoixCarte.InitCarte();
+		PlateauDeJeu = ChoixCarte.carte;
 		return PlateauDeJeu;
 	}
-	//Depose les pions sur le plateau en des positions x et y predefinies
-	/**
-	 * @param x
-	 * @param y
-	 * @param perso
-	 */
+	//Dépose le personnage sur une case vide du tableau
 	public void PosePion(int x,int y, Personnage perso){
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
@@ -33,9 +27,7 @@ public class Jeu {
 		}	
 		this.getPlateau()[x][y]=-perso.getJoueur();
 	}
-	
-	
-	//Deplace les pions de +x ou +y
+	//Déplace un personnage d’un point à un autre du tableau
 	public void DeplacePion(int x,int y, Personnage perso){
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
@@ -49,51 +41,50 @@ public class Jeu {
 		}	
 		this.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]]=-perso.getJoueur();
 	}	
-	//Affiche le tableau
-	//Un JX à la place du joueur
-	//Rien si pas de joueur
+	//Affichage du plateau
 	public String AffichePlateau (){
-		
 		String description = "\n-----------------------------------------\n";
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
-					description = description+"|\t";
+				description = description+"|\t";
 			}
 			description = description+"|\n";
-			
+
 			for(int j=0; j<this.getPlateau()[0].length; j++){
-				
+
 				if(this.getPlateau()[i][j]==0){
 					description = description+"|\t";
 				}else if(this.getPlateau()[i][j]==-1){
 					description = description+"|  J1\t";
 				}else if(this.getPlateau()[i][j]==-2){
 					description = description+"|  J2\t";
+				}else if(this.getPlateau()[i][j]==-3) {
+					description = description+"|  B\t";
 				}else{
 					description = description+"|  °°°\t";
 				}
 			}
-				description = description+"|\n";
+			description = description+"|\n";
 			for(int j=0; j<this.getPlateau()[0].length; j++){
-					description = description+"|\t";
+				description = description+"|\t";
 			}
-		description = description+"|\n-----------------------------------------\n";	
+			description = description+"|\n-----------------------------------------\n";	
 		}
 		return description;
 	}
-	
-	//20% de chances de faire spawn de l'or
+
+	//A une chance de déposer une grosse quantité d’or sur une case
 	public void RandomGoldSpawn () {
 		int x=0;
 		int y=0;
-		int z = (int) (100*Math.random());
+		int z = (int) (75*Math.random()+25);
 		int g;
-		
+
 		if(z<40) {
 			for(int i=0; i<3; i++) {
-				x = (int) (4*Math.random());
-				y = (int) (4*Math.random());
-				if(this.getPlateau()[x][y] != -1 && this.getPlateau()[x][y] != -2){ 
+				x = (int) (this.Plateau.length*Math.random());
+				y = (int) (this.Plateau[0].length*Math.random());
+				if(this.getPlateau()[x][y] == 0){ 
 					do{
 						g = (int) (100*Math.random());
 					}while(g==0);	
@@ -102,19 +93,22 @@ public class Jeu {
 			}
 		}
 	}
-	
+	//Dépose à chaque tour un paquet d’or sur une case aléatoire du tableau (pas d’or si la case est celle d’un personnage)
 	public void SpawnGoldRegulier() {
 		int x=0;
 		int y=0;
 		do {
-			x = (int) (4*Math.random());
-			y = (int) (4*Math.random());
-			if(this.getPlateau()[x][y] != -1 && this.getPlateau()[x][y] != -2){ 	
+			x = (int) (this.Plateau.length*Math.random());
+			y = (int) (this.Plateau[0].length*Math.random());
+			if(this.getPlateau()[x][y] == 0){ 	
 				this.getPlateau()[x][y]=10;
 			}
 		}while(this.getPlateau()[x][y] != 10);
 	}
-	
+	//getters/setters
+	public void PlaceObstacles (int X, int Y) {
+		this.getPlateau()[X][Y]=-3;
+	}	
 	public int[][] getPlateau() {
 		return Plateau;
 	}

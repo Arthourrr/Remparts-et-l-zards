@@ -13,7 +13,7 @@ public class Display extends Thread {
 	}
 	
 	public void run() {
-		Affichage.afficherMonde(monde, res, a);
+		Affichage.afficherMonde(monde, res, a, "clairiere");
 		
 	}
 
