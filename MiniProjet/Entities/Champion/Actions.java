@@ -11,8 +11,6 @@ public class Actions{
 
 		switch(a){
 		case 4 :	
-			
-			
 			Attaque(b,p1,p2);
 			/*
 			switch(b) {

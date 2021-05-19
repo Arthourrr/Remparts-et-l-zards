@@ -9,20 +9,20 @@ public class DeroulementJeu {
 //Fait tourner la partie tant que aucun personnage n'est mort
 //Compteur base sur pair/impair
 //Affiche le gagnant Ã  la fin
-	public static void DeroulementPartie(Personnage perso1, Personnage perso2, Jeu tabledejeu){
+	public static void DeroulementPartie(Personnage p1 , Personnage p2, Jeu tabledejeu){
         int compteur=1;
-        while (!Fini(perso1,perso2)){
+        while (!Fini(p1,p2)){
             if (compteur%2!=0){
-				Tour(perso1,perso2,tabledejeu, compteur);
+				Tour(p1,p2,tabledejeu, compteur);
                 compteur++;
             }else{
-				Tour(perso2,perso1,tabledejeu, compteur);
+				Tour(p2,p1,tabledejeu, compteur);
                 compteur++;
             }
             tabledejeu.SpawnGoldRegulier();
             tabledejeu.RandomGoldSpawn();
         }
-        Gagnant(compteur, perso1, perso2);
+        Gagnant(compteur, p1, p2);
     }
 //Mise à jour de la position du personnage vers un point de coordonnées X,Y 
  	public static void Move (Personnage perso, Jeu tabledejeu, int X, int Y){
