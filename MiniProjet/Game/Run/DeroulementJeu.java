@@ -44,7 +44,7 @@ public class DeroulementJeu {
     public static void Tour(Personnage persoA, Personnage persoB, Jeu tabledejeu, int compteur){
     		//Auto-refresh de l'Affichage 
     	Timer loop= new Timer();
-		TimerTask Refresh = new RefreshAff(tabledejeu.getPlateau());
+		TimerTask Refresh = new RefreshAff(tabledejeu.getPlateau(), "clairiere");
 		loop.scheduleAtFixedRate(Refresh, 0, 300 );
     	
     	int fight=1;

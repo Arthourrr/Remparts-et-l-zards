@@ -5,9 +5,11 @@ import java.util.TimerTask;
 public class RefreshAff extends TimerTask{
 	int[][]monde;
 	int det;
+	String modeJeu;
 
-	public RefreshAff(int[][]a) {
+	public RefreshAff(int[][]a, String modeJeu) {
 		this.monde=a;
+		this.modeJeu= modeJeu;
 	}
 	
 	@Override
@@ -19,7 +21,7 @@ public class RefreshAff extends TimerTask{
 		}
 
 		//System.out.println("Thread Refresh = "+det);
-		Affichage.afficherMonde(monde, 100, det);
+		Affichage.afficherMonde(monde, 100, det, modeJeu);
 		//Display display = new Display(monde, det);
 		//display.start();
 		
