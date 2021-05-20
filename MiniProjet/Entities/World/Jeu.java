@@ -9,7 +9,7 @@ public class Jeu {
 	//initialise un tableau 5x5 prédéfini
 	public int[][] InitJeu(){
 		int[][] PlateauDeJeu;
-		ChoixCarte.InitCarte();
+		ChoixCarte.InitCarte(); 
 		PlateauDeJeu = ChoixCarte.carte;
 		return PlateauDeJeu;
 	}
