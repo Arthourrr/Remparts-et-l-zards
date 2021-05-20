@@ -16,7 +16,7 @@ public class Affichage extends JFrame {
 	
 	//BufferedImage img1 = new BufferedImage(50,50, BufferedImage.TYPE_INT_RGB);
 	
-	
+
     private static Affichage world = null;
     private PanneauGrille pg;
 

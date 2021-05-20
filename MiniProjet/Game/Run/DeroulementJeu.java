@@ -1,5 +1,9 @@
 package Run;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import Affichage.RefreshAff;
 import Champion.Personnage;
 import World.Jeu;
 public class DeroulementJeu {
@@ -31,9 +35,14 @@ public class DeroulementJeu {
 	}
 //Interface permettant d’activer chaque action possible par tour pour un personnage dans les objets correspondants
     public static void Tour(Personnage persoA, Personnage persoB, Jeu tabledejeu, int compteur){
-		int fight=1;
+    		//Auto-refresh de l'Affichage 
+    	Timer loop= new Timer();
+		TimerTask Refresh = new RefreshAff(tabledejeu.getPlateau(), "clairiere");
+		loop.scheduleAtFixedRate(Refresh, 0, 300 );
+    	
+    	int fight=1;
 		System.out.print(tabledejeu.AffichePlateau());
-		Affichage.afficherMonde(tabledejeu.getPlateau());
+
 		System.out.println(persoA.getNom() +" à ton tour !");
 		persoA.MajStats();
 		while (persoA.getPa()>0){
@@ -63,7 +72,7 @@ public class DeroulementJeu {
 							Move(persoA,tabledejeu,mouvement[0],mouvement[1]);
 							persoA.setPa(persoA.getPa() - 1);
 							System.out.print(tabledejeu.AffichePlateau());
-							Affichage.afficherMonde(tabledejeu.getPlateau());
+							//Affichage.afficherMonde(tabledejeu.getPlateau());
 							break;
 						}else{
 							System.out.println("\n\nAction Impossible\n\n");

@@ -75,21 +75,7 @@ public class RunGame {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public static void Partie2v2() {
 		Jeu TableDeJeu = new Jeu();
 		

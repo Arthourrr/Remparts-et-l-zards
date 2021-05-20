@@ -1,6 +1,5 @@
 package World;
 import Champion.Personnage;
-//import Run.Affichage;
 public class Jeu {
 	private int[][] Plateau;//Plateau du jeu
 	Map ChoixCarte = new Map();

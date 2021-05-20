@@ -12,19 +12,6 @@ public class Actions{
 		switch(a){
 		case 4 :	
 			Attaque(b,p1,p2);
-			/*
-			switch(b) {
-			case 1:
-				p1.getPlay().melee(p1,p2);
-				break;
-			case 2 :
-				p1.getPlay().arc(p1,p2);
-				break;
-			case 3 :
-				p1.getPlay().sort(p1, p2);
-				break;
-			}
-			*/
 			break;
 		case 1 :
 			switch(b) {
@@ -62,110 +49,6 @@ public class Actions{
 			}
 		}
 	}
-	//Gestion des attaques de mêlée. Fonctionne sur une base
-	//aléatoire en fonction de la force du joueur, avec une
-	//chance de doubler les dégâts (critique) selon la dextérité
-	//du joueur	
-	
-
-	
-	
-	
-	
-	
-	/*
-	public void melee(Personnage p1, Personnage p2) {
-		AePlayWave sword = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Sword.wav");
-		if (p1.distance(p2)<2&& p1.getPa()>=2) { //Conditions de distance et PA
-			p1.setPa(p1.getPa()-2);
-			sword.start();
-			int degats= (int)(2*Math.random()*p1.getForce()); // Degats aleatoires, proportionnels a la force
-			if (degats<7) { //En dessous de 5, l'attaque echoue et les degats se retournent vers l'attaquant.
-				p1.setPv(p1.getPv()-degats);
-				System.out.println("L'attaque echoue. Vous perdez "+ degats+" points de vie.");
-			}else {
-				int tmp= degats;
-				if (degats>0.5*p2.getResistance()) {
-					degats= (int)(degats-0.5*p2.getResistance());
-				}else {
-					degats=0;
-				}
-				double critique= Math.random();
-				if(critique<(p1.getDexterite()/100)) { //Maxi 20% de chances de faire un coup critique, depend de la dexterite
-					degats = degats + tmp;
-					p2.setPv((int)(p2.getPv()-degats));
-					System.out.println("Coup critique! Vous infligez "+ degats+" degats a l'adversaire.");
-				}
-				else {p2.setPv((int)(p2.getPv()-degats));}//La resistance absorbe une partie des degats.
-				System.out.println("L'attaque a reussi. Vous infligez "+ degats+" degats a l'adversaire.");
-			}
-		}else {
-			System.out.println("Bien essayé petit malin... Vous ne pouvez pas attaquer à distance avec une épée!");
-		}
-	}
-
-	//Gestion des attaques à distance non-magiques. Basées
-	//sur l’agilité avec un coefficient de réduction de dégâts lié
-	//à la distance. Impossible de tirer à bout portant,
-	//distance optimale à 3 cases d’écart. Comme pour la
-	//mêlée, possibilité de coup critique	
-	public void arc(Personnage p1, Personnage p2) {
-		if (p1.getPa()>=2) {
-			p1.setPa(p1.getPa()-2); // PA consommes
-			AePlayWave bow = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Bow.wav");
-			bow.start();
-			double coefdist= Math.exp(-(Math.pow(p1.distance(p2)-3,2)/p1.getStuff().arc.portee)); //dagats max pour une distance de 4, repartitionn gaussienne
-			int degats= (int)(2*Math.random()*p1.getAgilite()*coefdist);		// Degats aleatoires, proportionnels a l'agilite
-			int tmp= degats;
-			if (degats>0.5*p2.getResistance()) {
-				degats= (int)(degats-0.5*p2.getResistance());
-			}else {
-				degats=0;
-			}
-			double critique= Math.random();
-
-			if(critique<(p1.getDexterite()/100)) {
-				degats= degats+tmp;
-				p2.setPv((int)(p2.getPv()-degats));
-				System.out.println("Coup critique! Vous infligez "+ degats+" degats a l'adversaire.");
-			}
-			else {
-				p2.setPv((int)(p2.getPv()-degats));
-				System.out.println("L'attaque a reussi. Vous infligez "+ degats+" degats a l'adversaire.");
-			}
-		}
-	}
-	//Attaque magique consommant du Mana, avec pour but
-	//des dégats plus ou moins élevés qui agissent dans le
-	//temps (x dégâts pendant y tours). Pas d’incidence de
-	//distance, la sagesse permet d’allonger le nombre de
-	//tours où les dégats s’inflingent.
-	public void sort (Personnage p1, Personnage p2) {
-		if(p1.getPa()>=2 && p1.getMana()>=20) {
-			p1.setPa(p1.getPa()-2);
-			p1.setMana(p1.getMana()-20);
-			int duree;
-			int degats= (int)(1.5*Math.random()*p1.getDexterite());
-			if (degats>(0.5*p2.getResistance())) {
-				degats= (int)(degats-0.5*p2.getResistance());
-			}else {
-				degats=1;
-			}
-			if(p1.getSagesse()<10) {
-				duree=1;
-			}else if(p1.getSagesse()<14) {
-				duree=2;
-			}else if(p1.getSagesse()<17){
-				duree=3;
-			}else {
-				duree=4;
-			}
-			System.out.println("L'ennemi est ensorcelé! Vous lui infligez "+degats+ " degats pendant "+ duree+ " tours.");
-			int[] effet = {-degats, duree};
-			p2.setEvo(effet);
-		}
-	}
-	*/
 	//Améliore la force du personnage
 	public void trainForce (Personnage p1) {
 		if(p1.getPa()>=1) {
@@ -269,10 +152,6 @@ public class Actions{
 			}
 		}
 	}
-	
-	
-	
-	
 	// NOUVELLE MANIERE DE FAIRE DES DEGATS /!\ /!\ /!\
 	//générateur de dégats :
 	// Prend en compte la chance des personnages. Si l'attaque échoue, la chance de l'attaquant augmente pour le prochain combat, et inversément si elle réussit
@@ -280,8 +159,6 @@ public class Actions{
 	// Le critique est activé en fonction de la chance des personnages
 	// Si l'attaque échoue, l'ennemi inflige des dégats random entre 0 et 10
 	// N est l'indicateur à prendre en compte selon le type d'attaque (force, sagesse, agilite)	
-	
-	
 	public int degats (int N1, int N2, Personnage Joueur, Personnage Adversaire) {
 		int DiffChance =  Joueur.getchance() - Adversaire.getchance();
 		int Diff =(int) ((N1-N2)*100/30 + DiffChance + (50*Math.random()-25)); //entre -250 et 250, la diffchance a moyen d'être entre 60 et -60, force -30 et 30, random -25 et 25

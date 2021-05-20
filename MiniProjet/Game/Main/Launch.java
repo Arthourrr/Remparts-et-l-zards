@@ -1,13 +1,12 @@
 package Main;
+
 import java.util.Scanner;
 
-//import java.util.Scanner;
 import Run.AePlayWave;
 import Run.DeroulementJeu;
 import Run.RunGame;
 public class Launch {
 	public static void main (String[] arg){
-
 		System.out.println("Combien de joueurs êtes-vous ?");
 		System.out.println("1: 2 joueurs (1v1)");
 		//System.out.println("2: 4 joueurs (2v2)");
