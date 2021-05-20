@@ -17,20 +17,23 @@ public class RunGame {
 		Update skip = new Update();
 		skip.setDaemon(true);
 		skip.start();
-		System.out.println("Bonjour à toi jeune aventurier. Par manque d'argent, par recherche de succès ou par goût du combat, tu entres aujourd'hui dans l'arène.");
+		System.out.println("(Passer l'intro: 0 )");
+		pause(1000);
+		System.out.println("Bonjour à toi jeune aventurier. En quête de richesses, par recherche de succès ou par goût du combat, tu entres aujourd'hui dans l'arène.");
 		pause(skip.val);
-		System.out.println("En plein coeur de la capitale, l'arène du Lion est un diamant planté au beau milieu de la Cité brillant de mille feux.");
+		System.out.println("En plein coeur de la capitale, l'arène du Lion est un diamant planté au beau milieu de la Cité brillant de mille feux."); //Mouais pas fan de la formule mdr
 		pause(skip.val);
-		System.out.println("Les arcades de ce somptueux bâtiment ont vu passer les meilleurs musiciens, acteurs, mais aussi des animaux, des spectacles de cirque, des jeux sportifs.");
+		System.out.println("Les arcades de ce somptueux bâtiment ont vu passer les plus grands musiciens, acteurs, mais aussi des animaux exotiques, des spectacles de cirque, des jeux sportifs.");
 		pause(skip.val);
-		System.out.println("Mais, l'attraction phare du stade demeure les combats de gladiateurs. La crème de la cité se bouscule pour observer les combats.");
+		System.out.println("Mais, l'attraction phare du stade demeure les combats de gladiateurs. Du simple mendiant au plus riche marchand, tous se pressent pour observer les combats.");
 		pause(skip.val);
-		System.out.println("Pour les gladiateurs, c'est une opportunité de gagner beaucoup d'argent, de devenir célèbre, ou d'améliorer ses aptitudes au combat.");
+		System.out.println("Pour les gladiateurs, c'est l'opportunité de se faire une réputation et gagner mille trésors, de s'attirer les faveurs des plus belles courtisanes du royaume, \nou encore d'améliorer ses aptitudes au combat.");
 		pause(skip.val);
-		System.out.println("Que tu sois mage, guerrier, assassin, archer, tous les coups sont permis. L'issue ne peut être que la victoire ou la mort.");
+		System.out.println("Que tu sois mage, guerrier, assassin, archer, tous les coups sont permis. L'issue ne peut être que la victoire... ou la mort.");
 		pause(skip.val);
 		System.out.println("Vous entrez donc d'un pas sûr sur le terrain, confiant en vos aptitudes guerrières.");	
 		pause(1500);
+		skip.stop();
 		System.out.println();
 		Jeu TableDeJeu = new Jeu();
 		

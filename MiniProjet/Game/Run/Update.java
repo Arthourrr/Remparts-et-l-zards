@@ -8,13 +8,11 @@ public class Update extends Thread {
 
 	public void run(){
 		Scanner stop = new Scanner(System.in);
-		while(true) {
-
+		//while(true) {
 			int tmp = stop.nextInt();
 			if (tmp==0) {
 			this.val = 0;
-
-			}
+			//}
 		}
 	}
 
