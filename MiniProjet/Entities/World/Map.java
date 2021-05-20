@@ -65,7 +65,7 @@ public class Map {
 	
 	public boolean ValidationCarte() {
 		System.out.println(AffichePlateau(this.carte));
-		Affichage.afficherMonde(this.carte);
+		//Affichage.afficherMonde(this.carte);
 		System.out.println("Etes-vous sûr ? (1: oui ; 0: retour)");
 		Scanner V = new Scanner(System.in); 
 		final int verif = V.nextInt();
