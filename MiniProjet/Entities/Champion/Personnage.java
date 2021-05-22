@@ -124,6 +124,87 @@ public class Personnage {
 		double d = Math.sqrt(Math.pow(this.getPosition()[0]-p2.getPosition()[0],2)+Math.pow(this.getPosition()[1]-p2.getPosition()[1],2));
 		return d;
 	}
+	//détecte la présence d'un obstacle (rocher...) pour empêcher l'attaque à l'arc
+	public boolean isObstacle (Personnage p2, int[][] carte ) {
+		boolean obstacle = false;
+		double dir = (p2.getPosition()[1]-this.getPosition()[1])/(p2.getPosition()[0]+this.getPosition()[0]); //coef directeur de la droite reliant les 2 joueurs
+		int x = this.getPosition()[1];
+		double y= (double)  this.getPosition()[0];
+		if (this.getPosition()[0]<p2.getPosition()[0] && this.getPosition()[1]<p2.getPosition()[1]) {
+			System.out.println("1");
+		while (x<p2.getPosition()[0]&& y<p2.getPosition()[1]) {
+			if(carte[x][(int)y]==-3) {
+				obstacle = true;
+			}
+			y=(y+dir);
+			x++;
+		}
+		}else if(this.getPosition()[0]<p2.getPosition()[0] && this.getPosition()[1]>p2.getPosition()[1]) {
+			System.out.println("2");
+			while (x>p2.getPosition()[0]&& y<p2.getPosition()[1]) {
+				if(carte[x][(int)y]==-3) {
+					obstacle = true;
+				}
+				y=(y+dir);
+				x++;
+			}
+		}else if(this.getPosition()[0]>p2.getPosition()[0] && this.getPosition()[1]<p2.getPosition()[1]) {
+			System.out.println("3");
+			while (x>p2.getPosition()[0]&& y<p2.getPosition()[1]) {
+				if(carte[x][(int)y]==-3) {
+					obstacle = true;
+				}
+				y=(y+dir);
+				x--;
+			}
+		}else if(this.getPosition()[0]>p2.getPosition()[0] && this.getPosition()[1]>p2.getPosition()[1]) {
+			System.out.println("4");
+			while (x>p2.getPosition()[0]&& y>p2.getPosition()[1]) {
+				if(carte[x][(int)y]==-3) {
+					obstacle = true;
+				}
+				y=(y+dir);
+				x--;
+			}
+		}else if(this.getPosition()[0]==p2.getPosition()[0] && this.getPosition()[1]>p2.getPosition()[1]) {
+			System.out.println("5");
+			while (y>p2.getPosition()[1]) {
+				if(carte[x][(int)y]==-3) {
+					obstacle = true;
+				}
+				x--;
+			}
+		}else if(this.getPosition()[0]==p2.getPosition()[0] && this.getPosition()[1]<p2.getPosition()[1]) {
+		System.out.println("6");
+			while (y<p2.getPosition()[1]) {
+				if(carte[x][(int)y]==-3) {
+					obstacle = true;
+				}
+				x++;
+			}
+			
+		}else if(this.getPosition()[0]<p2.getPosition()[0] && this.getPosition()[1]==p2.getPosition()[1]) {
+			System.out.println("7");
+			while (y<p2.getPosition()[1]) {
+				if(carte[x][(int)y]==-3) {
+					obstacle = true;
+				}
+				y++;
+			}
+		}
+		else if(this.getPosition()[0]>p2.getPosition()[0] && this.getPosition()[1]==p2.getPosition()[1]) {
+			System.out.println("8");
+			while (y<p2.getPosition()[1]) {
+				if(carte[x][(int)y]==-3) {
+					obstacle = true;
+				}
+				y--;
+			}
+		}
+		return obstacle;
+		
+	}
+	
 	//getters / setters
 	public int getJoueur() {
 		return joueur;

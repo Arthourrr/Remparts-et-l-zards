@@ -7,11 +7,11 @@ public class Actions{
 
 	}
 	//Interface entre le choix d’actions de DeroulementJeu et les lanceurs d’actions de cet objet. Permet de mettre en application ces actions.
-	public void choixAction (int a, int b, Personnage p1, Personnage p2, int count) { 
+	public void choixAction (int a, int b, Personnage p1, Personnage p2, int count, int[][]carte) { 
 
 		switch(a){
 		case 4 :	
-			Attaque(b,p1,p2);
+			Attaque(b,p1,p2, carte);
 			break;
 		case 1 :
 			switch(b) {
@@ -165,7 +165,7 @@ public class Actions{
 		double Res2 = (int)(Adversaire.getResistance())/30; //entre 0 et 1
 		int Dex = (int)(Joueur.getDexterite())*100/30; // entre -100 et 100
 		int degats;
-		
+
 		int CCrit = (int) Math.random()*100;
 		boolean Crit;
 		if(CCrit<(Dex + DiffChance)/2){
@@ -173,7 +173,7 @@ public class Actions{
 		}else {
 			Crit = false;
 		}
-		
+
 		Random Lucky = new Random();
 		if(Diff>0) {
 			Joueur.setchance((int)(Joueur.getchance()-Math.random()*20));
@@ -190,21 +190,21 @@ public class Actions{
 			degats = (int) (degats*0.5);
 		}else if(Diff<0) {
 			Joueur.setchance((int)(Joueur.getchance()+Math.random()*20));
-				degats = - (int)(Math.random()*10);
+			degats = - (int)(Math.random()*10);
 		}else{
 			degats = 0;
 		}
 		return degats;
 	}
-	
+
 	public int ArcDegatsChange (int degats, Personnage p1, Personnage p2) {
 		double coefdist= Math.exp(-(Math.pow(p1.distance(p2)-3,2)/p1.getStuff().arc.portee));
 		degats = (int) (degats*coefdist);
 		return degats;
 	}
-	
-	
-	
+
+
+
 	public void AppliqueAttaque (int Degats, Personnage Joueur, Personnage Adversaire) {
 		if(Degats<0) {
 			Joueur.setPv(Joueur.getPv()+Degats);
@@ -212,84 +212,87 @@ public class Actions{
 			Adversaire.setPv(Adversaire.getPv()-Degats);
 		}
 	}
-	
+
 	public void sort2 (Personnage p1, Personnage p2) {
 		System.out.println("1= Boule de feu ; 2= Dégénérescence");
 		Scanner d = new Scanner(System.in); 
 		final int c = d.nextInt();	
 		switch(c) {
-			case 1 :
-				int degatInflige;
-				degatInflige = (int)(1.2*degats(p1.getSagesse(),p2.getSagesse(),p1,p2));
-				AppliqueAttaque(degatInflige,p1,p2);
-				
-				if(degatInflige==0) {
-					System.out.println("Votre sort a échoué. L'incantation n'était pas parfait et vous pestez contre votre mémoire défaillante.");
-					System.out.println("Vos barrières psychiques vous ont cependant protégé, au prix de quelque peu de mana.");
-				}else if(degatInflige<0) {
-					System.out.println("Vous lancez votre boule de feu, qui s'avance et... revient vers vous... ");
-					System.out.println("VOus cheveux sentent le roussi, vous l'avez échappé belle. De petites brulures vous font perdre "+degatInflige+"PV");
-				}else {
-					System.out.println("Vous invoquez le feu et votre adversaire voit les enfers se déchaîner sur lui, lui infligeant "+degatInflige+"PV");
-				}
+		case 1 :
+			int degatInflige;
+			degatInflige = (int)(1.2*degats(p1.getSagesse(),p2.getSagesse(),p1,p2));
+			AppliqueAttaque(degatInflige,p1,p2);
+
+			if(degatInflige==0) {
+				System.out.println("Votre sort a échoué. L'incantation n'était pas parfait et vous pestez contre votre mémoire défaillante.");
+				System.out.println("Vos barrières psychiques vous ont cependant protégé, au prix de quelque peu de mana.");
+			}else if(degatInflige<0) {
+				System.out.println("Vous lancez votre boule de feu, qui s'avance et... revient vers vous... ");
+				System.out.println("VOus cheveux sentent le roussi, vous l'avez échappé belle. De petites brulures vous font perdre "+degatInflige+"PV");
+			}else {
+				System.out.println("Vous invoquez le feu et votre adversaire voit les enfers se déchaîner sur lui, lui infligeant "+degatInflige+"PV");
+			}
+			p1.setPa(p1.getPa()-2);
+			p1.setMana(p1.getMana()-15);
+			break;
+		case 2 :
+			if(p1.getPa()>=2 && p1.getMana()>=20) {
 				p1.setPa(p1.getPa()-2);
-				p1.setMana(p1.getMana()-15);
-				break;
-			case 2 :
-				if(p1.getPa()>=2 && p1.getMana()>=20) {
-						p1.setPa(p1.getPa()-2);
-						p1.setMana(p1.getMana()-20);
-						int duree;
-						int degats= (int)(1.5*Math.random()*p1.getDexterite());
-						if (degats>(0.5*p2.getResistance())) {
-							degats= (int)(degats-0.5*p2.getResistance());
-						}else {
-							degats=1;
-						}
-						if(p1.getSagesse()<10) {
-							duree=1;
-						}else if(p1.getSagesse()<14) {
-							duree=2;
-						}else if(p1.getSagesse()<17){
-							duree=3;
-						}else {
-							duree=4;
-						}
-						System.out.println("L'ennemi est ensorcelé! Vous lui infligez "+degats+ " degats pendant "+ duree+ " tours.");
-						int[] effet = {-degats, duree};
-						p2.setEvo(effet);
-					}
-				break;
+				p1.setMana(p1.getMana()-20);
+				int duree;
+				int degats= (int)(1.5*Math.random()*p1.getDexterite());
+				if (degats>(0.5*p2.getResistance())) {
+					degats= (int)(degats-0.5*p2.getResistance());
+				}else {
+					degats=1;
+				}
+				if(p1.getSagesse()<10) {
+					duree=1;
+				}else if(p1.getSagesse()<14) {
+					duree=2;
+				}else if(p1.getSagesse()<17){
+					duree=3;
+				}else {
+					duree=4;
+				}
+				System.out.println("L'ennemi est ensorcelé! Vous lui infligez "+degats+ " degats pendant "+ duree+ " tours.");
+				int[] effet = {-degats, duree};
+				p2.setEvo(effet);
+			}
+			break;
 		}
 	}
 
-	
 
-	public void Attaque (int N, Personnage p1, Personnage p2) {
+
+	public void Attaque (int N, Personnage p1, Personnage p2, int[][]carte) {
 		int degatInflige;
 		switch(N) {
-			case 1:
-				AePlayWave sword = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Sword.wav");
-				if(p1.distance(p2)<2&& p1.getPa()>=2) {
-					degatInflige = degats(p1.getForce(),p2.getForce(),p1,p2);
-					AppliqueAttaque(degatInflige,p1,p2);
-					if(degatInflige==0) {
-						System.out.println("Vous n'avez pu saisir une ouverture dans la défense de votre adversaire.");
-						System.out.println("Mais heureusement, vous ne lui avez pas laissé le temps de vous attaquer !");
-					}else if(degatInflige<0) {
-						System.out.println("L'attaque a échoué... l'adversaire vous a touché \net vous perdez "+degatInflige+"PV");
-					}else {
-						System.out.println("Vous sortez victorieux de cette passe d'armes ! \nVotre adversaire a subi des blessures, et perd "+degatInflige+"PV");
-					}
-					p1.setPa(p1.getPa()-2);
-					break;
+		case 1:
+			AePlayWave sword = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Sword.wav");
+			if(p1.distance(p2)<2&& p1.getPa()>=2) {
+				sword.start();
+				degatInflige = degats(p1.getForce(),p2.getForce(),p1,p2);
+				AppliqueAttaque(degatInflige,p1,p2);
+				if(degatInflige==0) {
+					System.out.println("Vous n'avez pu saisir une ouverture dans la défense de votre adversaire.");
+					System.out.println("Mais heureusement, vous ne lui avez pas laissé le temps de vous attaquer !");
+				}else if(degatInflige<0) {
+					System.out.println("L'attaque a échoué... l'adversaire vous a touché \net vous perdez "+degatInflige+"PV");
 				}else {
-					System.out.println("Bien essayé petit malin, attaquer à distance avec une épée,\n quelle idée ! Tu perds tes points d'actions si c'est comme ça !");
-					p1.setPa(0);
-					break;
+					System.out.println("Vous sortez victorieux de cette passe d'armes ! \nVotre adversaire a subi des blessures, et perd "+degatInflige+"PV");
 				}
-			case 2:
-				AePlayWave bow = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Bow.wav");
+				p1.setPa(p1.getPa()-2);
+				break;
+			}else {
+				System.out.println("Bien essayé petit malin, attaquer à distance avec une épée,\n quelle idée ! Tu perds tes points d'actions si c'est comme ça !");
+				p1.setPa(0);
+				break;
+			}
+		case 2:
+			AePlayWave bow = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Bow.wav");
+			if(p1.getPa()>=2 && !p1.isObstacle(p2, carte)) {
+				bow.start();
 				degatInflige = ArcDegatsChange(degats(p1.getAgilite(),p2.getAgilite(),p1,p2),p1,p2);
 				if(degatInflige==0) {
 					System.out.println("Vous avez raté votre coup de peu ! La prochaine sera la bonne !");
@@ -301,11 +304,13 @@ public class Actions{
 					System.out.println("Votre adversaire a perdu"+degatInflige+"PV");
 				}
 				p1.setPa(p1.getPa()-2);
-				break;				
-			case 3:
-				sort2(p1,p2);
-				break;
+			}else if (p1.getPa()>=2 && p1.isObstacle(p2, carte)) {
+				System.out.println("Votre adversaire est à couvert, vous ne pouvez pas l'atteindre.");
+			}
+			break;				
+		case 3:
+			sort2(p1,p2);
+			break;
 		}
 	}
-	
 }

@@ -62,18 +62,19 @@ public class RunGame {
 		}while(TableDeJeu.getPlateau()[Perso2.getPosition()[0]][Perso2.getPosition()[1]]!=0);
 		TableDeJeu.PosePion(Perso2.getPosition()[0],Perso2.getPosition()[1],Perso2);//pose le joueur sur un pt du tableau
 		Intro.stop();
+		//music début
+				Timer timer = new Timer(true);
+				TimerTask PlayCbt1 = new IntroCombat();
+				TimerTask PlayCbt2 = new PlayCombat();
+				timer.schedule(PlayCbt1, 0);
+				timer.scheduleAtFixedRate(PlayCbt2, 0, 87000 );
+
 		System.out.println(Perso1.getNom() +"   VS   "+ Perso2.getNom());
 		//partie
 		DeroulementJeu.DeroulementPartie(Perso1,Perso2,TableDeJeu);
 		DeroulementJeu.Gagnant(compteur,Perso1,Perso2);
 		
-		//music début
-		Timer timer = new Timer(true);
-		TimerTask PlayCbt1 = new IntroCombat();
-		TimerTask PlayCbt2 = new PlayCombat();
-		timer.schedule(PlayCbt1, 0);
-		timer.scheduleAtFixedRate(PlayCbt2, 0, 87000 );
-
+		
 	}
 	
 	public static void pause(long lag) {

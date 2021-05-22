@@ -63,7 +63,7 @@ public class DeroulementJeu {
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
 						
-						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur);
+						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur, tabledejeu.getPlateau());
 						pause(1200);
 						break;
 					case 2 :
@@ -85,7 +85,7 @@ public class DeroulementJeu {
 						System.out.println("1 = Epée \t 2 = Arc \t 3 = Sort"); // /!\methodes manquantes
 						Scanner a = new Scanner(System.in); 
 						final int numerobis = a.nextInt();
-						persoA.getPlay().choixAction(numero, numerobis, persoA, persoB, compteur); //numero= categorie d'action, numerobis= sous-categorie.
+						persoA.getPlay().choixAction(numero, numerobis, persoA, persoB, compteur, tabledejeu.getPlateau()); //numero= categorie d'action, numerobis= sous-categorie.
 						pause(1200);
 						break;						
 				}
@@ -98,7 +98,7 @@ public class DeroulementJeu {
 						System.out.println("1 = Améliorer la force  \t 2 = Marché \t 3 = Utiliser un objet \\n 0 = retour"); // /!\methodes manquantes
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
-						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur);
+						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur, tabledejeu.getPlateau());
 						pause(1200);
 						break;
 					case 2 :
