@@ -292,6 +292,7 @@ public class Actions{
 		case 2:
 			AePlayWave bow = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Bow.wav");
 			if(p1.getPa()>=2 && !p1.isObstacle(p2, carte)) {
+				System.out.println(p1.isObstacle(p2, carte));
 				bow.start();
 				degatInflige = ArcDegatsChange(degats(p1.getAgilite(),p2.getAgilite(),p1,p2),p1,p2);
 				if(degatInflige==0) {

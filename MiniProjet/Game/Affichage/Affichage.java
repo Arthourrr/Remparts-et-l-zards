@@ -23,13 +23,13 @@ public class Affichage extends JFrame {
 	private static String modeJeu;
 
 	private Affichage(int[][] monde, int maRes) {
-		super("Tourelles et Gargouilles");
+		super("Remparts et Lézards");
 		pg = new PanneauGrille(monde, maRes);
 		setContentPane(pg);
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setResizable(true);
+		setResizable(false);
 		setVisible(true);
 	}
 

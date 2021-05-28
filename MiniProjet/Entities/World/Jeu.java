@@ -97,13 +97,22 @@ public class Jeu {
 	public void SpawnGoldRegulier() {
 		int x=0;
 		int y=0;
+		int isPièces= 0;
+		
 		do {
+			for (int i=0; i< this.getPlateau().length; i++) {
+				for (int j=0; j< this.getPlateau()[0].length; j++) {
+					if(this.getPlateau()[i][j]>0)
+						isPièces++;
+				}
+			}
 			x = (int) (this.Plateau.length*Math.random());
 			y = (int) (this.Plateau[0].length*Math.random());
-			if(this.getPlateau()[x][y] == 0){ 	
+			System.out.println(isPièces);
+			if(this.getPlateau()[x][y] == 0 && isPièces<2){ 	
 				this.getPlateau()[x][y]=10;
 			}
-		}while(this.getPlateau()[x][y] != 10);
+		}while(this.getPlateau()[x][y] != 10 && isPièces<2);
 	}
 	//getters/setters
 	public void PlaceObstacles (int X, int Y) {

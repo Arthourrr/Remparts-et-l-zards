@@ -14,7 +14,8 @@ public class Test {
 		Personnage p2 = new Personnage(2);
 		int[] pos2 = {1,0};
 		p2.setPosition(pos2);
-		System.out.println(p1.isObstacle(p2, carte));
+		if(!p1.isObstacle(p2, carte));
+		//System.out.println(p1.isObstacle(p2, carte));
 	}
 	public static String affiche(int[][] carte) {
 	String description = "\n-----------------------------------------\n";

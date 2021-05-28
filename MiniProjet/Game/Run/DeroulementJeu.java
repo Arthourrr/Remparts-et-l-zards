@@ -24,7 +24,7 @@ public class DeroulementJeu {
                 compteur++;
             }
             tabledejeu.SpawnGoldRegulier();
-            tabledejeu.RandomGoldSpawn();
+            //tabledejeu.RandomGoldSpawn();
         }
         Gagnant(compteur, p1, p2);
     }
@@ -132,16 +132,12 @@ public class DeroulementJeu {
 		System.out.println("Gauche (4), droite (6), haut(8), bas(2)");
         Scanner n = new Scanner(System.in); 
         int numero = n.nextInt();
-        if(numero==4){numero=3;}
-        if(numero==6){numero=4;}
-        if(numero==8){numero=1;}
-        if(numero==2){numero=2;}
         int newposval;
 			switch(numero){
-				case 1 :
+				case 8 : //déplacement vers le haut
 					if(perso.getPosition()[0]!=0){
 						newposval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]];
-						if(newposval!= -1 && newposval!= -2 && newposval!=-3){
+						if(newposval>=0){
 							perso.setPo(perso.getPo()+newposval);
 							System.out.println((!(newposval == 0))? "Vous ramassez "+newposval+" pièces d'or!" : "");
 							mouvement[0]=-1;
@@ -150,36 +146,38 @@ public class DeroulementJeu {
 						}
 					}
 					break;
-				case 2 :
+				case 2 : // bas
 					if(perso.getPosition()[0]!=tabledejeu.getPlateau().length-1){
 						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]+1][perso.getPosition()[1]];
-						if(newposval!= -1 && newposval!= -2 && newposval!=-3){
+						if(newposval>=0){
 							perso.setPo(perso.getPo()+newposval);
 							mouvement[0]=1;
 							mouvement[2]=1;
 						}
 					}					
 					break;
-				case 3 :
+				case 4 : // gauche
 					if(perso.getPosition()[1]!=0){
 						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]-1];
-						if(newposval!= -1 && newposval!= -2 && newposval!=-3){
+						if(newposval>=0){
 							perso.setPo(perso.getPo()+newposval);
 							mouvement[1]=-1;
 							mouvement[2]=1;
 						}
 					}
 					break;
-				case 4 :
+				case 6 : // droite
 					if(perso.getPosition()[1]!=tabledejeu.getPlateau()[0].length-1){
 						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]+1];	
-						if(newposval!= -1 && newposval!= -2 && newposval!=-3){
+						if(newposval>=0){
 							perso.setPo(perso.getPo()+newposval);
 							mouvement[1]=1;
 							mouvement[2]=1;
 						}
 					}
-					break;						
+					break;
+					
+					/* "position": int[][], position[0]= position en ordonnée, position[1]= position en abscisse*/
 			}
 			return mouvement;
 	}
