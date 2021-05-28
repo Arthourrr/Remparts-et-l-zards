@@ -6,10 +6,15 @@ public class RefreshAff extends TimerTask{
 	int[][]monde;
 	int det;
 	String modeJeu;
-
-	public RefreshAff(int[][]a, String modeJeu) {
+	//int modejeu;
+	public RefreshAff(int[][]a, int modejeu) {
 		this.monde=a;
-		this.modeJeu= modeJeu;
+		//this.modejeu =modejeu;
+		if(modejeu == 1) {
+			this.modeJeu= "clairiere";
+		}else if(modejeu == 2) {
+			this.modeJeu = "volcan";
+		}
 	}
 	
 	@Override
@@ -19,8 +24,8 @@ public class RefreshAff extends TimerTask{
 		}else if (!(det==1)) {
 			det=1;
 		}
-
-		//System.out.println("Thread Refresh = "+det);
+		//System.out.println(modejeu);
+		//System.out.println(modeJeu);
 		Affichage.afficherMonde(monde, 100, det, modeJeu);
 		//Display display = new Display(monde, det);
 		//display.start();

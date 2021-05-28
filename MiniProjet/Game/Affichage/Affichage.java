@@ -7,7 +7,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.awt.*;
-
+import World.Jeu;
 /**
  * Gestionnaire d'affichage pour le jeu de la vie.
  * @author Brice Chardin, modifiee par Jean-Francois TREGOUET

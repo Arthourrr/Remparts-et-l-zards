@@ -2,7 +2,6 @@ package Run;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import Affichage.RefreshAff;
 import Champion.Personnage;
 import World.Jeu;
@@ -25,6 +24,7 @@ public class DeroulementJeu {
             }
             tabledejeu.SpawnGoldRegulier();
             //tabledejeu.RandomGoldSpawn();
+            tabledejeu.fissures(compteur);
         }
         Gagnant(compteur, p1, p2);
     }
@@ -37,7 +37,7 @@ public class DeroulementJeu {
     public static void Tour(Personnage persoA, Personnage persoB, Jeu tabledejeu, int compteur){
     		//Auto-refresh de l'Affichage 
     	Timer loop= new Timer();
-		TimerTask Refresh = new RefreshAff(tabledejeu.getPlateau(), "clairiere");
+		TimerTask Refresh = new RefreshAff(tabledejeu.getPlateau(), tabledejeu.getModeJeu());
 		loop.scheduleAtFixedRate(Refresh, 0, 300 );
     	
     	int fight=1;

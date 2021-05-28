@@ -2,14 +2,15 @@ package World;
 import Champion.Personnage;
 public class Jeu {
 	private int[][] Plateau;//Plateau du jeu
+	private static int modeJeu;
 	Map ChoixCarte = new Map();
 	public Jeu (){
-		this.setPlateau(InitJeu());
+		this.setPlateau(InitJeu(this.modeJeu));
 	} 
 	//initialise un tableau 5x5 prédéfini
-	public int[][] InitJeu(){
+	public int[][] InitJeu(int modeJeu){
 		int[][] PlateauDeJeu;
-		ChoixCarte.InitCarte();
+		ChoixCarte.InitCarte(modeJeu);
 		PlateauDeJeu = ChoixCarte.carte;
 		return PlateauDeJeu;
 	}
@@ -114,6 +115,26 @@ public class Jeu {
 			}
 		}while(this.getPlateau()[x][y] != 10 && isPièces<2);
 	}
+	public void fissures(int count) {
+		if(count%4 ==0) {
+			int x,y;
+			do {
+				
+				x = (int) (this.Plateau.length*Math.random());
+				y = (int) (this.Plateau[0].length*Math.random());
+				if(this.getPlateau()[x][y] == 0  ){ //provisoire : a terme trouver un moyen de donner à la fois l'état "joueur présent" et "fissuré" à une même case	
+					this.getPlateau()[x][y]= -5;
+				}
+			}while(this.getPlateau()[x][y] != -5);
+		}else {
+		for (int i=0; i< this.getPlateau().length; i++) {
+			for (int j=0; j< this.getPlateau()[0].length; j++) {
+				if(this.getPlateau()[i][j]==-5) {
+					this.getPlateau()[i][j]=-6;
+				}
+			}}
+		}
+	}
 	//getters/setters
 	public void PlaceObstacles (int X, int Y) {
 		this.getPlateau()[X][Y]=-3;
@@ -123,5 +144,11 @@ public class Jeu {
 	}
 	public void setPlateau(int[][] plateau) {
 		Plateau = plateau;
+	}
+	public int getModeJeu() {
+		return modeJeu;
+	}
+	public static void setModeJeu(int ModeJeu) {
+		modeJeu = ModeJeu;
 	}
 }
