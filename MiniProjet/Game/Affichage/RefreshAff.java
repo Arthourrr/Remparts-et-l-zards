@@ -3,11 +3,11 @@ package Affichage;
 import java.util.TimerTask;
 
 public class RefreshAff extends TimerTask{
-	int[][]monde;
+	int[][][]monde;
 	int det;
 	String modeJeu;
 	//int modejeu;
-	public RefreshAff(int[][]a, int modejeu) {
+	public RefreshAff(int[][][]a, int modejeu) {
 		this.monde=a;
 		//this.modejeu =modejeu;
 		if(modejeu == 1) {

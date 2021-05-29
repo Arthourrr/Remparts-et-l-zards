@@ -1,16 +1,15 @@
 package World;
 import Champion.Personnage;
 public class Jeu {
-	private int[][] Plateau;//Plateau du jeu
-	private static int modeJeu;
+	private int[][][] Plateau;//Plateau du jeu //y, x, map, effets, joueur 
 	Map ChoixCarte = new Map();
 	public Jeu (){
-		this.setPlateau(InitJeu(this.modeJeu));
+		this.setPlateau(InitJeu());
 	} 
 	//initialise un tableau 5x5 prédéfini
-	public int[][] InitJeu(int modeJeu){
-		int[][] PlateauDeJeu;
-		ChoixCarte.InitCarte(modeJeu);
+	public int[][][] InitJeu(){
+		int[][][] PlateauDeJeu;
+		ChoixCarte.InitCarte();
 		PlateauDeJeu = ChoixCarte.carte;
 		return PlateauDeJeu;
 	}
@@ -18,29 +17,25 @@ public class Jeu {
 	public void PosePion(int x,int y, Personnage perso){
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
-				if(this.getPlateau()[i][j]==-perso.getJoueur()){
-					this.getPlateau()[i][j]=0;
+				if(this.getPlateau()[i][j][2]==-perso.getJoueur()){
+					this.getPlateau()[i][j][2]=0;
 				}
-				else{
-					this.getPlateau()[i][j]=this.getPlateau()[i][j];
-				}
+				//else{this.getPlateau()[i][j][2]=this.getPlateau()[i][j][2];}
 			}
 		}	
-		this.getPlateau()[x][y]=-perso.getJoueur();
+		this.getPlateau()[x][y][2]=-perso.getJoueur();
 	}
 	//Déplace un personnage d’un point à un autre du tableau
 	public void DeplacePion(int x,int y, Personnage perso){
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
-				if(this.getPlateau()[i][j]==-perso.getJoueur()){
-					this.getPlateau()[i][j]=0;
+				if(this.getPlateau()[i][j][2]==-perso.getJoueur()){
+					this.getPlateau()[i][j][2]=0;
 				}
-				else{
-					this.getPlateau()[i][j]=this.getPlateau()[i][j];
-				}
+				//else{this.getPlateau()[i][j]=this.getPlateau()[i][j];}
 			}
 		}	
-		this.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]]=-perso.getJoueur();
+		this.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]][2]=-perso.getJoueur();
 	}	
 	//Affichage du plateau
 	public String AffichePlateau (){
@@ -53,15 +48,17 @@ public class Jeu {
 
 			for(int j=0; j<this.getPlateau()[0].length; j++){
 
-				if(this.getPlateau()[i][j]==0){
+				if(this.getPlateau()[i][j]==new int[] {0,0,0}){
 					description = description+"|\t";
-				}else if(this.getPlateau()[i][j]==-1){
+				}else if(this.getPlateau()[i][j][2]== -1){
 					description = description+"|  J1\t";
-				}else if(this.getPlateau()[i][j]==-2){
+				}else if(this.getPlateau()[i][j][2]== -2){
 					description = description+"|  J2\t";
-				}else if(this.getPlateau()[i][j]==-3) {
+				}else if(this.getPlateau()[i][j][0]==-3) {
 					description = description+"|  B\t";
-				}else{
+				}else if(this.getPlateau()[i][j][0]==-4) {
+					description = description+"|  R\t";
+				}else if(this.getPlateau()[i][j][2]>0){ //exception: pièces rangées dans la colonne joueur pour combiner avec obstacles & effets
 					description = description+"|  °°°\t";
 				}
 			}
@@ -85,11 +82,11 @@ public class Jeu {
 			for(int i=0; i<3; i++) {
 				x = (int) (this.Plateau.length*Math.random());
 				y = (int) (this.Plateau[0].length*Math.random());
-				if(this.getPlateau()[x][y] == 0){ 
+				if(this.getPlateau()[x][y][2] == 0){ 
 					do{
 						g = (int) (100*Math.random());
 					}while(g==0);	
-					this.getPlateau()[x][y]=(int) (100*Math.random());
+					this.getPlateau()[x][y][2]=(int) (100*Math.random());
 				}	
 			}
 		}
@@ -103,17 +100,17 @@ public class Jeu {
 		do {
 			for (int i=0; i< this.getPlateau().length; i++) {
 				for (int j=0; j< this.getPlateau()[0].length; j++) {
-					if(this.getPlateau()[i][j]>0)
+					if(this.getPlateau()[i][j][2]>0)
 						isPièces++;
 				}
 			}
 			x = (int) (this.Plateau.length*Math.random());
 			y = (int) (this.Plateau[0].length*Math.random());
 			System.out.println(isPièces);
-			if(this.getPlateau()[x][y] == 0 && isPièces<2){ 	
-				this.getPlateau()[x][y]=10;
+			if(this.getPlateau()[x][y][2] == 0 && isPièces<2){ 	
+				this.getPlateau()[x][y][2]=10;
 			}
-		}while(this.getPlateau()[x][y] != 10 && isPièces<2);
+		}while(this.getPlateau()[x][y][2] != 10 && isPièces<2);
 	}
 	public void fissures(int count) {
 		if(count%4 ==0) {
@@ -122,33 +119,26 @@ public class Jeu {
 				
 				x = (int) (this.Plateau.length*Math.random());
 				y = (int) (this.Plateau[0].length*Math.random());
-				if(this.getPlateau()[x][y] == 0  ){ //provisoire : a terme trouver un moyen de donner à la fois l'état "joueur présent" et "fissuré" à une même case	
-					this.getPlateau()[x][y]= -5;
+				if(this.getPlateau()[x][y][0] == 0  ){ 
+					this.getPlateau()[x][y][0]= -5;
 				}
-			}while(this.getPlateau()[x][y] != -5);
+			}while(this.getPlateau()[x][y][0] != -5);
 		}else {
 		for (int i=0; i< this.getPlateau().length; i++) {
 			for (int j=0; j< this.getPlateau()[0].length; j++) {
-				if(this.getPlateau()[i][j]==-5) {
-					this.getPlateau()[i][j]=-6;
+				if(this.getPlateau()[i][j][0]==-5) {
+					this.getPlateau()[i][j][0]=-6;
 				}
 			}}
 		}
 	}
 	//getters/setters
-	public void PlaceObstacles (int X, int Y) {
-		this.getPlateau()[X][Y]=-3;
-	}	
-	public int[][] getPlateau() {
+	
+	public int[][][] getPlateau() {
 		return Plateau;
 	}
-	public void setPlateau(int[][] plateau) {
+	public void setPlateau(int[][][] plateau) {
 		Plateau = plateau;
 	}
-	public int getModeJeu() {
-		return modeJeu;
-	}
-	public static void setModeJeu(int ModeJeu) {
-		modeJeu = ModeJeu;
-	}
+
 }

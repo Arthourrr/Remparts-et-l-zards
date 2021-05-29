@@ -14,7 +14,9 @@ public class DeroulementJeu {
 //Affiche le gagnant Ã  la fin
 	public static void DeroulementPartie(Personnage p1 , Personnage p2, Jeu tabledejeu){
         int compteur=1;
-        while (!Fini(p1,p2)){
+        Fini fin = new Fini(p1, p2, tabledejeu.getPlateau());
+        fin.start();
+        while (true){
             if (compteur%2!=0){
 				Tour(p1,p2,tabledejeu, compteur);
                 compteur++;
@@ -26,7 +28,7 @@ public class DeroulementJeu {
             //tabledejeu.RandomGoldSpawn();
             tabledejeu.fissures(compteur);
         }
-        Gagnant(compteur, p1, p2);
+        //Gagnant(compteur, p1, p2);
     }
 //Mise à jour de la position du personnage vers un point de coordonnées X,Y 
  	public static void Move (Personnage perso, Jeu tabledejeu, int X, int Y){
@@ -37,7 +39,7 @@ public class DeroulementJeu {
     public static void Tour(Personnage persoA, Personnage persoB, Jeu tabledejeu, int compteur){
     		//Auto-refresh de l'Affichage 
     	Timer loop= new Timer();
-		TimerTask Refresh = new RefreshAff(tabledejeu.getPlateau(), tabledejeu.getModeJeu());
+		TimerTask Refresh = new RefreshAff(tabledejeu.getPlateau(), tabledejeu.getPlateau()[0][0][3]);
 		loop.scheduleAtFixedRate(Refresh, 0, 300 );
     	
     	int fight=1;
@@ -132,47 +134,63 @@ public class DeroulementJeu {
 		System.out.println("Gauche (4), droite (6), haut(8), bas(2)");
         Scanner n = new Scanner(System.in); 
         int numero = n.nextInt();
-        int newposval;
+        int persval;
+        int mapval;
+        int effectval;
 			switch(numero){
 				case 8 : //déplacement vers le haut
 					if(perso.getPosition()[0]!=0){
-						newposval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]];
-						if(newposval>=0){
-							perso.setPo(perso.getPo()+newposval);
-							System.out.println((!(newposval == 0))? "Vous ramassez "+newposval+" pièces d'or!" : "");
+						mapval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]][0];
+						effectval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]][1];
+						persval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]][2];
+						if(persval>=0 && mapval != (-3) && mapval!= -4){
+							perso.setPo(perso.getPo()+persval);
+							System.out.println((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
 							mouvement[0]=-1;
 							mouvement[2]=1;
-							pause ( (!(newposval == 0))? 1200 : 0);
+							pause ( (!(persval == 0))? 1200 : 0);
 						}
 					}
 					break;
 				case 2 : // bas
 					if(perso.getPosition()[0]!=tabledejeu.getPlateau().length-1){
-						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]+1][perso.getPosition()[1]];
-						if(newposval>=0){
-							perso.setPo(perso.getPo()+newposval);
+						mapval=tabledejeu.getPlateau()[perso.getPosition()[0]+1][perso.getPosition()[1]][0];
+						effectval= tabledejeu.getPlateau()[perso.getPosition()[0]+1][perso.getPosition()[1]][1];
+						persval= tabledejeu.getPlateau()[perso.getPosition()[0]+1][perso.getPosition()[1]][2];
+						if(persval>=0 && mapval != (-3) && mapval!= -4){
+							perso.setPo(perso.getPo()+persval);
+							System.out.println((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
 							mouvement[0]=1;
 							mouvement[2]=1;
+							pause ( (!(persval == 0))? 1200 : 0);
 						}
 					}					
 					break;
 				case 4 : // gauche
 					if(perso.getPosition()[1]!=0){
-						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]-1];
-						if(newposval>=0){
-							perso.setPo(perso.getPo()+newposval);
+						mapval=tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]-1][0];
+						effectval= tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]-1][1];
+						persval= tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]-1][2];
+						if(persval>=0 && mapval != (-3) && mapval!= -4){
+							perso.setPo(perso.getPo()+persval);
+							System.out.println((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
 							mouvement[1]=-1;
 							mouvement[2]=1;
+							pause ( (!(persval == 0))? 1200 : 0);
 						}
 					}
 					break;
 				case 6 : // droite
 					if(perso.getPosition()[1]!=tabledejeu.getPlateau()[0].length-1){
-						newposval=tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]+1];	
-						if(newposval>=0){
-							perso.setPo(perso.getPo()+newposval);
+						mapval=tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]+1][0];
+						effectval= tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]+1][1];
+						persval= tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]+1][2];
+						if(persval>=0 && mapval != (-3) && mapval!= -4){
+							perso.setPo(perso.getPo()+persval);
+							System.out.println((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
 							mouvement[1]=1;
 							mouvement[2]=1;
+							pause ( (!(persval == 0))? 1200 : 0);
 						}
 					}
 					break;
@@ -192,10 +210,10 @@ public class DeroulementJeu {
 //Affiche la fin de partie et le gagnant /!\ to fix
     public static void Gagnant(int compteur,Personnage perso1, Personnage perso2){
         System.out.println("Le combat est terminé.");
-        if (compteur%2==0){
-            System.out.println(perso1.getNom()+" a gagné ! Par le sang ou les flammes, tu as su vaincre ton adversaire. Le public t'acclame, et sous les cris de tes admirateurs en furie, dignement, tu t'en va face au soleil couchant.");
-        }else{
-            System.out.println(perso2.getNom()+" a gagné ! Par le sang ou les flammes, tu as su vaincre ton adversaire. Le public t'acclame, et sous les cris de tes admirateurs en furie, dignement, tu t'en va face au soleil couchant.");
+        if (perso1.getPv()>0){
+            System.out.println(perso1.getNom()+" a gagné ! Par le sang ou les flammes, tu as su vaincre ton adversaire. Le public t'acclame, et sous les cris de tes admirateurs en furie, dignement, tu t'en vas face au soleil couchant.");
+        }else if(perso2.getPv()>0){
+            System.out.println(perso2.getNom()+" a gagné ! Par le sang ou les flammes, tu as su vaincre ton adversaire. Le public t'acclame, et sous les cris de tes admirateurs en furie, dignement, tu t'en vas face au soleil couchant.");
         }
     }
  //Affichage des aides pendant une partie

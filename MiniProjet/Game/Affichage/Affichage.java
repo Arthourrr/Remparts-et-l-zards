@@ -22,7 +22,7 @@ public class Affichage extends JFrame {
 	private static String det;
 	private static String modeJeu;
 
-	private Affichage(int[][] monde, int maRes) {
+	private Affichage(int[][][] monde, int maRes) {
 		super("Remparts et Lézards");
 		pg = new PanneauGrille(monde, maRes);
 		setContentPane(pg);
@@ -39,7 +39,7 @@ public class Affichage extends JFrame {
 	 * de l'ecran.
 	 * @param monde le monde à afficher
 	 */
-	public static void afficherMonde(int[][] monde, int a, String carte) {
+	public static void afficherMonde(int[][][] monde, int a, String carte) {
 		afficherMonde(monde,calcRes(monde), a, carte);
 	}
 
@@ -48,7 +48,7 @@ public class Affichage extends JFrame {
 	 * @param monde le monde à afficher
 	 * @param res longueur d'un coté de cellule (en nombre de pixel)
 	 */
-	public static void afficherMonde(int[][] monde, int maRes, int a, String carte) {
+	public static void afficherMonde(int[][][] monde, int maRes, int a, String carte) {
 		if (world==null) {
 			world = new Affichage(monde,maRes);
 		}
@@ -65,7 +65,7 @@ public class Affichage extends JFrame {
 	 * de l'ecran.
 	 * @param monde le monde à afficher
 	 */
-	private static int calcRes(int[][] monde) {
+	private static int calcRes(int[][][] monde) {
 		final double p = .8; // pourcentage de la zone utile a occuper
 		int resC;
 		Rectangle bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds(); // Taille zone utile
@@ -78,8 +78,8 @@ public class Affichage extends JFrame {
 	static class PanneauGrille extends JPanel {
 		private int res;
 		private BufferedImage worldImage;
-		public int[][] monde;
-		public PanneauGrille(int[][] monde, int maRes) {
+		public int[][][] monde;
+		public PanneauGrille(int[][][] monde, int maRes) {
 			res = maRes;
 			worldImage = new BufferedImage(res*monde[0].length,res*monde.length,BufferedImage.TYPE_INT_RGB);
 			// System.out.println(new Dimension(res*monde[0].length,res*monde.length));
@@ -93,7 +93,7 @@ public class Affichage extends JFrame {
 
 			for (int i = 0; i < nbL; i++)
 				for (int j = 0; j < nbC; j++) {
-					switch (monde[i][j]) {
+					switch (monde[i][j][0]) {
 					case (-1):
 						AfficheEntite("Guerrier.B"+det+".png", g, i, j);
 					break;
@@ -113,7 +113,47 @@ public class Affichage extends JFrame {
 						AfficheEntite("Obstacle.Trou.png", g, i, j);
 					break;
 					}
-					if (monde[i][j]>0 && monde[i][j]<100) {
+					switch (monde[i][j][1]) {
+					case (-1):
+						AfficheEntite("Guerrier.B"+det+".png", g, i, j);
+					break;
+					case (-2):
+						AfficheEntite("Guerrier.R"+det+".png", g, i, j);
+					break;
+					case (-3):
+						AfficheEntite("Obstacle.Buisson"+".png", g, i, j);
+					break;
+					case (-4):
+						AfficheEntite("Obstacle.Rocher"+".png", g, i, j);
+					break;
+					case (-5):
+						AfficheEntite("Obstacle.Fissures.png", g, i, j);
+					break;
+					case (-6):
+						AfficheEntite("Obstacle.Trou.png", g, i, j);
+					break;
+					}
+					switch (monde[i][j][2]) {
+					case (-1):
+						AfficheEntite("Guerrier.B"+det+".png", g, i, j);
+					break;
+					case (-2):
+						AfficheEntite("Guerrier.R"+det+".png", g, i, j);
+					break;
+					case (-3):
+						AfficheEntite("Obstacle.Buisson"+".png", g, i, j);
+					break;
+					case (-4):
+						AfficheEntite("Obstacle.Rocher"+".png", g, i, j);
+					break;
+					case (-5):
+						AfficheEntite("Obstacle.Fissures.png", g, i, j);
+					break;
+					case (-6):
+						AfficheEntite("Obstacle.Trou.png", g, i, j);
+					break;
+					}
+					if (monde[i][j][2]>0 && monde[i][j][2]<100) {
 						AfficheEntite("Pièces"+det+".png", g, i, j);
 					}
 				}      

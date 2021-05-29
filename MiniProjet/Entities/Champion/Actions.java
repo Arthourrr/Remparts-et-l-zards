@@ -7,7 +7,7 @@ public class Actions{
 
 	}
 	//Interface entre le choix d’actions de DeroulementJeu et les lanceurs d’actions de cet objet. Permet de mettre en application ces actions.
-	public void choixAction (int a, int b, Personnage p1, Personnage p2, int count, int[][]carte) { 
+	public void choixAction (int a, int b, Personnage p1, Personnage p2, int count, int[][][]carte) { 
 
 		switch(a){
 		case 4 :	
@@ -265,7 +265,7 @@ public class Actions{
 
 
 
-	public void Attaque (int N, Personnage p1, Personnage p2, int[][]carte) {
+	public void Attaque (int N, Personnage p1, Personnage p2, int[][][]carte) {
 		int degatInflige;
 		switch(N) {
 		case 1:

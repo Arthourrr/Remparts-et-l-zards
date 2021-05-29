@@ -125,7 +125,7 @@ public class Personnage {
 		return d;
 	}
 	//détecte la présence d'un obstacle (rocher...) pour empêcher l'attaque à l'arc
-	public boolean isObstacle (Personnage p2, int[][] carte ) {
+	public boolean isObstacle (Personnage p2, int[][][] carte ) {
 		boolean obstacle = false;
 		double dir = 0;
 		if(this.getPosition()[1]!=p2.getPosition()[1]) {	dir = (p2.getPosition()[0]-this.getPosition()[0])/(p2.getPosition()[1]-this.getPosition()[1]);} //coef directeur de la droite reliant les 2 joueurs
@@ -134,7 +134,7 @@ public class Personnage {
 		if (this.getPosition()[1]<p2.getPosition()[1] && this.getPosition()[0]<p2.getPosition()[0]) {     //p1 en haut à gauche de p2
 			//System.out.println("1");
 		while (x<p2.getPosition()[1]&& y<p2.getPosition()[0]) { 
-			if(carte[(int)y][x]==-4) {
+			if(carte[(int)y][x][0]==-4) {
 				obstacle = true;
 			}
 			y=(y+dir);
@@ -143,7 +143,7 @@ public class Personnage {
 		}else if(this.getPosition()[1]<p2.getPosition()[1] && this.getPosition()[0]>p2.getPosition()[0]) {   //p1 en bas à gauche de p2
 			//System.out.println("2");
 			while (x<p2.getPosition()[1]&& y>p2.getPosition()[0]) {
-				if(carte[(int)y][x]==-4) {
+				if(carte[(int)y][x][0]==-4) {
 					obstacle = true;
 				}
 				y=(y+dir);
@@ -152,7 +152,7 @@ public class Personnage {
 		}else if(this.getPosition()[1]>p2.getPosition()[1] && this.getPosition()[0]<p2.getPosition()[0]) {
 			//System.out.println("3");
 			while (x>p2.getPosition()[1]&& y<p2.getPosition()[0]) {
-				if(carte[(int)y][x]==-4) {
+				if(carte[(int)y][x][0]==-4) {
 					obstacle = true;
 				}
 				y=(y-dir);
@@ -161,7 +161,7 @@ public class Personnage {
 		}else if(this.getPosition()[1]>p2.getPosition()[1] && this.getPosition()[0]>p2.getPosition()[0]) {
 			//System.out.println("4");
 			while (x>p2.getPosition()[1]&& y>p2.getPosition()[0]) {
-				if(carte[(int)y][x]==-4) {
+				if(carte[(int)y][x][0]==-4) {
 					obstacle = true;
 				}
 				y=(y-dir);
@@ -170,7 +170,7 @@ public class Personnage {
 		}else if(this.getPosition()[1]==p2.getPosition()[1] && this.getPosition()[0]>p2.getPosition()[0]) {
 			//System.out.println("5");
 			while (y>p2.getPosition()[0]) {
-				if(carte[(int)y][x]==-4) {
+				if(carte[(int)y][x][0]==-4) {
 					obstacle = true;
 				}
 				y--;
@@ -178,7 +178,7 @@ public class Personnage {
 		}else if(this.getPosition()[1]==p2.getPosition()[1] && this.getPosition()[0]<p2.getPosition()[0]) {
 		//System.out.println("6");
 			while (y<p2.getPosition()[0]) {
-				if(carte[(int)y][x]==-4) {
+				if(carte[(int)y][x][0]==-4) {
 					obstacle = true;
 				}
 				y++;
@@ -187,7 +187,7 @@ public class Personnage {
 		}else if(this.getPosition()[1]<p2.getPosition()[1] && this.getPosition()[0]==p2.getPosition()[0]) {
 			//System.out.println("7");
 			while (x<p2.getPosition()[1]) {
-				if(carte[(int)y][x]==-4) {
+				if(carte[(int)y][x][0]==-4) {
 					obstacle = true;
 				}
 				x++;
@@ -196,7 +196,7 @@ public class Personnage {
 		else if(this.getPosition()[1]>p2.getPosition()[1] && this.getPosition()[1]==p2.getPosition()[1]) {
 			//System.out.println("8");
 			while (x>p2.getPosition()[1]) {
-				if(carte[(int)y][x]==-4) {
+				if(carte[(int)y][x][0]==-4) {
 					obstacle = true;
 				}
 				x--;

@@ -47,7 +47,7 @@ public class RunGame {
 		Initialisation.InitPerso(Perso1);
 		do {
 			Perso1.getInit().Spawn(0,0,Perso1,TableDeJeu);
-		}while(TableDeJeu.getPlateau()[Perso1.getPosition()[0]][Perso1.getPosition()[1]]!=0);
+		}while(TableDeJeu.getPlateau()[Perso1.getPosition()[0]][Perso1.getPosition()[1]][2]!=0);
 		TableDeJeu.PosePion(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso1);//pose le joueur sur un pt du tableau
 		
 
@@ -59,7 +59,7 @@ public class RunGame {
 		Initialisation.InitPerso(Perso2);
 		do {
 			Perso2.getInit().Spawn(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso2,TableDeJeu);	
-		}while(TableDeJeu.getPlateau()[Perso2.getPosition()[0]][Perso2.getPosition()[1]]!=0);
+		}while(TableDeJeu.getPlateau()[Perso2.getPosition()[0]][Perso2.getPosition()[1]][2]!=0);
 		TableDeJeu.PosePion(Perso2.getPosition()[0],Perso2.getPosition()[1],Perso2);//pose le joueur sur un pt du tableau
 		Intro.stop();
 		//music début
