@@ -107,19 +107,19 @@ public class Jeu {
 			x = (int) (this.Plateau.length*Math.random());
 			y = (int) (this.Plateau[0].length*Math.random());
 			System.out.println(isPièces);
-			if(this.getPlateau()[x][y][2] == 0 && isPièces<2){ 	
+			if(this.getPlateau()[x][y][2] == 0 && this.getPlateau()[x][y][0]==0 && isPièces<2){ 	
 				this.getPlateau()[x][y][2]=10;
 			}
 		}while(this.getPlateau()[x][y][2] != 10 && isPièces<2);
 	}
 	public void fissures(int count) {
-		if(count%4 ==0) {
+		if(count%4 ==0 && this.getPlateau()[0][0][3]==2) {
 			int x,y;
 			do {
 				
 				x = (int) (this.Plateau.length*Math.random());
 				y = (int) (this.Plateau[0].length*Math.random());
-				if(this.getPlateau()[x][y][0] == 0  ){ 
+				if(this.getPlateau()[x][y][0] == 0){ 
 					this.getPlateau()[x][y][0]= -5;
 				}
 			}while(this.getPlateau()[x][y][0] != -5);

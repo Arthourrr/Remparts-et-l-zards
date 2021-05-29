@@ -45,10 +45,11 @@ public class DeroulementJeu {
     	int fight=1;
 		System.out.print(tabledejeu.AffichePlateau());
 
+		Display(Refresh, persoA.getNom() +" à ton tour !");
 		System.out.println(persoA.getNom() +" à ton tour !");
 		persoA.MajStats();
 		while (persoA.getPa()>0){
-		System.out.println(persoA.AffichePerso());
+		Display(Refresh,persoA.AffichePerso());
 		System.out.println("Que choisis-tu de faire ?");
 		int[] mouvement;
 			if(fight!=0 && persoA.getPa()>=2){
@@ -245,6 +246,9 @@ public class DeroulementJeu {
     		System.out.println("\nVous infligerez parfois des coups critiques. Les dégats sont alors démultipliés.");
     		break;
     	}
+    }
+    public static void Display( TimerTask refresh, String sentence) {
+    	((RefreshAff) refresh).run(sentence);
     }
     public static void pause(long lag) {
     	try {

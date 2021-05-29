@@ -21,6 +21,9 @@ public class Affichage extends JFrame {
 	private PanneauGrille pg;
 	private static String det;
 	private static String modeJeu;
+	private static int Comp;
+	private static int Type;
+	private static String[] Txt= {"","","","","","","","","","","","",""};
 
 	private Affichage(int[][][] monde, int maRes) {
 		super("Remparts et Lézards");
@@ -39,8 +42,11 @@ public class Affichage extends JFrame {
 	 * de l'ecran.
 	 * @param monde le monde à afficher
 	 */
-	public static void afficherMonde(int[][][] monde, int a, String carte) {
-		afficherMonde(monde,calcRes(monde), a, carte);
+	public static void afficherMonde(int[][][] monde, int maRes, int a, String carte, int type) {
+		afficherMonde(monde, maRes, a, carte, 0, 1, new String[] {""});
+	}
+	public static void afficherMonde(int maRes, int compteur, int type, String[] text) {
+		afficherMonde(new int[5][5][4], maRes, 0, "", compteur, type, text);
 	}
 
 	/**
@@ -48,7 +54,7 @@ public class Affichage extends JFrame {
 	 * @param monde le monde à afficher
 	 * @param res longueur d'un coté de cellule (en nombre de pixel)
 	 */
-	public static void afficherMonde(int[][][] monde, int maRes, int a, String carte) {
+	public static void afficherMonde(int[][][] monde, int maRes, int a, String carte, int comp, int type, String[] txt) {
 		if (world==null) {
 			world = new Affichage(monde,maRes);
 		}
@@ -56,6 +62,12 @@ public class Affichage extends JFrame {
 		world.repaint();
 		det= ""+a;
 		modeJeu = carte;
+		Comp=comp;
+		
+		Type=type;
+		for (int i=1; i<txt.length; i++)
+		Txt[i-1]=txt[i];
+		
 	}
 
 	/**
@@ -81,16 +93,24 @@ public class Affichage extends JFrame {
 		public int[][][] monde;
 		public PanneauGrille(int[][][] monde, int maRes) {
 			res = maRes;
-			worldImage = new BufferedImage(res*monde[0].length,res*monde.length,BufferedImage.TYPE_INT_RGB);
+			worldImage = new BufferedImage(1300,800/*res*monde[0].length,res*monde.length*/,BufferedImage.TYPE_INT_RGB);
 			// System.out.println(new Dimension(res*monde[0].length,res*monde.length));
-			setPreferredSize(new Dimension(res*monde[0].length,res*monde.length));
+			setPreferredSize(new Dimension(1300, 800));	//res*monde[0].length,res*monde.length));
 		}
 		private void dessineMonde(Graphics g) {
 			int nbL = monde.length;
 			int nbC = monde[0].length;
 			//System.out.println(res);
-			AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Plateau."+modeJeu+".png", g, 1783, 1783, 165*5, 165*5, 0, 0, 0, 0);
-
+			
+			AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Plateau."+modeJeu+".png", g, 1080, 1080, 800, 800, 0, 0, 0, 0);
+			g.setColor(new Color(111, 125, 79));
+			g.fillRect(800, 0, 500, 800);
+			g.setColor(new Color(15, 15, 15));
+			g.fillRect(800, 0, 5, 800	);
+			Display(Txt , g, Comp);
+			
+			
+			
 			for (int i = 0; i < nbL; i++)
 				for (int j = 0; j < nbC; j++) {
 					switch (monde[i][j][0]) {
@@ -156,7 +176,11 @@ public class Affichage extends JFrame {
 					if (monde[i][j][2]>0 && monde[i][j][2]<100) {
 						AfficheEntite("Pièces"+det+".png", g, i, j);
 					}
-				}      
+
+				}  
+			
+				
+			
 			/* // couleur de fond
             g.setColor(Color.WHITE);
             g.fillRect(0,0,res*nbC,res*nbL);
@@ -186,7 +210,7 @@ public class Affichage extends JFrame {
 			g.drawImage(worldImage,0,0,null);
 		}
 		public static void AfficheEntite (String fileName, Graphics g, int i, int j) {
-			AfficheImage(System.getProperty("user.dir") +"\\Graphics\\" +fileName, g, 1783, 1783, i*100+600, j*96+600, j*96+20, i*96+20, 0, 0); 
+			AfficheImage(System.getProperty("user.dir") +"\\Graphics\\" +fileName, g, 1080, 1080, i*160+800, j*160+800, j*160, i*160, 0, 0); 
 		}
 		public static void AfficheImage(String filepath, Graphics g, int nbC, int nbL, int h, int w, int x1, int y1, int x2, int y2 ) {
 
@@ -243,6 +267,12 @@ public class Affichage extends JFrame {
 		try {
 			Thread.sleep(lag);
 		} catch (InterruptedException e) {
+		}
+	}public static void  Display(String[] text, Graphics g, int comp) {
+		g.setFont(new Font("DPComic", Font.PLAIN, 22));
+		for (int i=0; i<comp; i++) {
+			
+			g.drawString(text[i], 840, 60+(i+1)*30);
 		}
 	}
 }       

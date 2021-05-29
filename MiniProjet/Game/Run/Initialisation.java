@@ -63,7 +63,7 @@ public class Initialisation {
 		do{
 			x = (int) (map.getPlateau().length*Math.random());
 			y = (int) (map.getPlateau()[0].length*Math.random());
-		}while(x==tempx && y==tempy);
+		}while(map.getPlateau()[x][y][2]!=0 || map.getPlateau()[x][y][0]!=0);
 		perso.getPosition()[0]=perso.getPosition()[0]+x;
 		perso.getPosition()[1]=perso.getPosition()[1]+y;
 	}
