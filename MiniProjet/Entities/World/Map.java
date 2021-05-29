@@ -1,28 +1,28 @@
 package World;
 import java.util.Scanner;
 public class Map {
-	int[][] carte;	
+	int[][][] carte;	
 	public Map (){
 	}
 	
 	
-	public void InitCarte(int modeJeu) {
+	public void InitCarte() {
 		boolean Verif = false;
 		while(Verif == false) {
 			System.out.println("Vous et votre adversaire vous concertez pour savoir quel sera le terrain de votre glorieux affrontement. Clairière : 1 ; Arène en fusion : 2.");			
 			Scanner n = new Scanner(System.in); 
 			final int numero = n.nextInt();
 			switch(numero){
-				case 1 ://5x5 normale
-					this.carte = Carte1(modeJeu);
+				case 1 ://5x5 clairiere
+					this.carte = Carte1();
 					if(ValidationCarte()) {
 						Verif = true;
 						break;
 					}else{
 						break;
 					}
-				case 2 ://5x5 with obstacles U
-					this.carte = Carte2(modeJeu);
+				case 2 ://5x5 volcan
+					this.carte = Carte2();
 					if(ValidationCarte()) {
 						Verif = true;
 						break;
@@ -41,9 +41,9 @@ public class Map {
 		}
 	}
 	
-	public int[][] Carte1 (int modeJeu) {
-		int[][] Carte = new int[5][5];
-		World.Jeu.setModeJeu(1);
+	public int[][][] Carte1 () {
+		int[][][] Carte = new int[5][5][4];
+		Carte[0][0][3] = 1; // mode de jeu, num texture
 		int x=0;
 		int y=0;
 		int nbBuissons= 0;
@@ -53,15 +53,15 @@ public class Map {
 			nbBuissons=0;
 			for (int i=0; i< Carte.length; i++) {
 				for (int j=0; j< Carte[0].length; j++) {
-					if(Carte[i][j]==-3)
+					if(Carte[i][j][0]==-3)
 						nbBuissons++;
 				}
 			}
 			x = (int) (Carte.length*Math.random());
 			y = (int) (Carte[0].length*Math.random());
 			System.out.println(nbBuissons);
-			if(Carte[x][y] == 0 && nbBuissons<4){ 	
-				Carte[x][y]=-3;
+			if(Carte[x][y][0] == 0 && nbBuissons<4){ 	
+				Carte[x][y][0]=-3;
 			}
 		}while(nbBuissons<4);
 		
@@ -69,39 +69,39 @@ public class Map {
 			nbMenhirs=0;
 			for (int i=0; i< Carte.length; i++) {
 				for (int j=0; j< Carte[0].length; j++) {
-					if(Carte[i][j]==-4)
+					if(Carte[i][j][0]==-4)
 						nbMenhirs++;
 				}
 			}
 			x = (int) (Carte.length*Math.random());
 			y = (int) (Carte[0].length*Math.random());
 			System.out.println(nbMenhirs);
-			if(Carte[x][y] == 0 && nbMenhirs<2){ 	
-				Carte[x][y]=-4;
+			if(Carte[x][y][0] == 0 && nbMenhirs<2){ 	
+				Carte[x][y][0]=-4;
 			}
 		}while(nbMenhirs<2);
 		return Carte;
 	}
 	
 	
-	public int[][] Carte2 (int modeJeu) {
-		int[][] Carte = new int[5][5];
-		World.Jeu.setModeJeu(2);
+	public int[][][] Carte2 () {
+		int[][][] Carte = new int[5][5][4];
+		Carte[0][0][3] = 2; // mode de jeu, num texture
 		int x,y;
 		int nbMenhirs=0;
 		do {
 			nbMenhirs=0;
 			for (int i=0; i< Carte.length; i++) {
 				for (int j=0; j< Carte[0].length; j++) {
-					if(Carte[i][j]==-4)
+					if(Carte[i][j][0]==-4)
 						nbMenhirs++;
 				}
 			}
 			x = (int) (Carte.length*Math.random());
 			y = (int) (Carte[0].length*Math.random());
 			System.out.println(nbMenhirs);
-			if(Carte[x][y] == 0 && nbMenhirs<2){ 	
-				Carte[x][y]=-4;
+			if(Carte[x][y][0] == 0 && nbMenhirs<2){ 	
+				Carte[x][y][0]=-4;
 			}
 		}while(nbMenhirs<2);
 		return Carte;
@@ -128,7 +128,7 @@ public class Map {
 	
 	
 	//Tests sur console
-	public String AffichePlateau (int[][] carte){
+	public String AffichePlateau (int[][][] carte){
 		
 		String description = "\n-----------------------------------------\n";
 		for(int i=0; i<carte.length; i++){
@@ -138,18 +138,18 @@ public class Map {
 			description = description+"|\n";
 			
 			for(int j=0; j<carte[0].length; j++){
-				
-				if(carte[i][j]==0){
+
+				if(carte[i][j]==new int[] {0,0,0}){
 					description = description+"|\t";
-				}else if(carte[i][j]==-1){
+				}else if(carte[i][j][2]== -1){
 					description = description+"|  J1\t";
-				}else if(carte[i][j]==-2){
+				}else if(carte[i][j][2]== -2){
 					description = description+"|  J2\t";
-				}else if(carte[i][j]==-3) {
+				}else if(carte[i][j][0]==-3) {
 					description = description+"|  B\t";
-				}else if(carte[i][j]==-4) {
+				}else if(carte[i][j][0]==-4) {
 					description = description+"|  R\t";
-				}else{
+				}else if(carte[i][j][2]>0){ //exception: pièces rangées dans la colonne joueur pour combiner avec obstacles & effets
 					description = description+"|  °°°\t";
 				}
 			}
