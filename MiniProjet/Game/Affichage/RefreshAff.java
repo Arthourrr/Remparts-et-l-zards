@@ -2,15 +2,21 @@ package Affichage;
 
 import java.util.TimerTask;
 
+import Champion.Personnage;
+
 public class RefreshAff extends TimerTask{
 	int[][][]monde;
 	int det;
 	int comp;
 	String modeJeu;
 	String[] Text= {"","","","","","","","","","","","","","","","","","","","","","",""};
+	Personnage P1;
+	Personnage P2;
 	//int modejeu;
-	public RefreshAff(int[][][]a) {
+	public RefreshAff(int[][][]a/*, Personnage p1,Personnage p2*/) {
 		this.monde=a;
+		//this.P1=p1;
+		//this.P2=p2;
 		
 	}
 	

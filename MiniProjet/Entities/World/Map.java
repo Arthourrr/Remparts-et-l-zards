@@ -6,7 +6,9 @@ import java.util.TimerTask;
 import Affichage.RefreshAff;
 import Run.RunGame;
 public class Map {
-	int[][][] carte;	
+	static int[][][] carte= new int[5][5][4];	
+	//static Timer loop= new Timer();
+	//static TimerTask Refresh = new RefreshAff(carte);
 	public Map (){
 	}
 	
@@ -14,18 +16,24 @@ public class Map {
 	public void InitCarte(int[][][] map) {
 		boolean Verif = false;
 		int[][][]tmp;
-		Timer loop= new Timer();
-		TimerTask Refresh = new RefreshAff(map);
-		loop.scheduleAtFixedRate(Refresh, 0, 300 );
+		
+		//loop.scheduleAtFixedRate(Refresh, 0, 300 );
 		while(Verif == false) {
-			RunGame.Display(Refresh, "Vous et votre adversaire vous concertez pour savoir quel sera");
-			RunGame.Display(Refresh, "le terrain de votre glorieux affrontement.");
-			RunGame.Display(Refresh, "Clairiere : 1 ; Arene en fusion : 2.");
+			RunGame.Display( 0);
+			RunGame.Display( "Vous et votre adversaire vous concertez pour savoir quel sera");
+			RunGame.Display( "le terrain de votre glorieux affrontement.");
+			RunGame.Display( "Clairiere : 1 ; Arene en fusion : 2.");
 			Scanner n = new Scanner(System.in); 
 			final int numero = n.nextInt();
 			switch(numero){
 				case 1 ://5x5 clairiere
-					this.carte = Carte1();
+					for(int i=0; i<Carte1().length; i++) {
+						for(int j=0; j<Carte1()[0].length; j++) {
+							for(int k=0; k<Carte1()[0][0].length; k++) {
+								carte[i][j][k]=Carte1()[i][j][k];
+							}
+						}
+					}
 					tmp= Carte1();
 					for(int i=0; i<map.length; i++) {
 						for(int j=0; j<map[0].length; j++) {
@@ -41,7 +49,13 @@ public class Map {
 						break;
 					}
 				case 2 ://5x5 volcan
-					this.carte = Carte2();
+					for(int i=0; i<Carte2().length; i++) {
+						for(int j=0; j<Carte2()[0].length; j++) {
+							for(int k=0; k<Carte2()[0][0].length; k++) {
+								carte[i][j][k]=Carte2()[i][j][k];
+							}
+						}
+					}
 					tmp= Carte2();
 					for(int i=0; i<map.length; i++) {
 						for(int j=0; j<map[0].length; j++) {
@@ -66,7 +80,7 @@ public class Map {
 					}*/
 			}
 		}
-		Refresh.cancel();
+		//Refresh.cancel();
 	}
 	
 	public int[][][] Carte1 () {
@@ -142,9 +156,10 @@ public class Map {
 	}
 	
 	public boolean ValidationCarte() {
-		System.out.println(AffichePlateau(this.carte));
+		System.out.println(AffichePlateau(carte));
 		//Affichage.afficherMonde(this.carte);
-		System.out.println("Etes-vous sûr ? (1: oui ; 0: retour)");
+		RunGame.Display( "");
+		RunGame.Display( "Etes-vous sur ? (1: oui ; 0: retour)");
 		Scanner V = new Scanner(System.in); 
 		final int verif = V.nextInt();
 		if(verif==1) {

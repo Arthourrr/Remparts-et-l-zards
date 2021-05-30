@@ -2,6 +2,10 @@ package Affichage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import Champion.Personnage;
+import Run.DeroulementJeu;
+
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -109,7 +113,9 @@ public class Affichage extends JFrame {
 			g.fillRect(800, 0, 5, 800	);
 			Display(Txt , g, Comp);
 			
-			
+			//int pv1 =DeroulementJeu.P1.getPv();
+			//g.setColor(Color.BLUE);
+			//g.fillRect(850, 20, pv1, 10);
 			
 			for (int i = 0; i < nbL; i++)
 				for (int j = 0; j < nbC; j++) {

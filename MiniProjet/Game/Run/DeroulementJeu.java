@@ -6,6 +6,11 @@ import Affichage.RefreshAff;
 import Champion.Personnage;
 import World.Jeu;
 public class DeroulementJeu {
+	public static Personnage P1;
+	public static Personnage P2;
+	static int[][][]carte = new int[5][5][4];
+	public static Timer loop= new Timer();
+	public static TimerTask Refresh = new RefreshAff(carte);
 	public DeroulementJeu() {	
 	
 	}
@@ -13,10 +18,19 @@ public class DeroulementJeu {
 //Compteur base sur pair/impair
 //Affiche le gagnant Ã  la fin
 	public static void DeroulementPartie(Personnage p1 , Personnage p2, Jeu tabledejeu){
-        int compteur=1;
+		for(int i=0; i<tabledejeu.getPlateau().length; i++) {
+			for(int j=0; j<tabledejeu.getPlateau()[0].length; j++) {
+				for(int k=0; k<tabledejeu.getPlateau()[0][0].length; k++) {
+					carte[i][j][k]=tabledejeu.getPlateau()[i][j][k];
+				}
+			}
+		}
+		int compteur=1;
         Fini fin = new Fini(p1, p2, tabledejeu.getPlateau());
         fin.start();
         while (true){
+        	P1=p1;
+        	P2=p2;
             if (compteur%2!=0){
 				Tour(p1,p2,tabledejeu, compteur);
                 compteur++;
@@ -38,18 +52,17 @@ public class DeroulementJeu {
 //Interface permettant d’activer chaque action possible par tour pour un personnage dans les objets correspondants
     public static void Tour(Personnage persoA, Personnage persoB, Jeu tabledejeu, int compteur){
     		//Auto-refresh de l'Affichage 
-    	Timer loop= new Timer();
-		TimerTask Refresh = new RefreshAff(tabledejeu.getPlateau());
+    	
 		loop.scheduleAtFixedRate(Refresh, 0, 300 );
     	
     	int fight=1;
 		System.out.print(tabledejeu.AffichePlateau());
-
-		Display(Refresh, persoA.getNom() +" à ton tour !");
+		Display(0);
+		Display(persoA.getNom() +" à ton tour !");
 		System.out.println(persoA.getNom() +" à ton tour !");
 		persoA.MajStats();
 		while (persoA.getPa()>0){
-		Display(Refresh,persoA.AffichePerso());
+		Display(persoA.AffichePerso());
 		System.out.println("Que choisis-tu de faire ?");
 		int[] mouvement;
 			if(fight!=0 && persoA.getPa()>=2){
@@ -247,8 +260,20 @@ public class DeroulementJeu {
     		break;
     	}
     }
-    public static void Display( TimerTask refresh, String sentence) {
-    	((RefreshAff) refresh).run(sentence);
+    public static void Display(String sentence) { //Afficher "sentence"
+		int lg=61;
+		int quotient = sentence.length()/lg;
+		int reste = sentence.length()%lg;
+		for (int i=0; i<quotient*lg; i=i+lg) {
+			((RefreshAff) DeroulementJeu.Refresh).run(sentence.substring(i, i+lg));
+		}
+		if (reste!=0) {
+			((RefreshAff) DeroulementJeu.Refresh).run(sentence.substring(quotient*lg, quotient*lg +reste));
+		}
+    	
+    }
+	public static void Display(int a) { //effacer la console
+    	((RefreshAff) DeroulementJeu.Refresh).run(a);
     }
     public static void pause(long lag) {
     	try {

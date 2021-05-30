@@ -7,6 +7,9 @@ import java.util.TimerTask;
 
 import Affichage.RefreshAff;
 public class RunGame {
+	static int[][][]carte = new int[5][5][4];
+	public static Timer loop= new Timer();
+	public static TimerTask Refresh = new RefreshAff(carte);
 	public RunGame() {	
 	
 	}
@@ -15,10 +18,8 @@ public class RunGame {
 	public static void Partie1v1() {
 	    //music INTRO
 		
-		int[][][]carte = new int[5][5][4];
-		carte[0][0][3]=0;
-		Timer loop= new Timer();
-		TimerTask Refresh = new RefreshAff(carte);
+		
+		
 		loop.scheduleAtFixedRate(Refresh, 0, 300 );
 		
 		AePlayWave Intro = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Title_Screen01.wav");
@@ -26,52 +27,52 @@ public class RunGame {
 		Update skip = new Update();
 		skip.setDaemon(true);
 		skip.start();
-		Display(  Refresh,"(Passer l'intro: 0 )");
-		Display(  Refresh,"");
+		Display( "(Passer l'intro: 0 )");
+		Display( "");
 		pause(1000);
-		Display(  Refresh,"Bonjour a toi jeune aventurier.");
-		Display(  Refresh,"En quete de richesses, par recherche de succes ou par gout");
-		Display(  Refresh,"du combat, tu entres aujourd'hui dans l'arene.");
-		Display(  Refresh,"");
+		Display( "Bonjour a toi jeune aventurier.");
+		Display( "En quete de richesses, par recherche de succes ou par gout");
+		Display( "du combat, tu entres aujourd'hui dans l'arene.");
+		Display( "");
 		pause(skip.val);
-		Display(  Refresh,"En plein coeur de la capitale, l'arene du Lion est un joyau");
-		Display(  Refresh,"dominant la Cite aux mille lumieres.");
+		Display( "En plein coeur de la capitale, l'arene du Lion est un joyau");
+		Display( "dominant la Cite aux mille lumieres.");
 		pause(skip.val);
-		Display(  Refresh,"Les arcades de ce somptueux batiment ont vu passer les");
-		Display(  Refresh,"plus grands musiciens, acteurs, mais aussi des animaux ");
-		Display(  Refresh,"exotiques, des spectacles de cirque, des jeux sportifs.");
+		Display( "Les arcades de ce somptueux batiment ont vu passer les");
+		Display( "plus grands musiciens, acteurs, mais aussi des animaux ");
+		Display( "exotiques, des spectacles de cirque, des jeux sportifs.");
 		pause(skip.val);
-		Display(  Refresh,"Mais, l'attraction phare du stade demeure les combats de ");
-		Display(  Refresh,"gladiateurs. Du simple mendiant au plus riche marchand,");
-		Display(  Refresh,"tous se pressent pour observer les combats.");
+		Display( "Mais, l'attraction phare du stade demeure les combats de ");
+		Display( "gladiateurs. Du simple mendiant au plus riche marchand,");
+		Display( "tous se pressent pour observer les combats.");
 		pause(skip.val);
-		Display(  Refresh,"");
-		Display(  Refresh,"Pour les gladiateurs, c'est l'opportunite de se faire une ");
-		Display(  Refresh,"reputation et gagner mille tresors, de s'attirer les faveurs des ");
-		Display(  Refresh,"plus belles courtisanes du royaume, ou encore d'ameliorer ses");
-		Display(  Refresh,"aptitudes au combat.");
+		Display( "");
+		Display( "Pour les gladiateurs, c'est l'opportunite de se faire une ");
+		Display( "reputation et gagner mille tresors, de s'attirer les faveurs des ");
+		Display( "plus belles courtisanes du royaume, ou encore d'ameliorer ses");
+		Display( "aptitudes au combat.");
 		pause(skip.val*2);
-		Display(  Refresh,0);
-		Display(  Refresh,"Que tu sois mage, guerrier, assassin, archer, tous les coups sont");
-		Display(  Refresh,"permis. L'issue ne peut etre que la victoire... ou la mort.");
-		Display(  Refresh,"");
+		Display( 0);
+		Display( "Que tu sois mage, guerrier, assassin, archer, tous les coups sont");
+		Display( "permis. L'issue ne peut etre que la victoire... ou la mort.");
+		Display( "");
 		pause(skip.val);
 		
-		Display(  Refresh,"Vous entrez donc d'un pas decide sur le terrain, ");
-		Display(  Refresh,"confiant en vos aptitudes guerrieres.");	
+		Display( "Vous entrez donc d'un pas decide sur le terrain, ");
+		Display( "confiant en vos aptitudes guerrieres.");	
 		pause(skip.val);
 		skip.stop();
-		Refresh.cancel();
+		//Refresh.cancel();
 		System.out.println();
 		Jeu TableDeJeu = new Jeu(carte);
 		
 		
 		int compteur=0;
-		System.out.println("Joueur 1 à toi\n");
+		Display("Joueur 1 à toi\n");
 		compteur++;
 		Personnage Perso1 = new Personnage(1);
 		Perso1.getInit();
-		Initialisation.InitPerso(Perso1);
+		Initialisation.InitPerso(Perso1, carte);
 		do {
 			Perso1.getInit().Spawn(0,0,Perso1,TableDeJeu);
 		}while(TableDeJeu.getPlateau()[Perso1.getPosition()[0]][Perso1.getPosition()[1]][2]!=0);
@@ -79,11 +80,11 @@ public class RunGame {
 		
 
 		//init perso2
-		System.out.println("Joueur 2 à toi\n");
+		Display("Joueur 2 à toi\n");
 		compteur++;
 		Personnage Perso2 = new Personnage(2);
 		Perso2.getInit();
-		Initialisation.InitPerso(Perso2);
+		Initialisation.InitPerso(Perso2, carte);
 		do {
 			Perso2.getInit().Spawn(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso2,TableDeJeu);	
 		}while(TableDeJeu.getPlateau()[Perso2.getPosition()[0]][Perso2.getPosition()[1]][2]!=0);
@@ -104,11 +105,20 @@ public class RunGame {
 		
 		
 	}
-	public static void Display( TimerTask refresh, String sentence) { //Afficher "sentence"
-    	((RefreshAff) refresh).run(sentence);
+	public static void Display(String sentence) { //Afficher "sentence"
+		int lg=61;
+		int quotient = sentence.length()/lg;
+		int reste = sentence.length()%lg;
+		for (int i=0; i<quotient*lg; i=i+lg) {
+			((RefreshAff) RunGame.Refresh).run(sentence.substring(i, i+lg));
+		}
+		if (reste!=0) {
+			((RefreshAff) RunGame.Refresh).run(sentence.substring(quotient*lg, quotient*lg +reste));
+		}
+    	
     }
-	public static void Display( TimerTask refresh, int a) { //effacer la console
-    	((RefreshAff) refresh).run(a);
+	public static void Display(int a) { //effacer la console
+    	((RefreshAff) RunGame.Refresh).run(a);
     }
 	
 	public static void pause(long lag) {
