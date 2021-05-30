@@ -20,6 +20,8 @@ public class RefreshAff extends TimerTask{
 			this.modeJeu= "clairiere";
 		}else if(monde[0][0][3] == 2) {
 			this.modeJeu = "volcan";
+		}else if(monde[0][0][3] == 0) {
+			this.modeJeu = "titlescreen";
 		}
 		if(det==1) {
 			det=2;

@@ -1,10 +1,16 @@
 package Run;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import Affichage.RefreshAff;
 import Champion.Personnage;
 import World.Jeu;	
 public class Initialisation {
 	public Initialisation() {	
-
+		//Timer loop= new Timer();
+		//TimerTask Refresh = new RefreshAff(map);
+		//loop.scheduleAtFixedRate(Refresh, 0, 300 );
 	}
 	//Permet d’initialiser les statistiques du personnage en début de partie
 	public static void InitPerso (Personnage perso){

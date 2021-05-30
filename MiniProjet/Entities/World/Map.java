@@ -1,5 +1,10 @@
 package World;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import Affichage.RefreshAff;
+import Run.RunGame;
 public class Map {
 	int[][][] carte;	
 	public Map (){
@@ -9,8 +14,13 @@ public class Map {
 	public void InitCarte(int[][][] map) {
 		boolean Verif = false;
 		int[][][]tmp;
+		Timer loop= new Timer();
+		TimerTask Refresh = new RefreshAff(map);
+		loop.scheduleAtFixedRate(Refresh, 0, 300 );
 		while(Verif == false) {
-			System.out.println("Vous et votre adversaire vous concertez pour savoir quel sera le terrain de votre glorieux affrontement. Clairière : 1 ; Arène en fusion : 2.");			
+			RunGame.Display(Refresh, "Vous et votre adversaire vous concertez pour savoir quel sera");
+			RunGame.Display(Refresh, "le terrain de votre glorieux affrontement.");
+			RunGame.Display(Refresh, "Clairiere : 1 ; Arene en fusion : 2.");
 			Scanner n = new Scanner(System.in); 
 			final int numero = n.nextInt();
 			switch(numero){
@@ -56,6 +66,7 @@ public class Map {
 					}*/
 			}
 		}
+		Refresh.cancel();
 	}
 	
 	public int[][][] Carte1 () {

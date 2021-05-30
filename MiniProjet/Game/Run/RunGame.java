@@ -16,7 +16,7 @@ public class RunGame {
 	    //music INTRO
 		
 		int[][][]carte = new int[5][5][4];
-		carte[0][0][3]=1;
+		carte[0][0][3]=0;
 		Timer loop= new Timer();
 		TimerTask Refresh = new RefreshAff(carte);
 		loop.scheduleAtFixedRate(Refresh, 0, 300 );
@@ -59,8 +59,9 @@ public class RunGame {
 		
 		Display(  Refresh,"Vous entrez donc d'un pas decide sur le terrain, ");
 		Display(  Refresh,"confiant en vos aptitudes guerrieres.");	
-		pause(1500);
+		pause(skip.val);
 		skip.stop();
+		Refresh.cancel();
 		System.out.println();
 		Jeu TableDeJeu = new Jeu(carte);
 		
