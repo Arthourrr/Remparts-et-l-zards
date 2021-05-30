@@ -3,13 +3,13 @@ import Champion.Personnage;
 public class Jeu {
 	private int[][][] Plateau;//Plateau du jeu //y, x, map, effets, joueur 
 	Map ChoixCarte = new Map();
-	public Jeu (){
-		this.setPlateau(InitJeu());
+	public Jeu (int[][][]tmp){
+		this.setPlateau(InitJeu(tmp));
 	} 
 	//initialise un tableau 5x5 prédéfini
-	public int[][][] InitJeu(){
+	public int[][][] InitJeu(int[][][]tmp){
 		int[][][] PlateauDeJeu;
-		ChoixCarte.InitCarte();
+		ChoixCarte.InitCarte(tmp);
 		PlateauDeJeu = ChoixCarte.carte;
 		return PlateauDeJeu;
 	}

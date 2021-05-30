@@ -6,8 +6,9 @@ public class Map {
 	}
 	
 	
-	public void InitCarte() {
+	public void InitCarte(int[][][] map) {
 		boolean Verif = false;
+		int[][][]tmp;
 		while(Verif == false) {
 			System.out.println("Vous et votre adversaire vous concertez pour savoir quel sera le terrain de votre glorieux affrontement. Clairière : 1 ; Arène en fusion : 2.");			
 			Scanner n = new Scanner(System.in); 
@@ -15,6 +16,14 @@ public class Map {
 			switch(numero){
 				case 1 ://5x5 clairiere
 					this.carte = Carte1();
+					tmp= Carte1();
+					for(int i=0; i<map.length; i++) {
+						for(int j=0; j<map[0].length; j++) {
+							for(int k=0; k<map[0][0].length; k++) {
+								map[i][j][k]=tmp[i][j][k];
+							}
+						}
+					}map[0][0][3]=1;
 					if(ValidationCarte()) {
 						Verif = true;
 						break;
@@ -23,6 +32,14 @@ public class Map {
 					}
 				case 2 ://5x5 volcan
 					this.carte = Carte2();
+					tmp= Carte2();
+					for(int i=0; i<map.length; i++) {
+						for(int j=0; j<map[0].length; j++) {
+							for(int k=0; k<map[0][0].length; k++) {
+								map[i][j][k]=tmp[i][j][k];
+							}
+						}
+					}map[0][0][3]=2;
 					if(ValidationCarte()) {
 						Verif = true;
 						break;

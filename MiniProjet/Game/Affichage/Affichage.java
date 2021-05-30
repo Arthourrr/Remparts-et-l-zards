@@ -23,7 +23,7 @@ public class Affichage extends JFrame {
 	private static String modeJeu;
 	private static int Comp;
 	private static int Type;
-	private static String[] Txt= {"","","","","","","","","","","","",""};
+	private static String[] Txt= {"","","","","","","","","","","","","","","","","","","","","","",""};
 
 	private Affichage(int[][][] monde, int maRes) {
 		super("Remparts et Lézards");
@@ -93,9 +93,9 @@ public class Affichage extends JFrame {
 		public int[][][] monde;
 		public PanneauGrille(int[][][] monde, int maRes) {
 			res = maRes;
-			worldImage = new BufferedImage(1300,800/*res*monde[0].length,res*monde.length*/,BufferedImage.TYPE_INT_RGB);
+			worldImage = new BufferedImage(1400,800/*res*monde[0].length,res*monde.length*/,BufferedImage.TYPE_INT_RGB);
 			// System.out.println(new Dimension(res*monde[0].length,res*monde.length));
-			setPreferredSize(new Dimension(1300, 800));	//res*monde[0].length,res*monde.length));
+			setPreferredSize(new Dimension(1400, 800));	//res*monde[0].length,res*monde.length));
 		}
 		private void dessineMonde(Graphics g) {
 			int nbL = monde.length;
@@ -104,7 +104,7 @@ public class Affichage extends JFrame {
 			
 			AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Plateau."+modeJeu+".png", g, 1080, 1080, 800, 800, 0, 0, 0, 0);
 			g.setColor(new Color(111, 125, 79));
-			g.fillRect(800, 0, 500, 800);
+			g.fillRect(800, 0, 600, 800);
 			g.setColor(new Color(15, 15, 15));
 			g.fillRect(800, 0, 5, 800	);
 			Display(Txt , g, Comp);
