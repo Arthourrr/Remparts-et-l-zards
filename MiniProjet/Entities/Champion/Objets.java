@@ -1,13 +1,13 @@
 package Champion;
 public class Objets {
-    int armure;//quantité de résistance apportée par l’objet
-    int soin;//quantité de soin de l’objet
+    int armure;//quantite de resistance apportee par l’objet
+    int soin;//quantite de soin de l’objet
     int quantite;//quantite de l’objet
     int prix;//prix de l’objet
-    int force;//force ajoutée par l’objet
-    int mana;//mana ajouté par l’objet
-    double portee;//utilisé pour "coefdist" dans actions.arc Plus la valeur est grande plus la répartition est homogène.
-    boolean dispo;//? ? ? disponibilité de l’objet pour l’utilisation ? ? ?
+    int force;//force ajoutee par l’objet
+    int mana;//mana ajoute par l’objet
+    double portee;//utilise pour "coefdist" dans actions.arc Plus la valeur est grande plus la repartition est homogene.
+    boolean dispo;//? ? ? disponibilite de l’objet pour l’utilisation ? ? ?
     Personnage perso;
     public Objets (int a, int b, int c, int d, int e, int f){
         this.dispo = true;

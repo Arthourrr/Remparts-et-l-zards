@@ -6,14 +6,14 @@ public class Jeu {
 	public Jeu (int[][][]tmp){
 		this.setPlateau(InitJeu(tmp));
 	} 
-	//initialise un tableau 5x5 prédéfini
+	//initialise un tableau 5x5 predefini
 	public int[][][] InitJeu(int[][][]tmp){
 		int[][][] PlateauDeJeu;
 		ChoixCarte.InitCarte(tmp);
 		PlateauDeJeu = Map.carte;
 		return PlateauDeJeu;
 	}
-	//Dépose le personnage sur une case vide du tableau
+	//Depose le personnage sur une case vide du tableau
 	public void PosePion(int x,int y, Personnage perso){
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
@@ -25,7 +25,7 @@ public class Jeu {
 		}	
 		this.getPlateau()[x][y][2]=-perso.getJoueur();
 	}
-	//Déplace un personnage d’un point à un autre du tableau
+	//Deplace un personnage d’un point a un autre du tableau
 	public void DeplacePion(int x,int y, Personnage perso){
 		for(int i=0; i<this.getPlateau().length; i++){
 			for(int j=0; j<this.getPlateau()[0].length; j++){
@@ -58,7 +58,7 @@ public class Jeu {
 					description = description+"|  B\t";
 				}else if(this.getPlateau()[i][j][0]==-4) {
 					description = description+"|  R\t";
-				}else if(this.getPlateau()[i][j][2]>0){ //exception: pièces rangées dans la colonne joueur pour combiner avec obstacles & effets
+				}else if(this.getPlateau()[i][j][2]>0){ //exception: pieces rangees dans la colonne joueur pour combiner avec obstacles & effets
 					description = description+"|  °°°\t";
 				}
 			}
@@ -71,7 +71,7 @@ public class Jeu {
 		return description;
 	}
 
-	//A une chance de déposer une grosse quantité d’or sur une case
+	//A une chance de deposer une grosse quantite d’or sur une case
 	public void RandomGoldSpawn () {
 		int x=0;
 		int y=0;
@@ -91,34 +91,34 @@ public class Jeu {
 			}
 		}
 	}
-	//Dépose à chaque tour un paquet d’or sur une case aléatoire du tableau (pas d’or si la case est celle d’un personnage)
+	//Depose a chaque tour un paquet d’or sur une case aleatoire du tableau (pas d’or si la case est celle d’un personnage)
 	public void SpawnGoldRegulier() {
 		int x=0;
 		int y=0;
-		int isPièces= 0;
+		int isPieces= 0;
 		
 		do {
 			for (int i=0; i< this.getPlateau().length; i++) {
 				for (int j=0; j< this.getPlateau()[0].length; j++) {
 					if(this.getPlateau()[i][j][2]>0)
-						isPièces++;
+						isPieces++;
 				}
 			}
 			x = (int) (this.Plateau.length*Math.random());
 			y = (int) (this.Plateau[0].length*Math.random());
-			System.out.println(isPièces);
-			if(this.getPlateau()[x][y][2] == 0 && this.getPlateau()[x][y][0]==0 && isPièces<2){ 	
+			//System.out.println(isPieces);
+			if(this.getPlateau()[x][y][2] == 0 && this.getPlateau()[x][y][0]==0 && isPieces<2){ 	
 				this.getPlateau()[x][y][2]=10;
 			}
-		}while(this.getPlateau()[x][y][2] != 10 && isPièces<2);
+		}while(this.getPlateau()[x][y][2] != 10 && isPieces<2);
 	}
 	public void fissures(int count) {
 		if(count%4 ==0 && this.getPlateau()[0][0][3]==2) {
 			int x,y;
 			do {
 				
-				x = (int) (this.Plateau.length*Math.random());
-				y = (int) (this.Plateau[0].length*Math.random());
+				x = (int) ((this.Plateau.length-2)*Math.random()+1);
+				y = (int) ((this.Plateau[0].length-2)*Math.random()+1);
 				if(this.getPlateau()[x][y][0] == 0){ 
 					this.getPlateau()[x][y][0]= -5;
 				}

@@ -106,7 +106,7 @@ public class Affichage extends JFrame {
 			int nbC = monde[0].length;
 			//System.out.println(res);
 			
-			AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Plateau."+modeJeu+".png", g, 1080, 1080, 800, 800, 0, 0, 0, 0);
+			AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Plateau."+modeJeu+det+".png", g, 1080, 1080, 800, 800, 0, 0, 0, 0);
 			g.setColor(new Color(111, 125, 79));
 			g.fillRect(800, 0, 600, 800);
 			g.setColor(new Color(15, 15, 15));
@@ -114,18 +114,20 @@ public class Affichage extends JFrame {
 			Display(Txt , g, Comp);
 			
 			if (DeroulementJeu.P1.getJoueur()!=0) {
-			int pv1 =DeroulementJeu.P1.getPv();
-			g.setColor(new Color(15,15,15));
-			g.fillRect(848, 18, 204, 10);
-			g.setColor(Color.BLUE);
-			g.fillRect(850, 20, pv1*2, 6);
-			
-			int pv2 =DeroulementJeu.P2.getPv();
-			g.setColor(new Color(15,15,15));
-			g.fillRect(1148, 18, 204, 10);
-			g.setColor(Color.RED);
-			g.fillRect(1150, 20, pv2*2, 6);
+				int pv1 =DeroulementJeu.P1.getPv();
+				g.setColor(new Color(15,15,15));
+				g.fillRect(848, 18, 204, 10);
+				g.setColor(Color.BLUE);
+				g.fillRect(850, 20, pv1*2, 6);
 			}
+			if (DeroulementJeu.P2.getJoueur()!=0) {
+				int pv2 =DeroulementJeu.P2.getPv();
+				g.setColor(new Color(15,15,15));
+				g.fillRect(1148, 18, 204, 10);
+				g.setColor(Color.RED);
+				g.fillRect(1150, 20, pv2*2, 6);
+			}
+			
 			for (int i = 0; i < nbL; i++)
 				for (int j = 0; j < nbC; j++) {
 					switch (monde[i][j][0]) {
@@ -173,13 +175,27 @@ public class Affichage extends JFrame {
 						AfficheEntite("Guerrier.B"+det+".png", g, i, j);
 						g.setFont(new Font("DPComic", Font.ITALIC, 25));
 						g.setColor(Color.WHITE);
-						g.drawString(DeroulementJeu.P1.getNom(), j*160+40, i*160+10);
+						g.drawString(DeroulementJeu.P1.getNom(), j*160+40, i*160+15);
+						if (DeroulementJeu.P1.getJoueur()!=0) {
+							int pv1 =DeroulementJeu.P1.getPv();
+							g.setColor(new Color(15,15,15));
+							g.fillRect(j*160+29, i*160+139, 102, 4);
+							g.setColor(Color.BLUE);
+							g.fillRect(j*160+30, i*160+140, pv1, 2);
+							}
 					break;
 					case (-2):
 						AfficheEntite("Guerrier.R"+det+".png", g, i, j);
 						g.setFont(new Font("DPComic", Font.ITALIC, 25));
 						g.setColor(Color.WHITE);
-						g.drawString(DeroulementJeu.P2.getNom(), j*160+40, i*160+10);
+						g.drawString(DeroulementJeu.P2.getNom(), j*160+40, i*160+15);
+						if (DeroulementJeu.P2.getJoueur()!=0) {
+							int pv2 =DeroulementJeu.P2.getPv();
+							g.setColor(new Color(15,15,15));
+							g.fillRect(j*160+29, i*160+139, 102, 4);
+							g.setColor(Color.RED);
+							g.fillRect(j*160+30, i*160+140, pv2, 2);
+							}
 					break;
 					case (-3):
 						AfficheEntite("Obstacle.Buisson"+".png", g, i, j);
@@ -199,6 +215,8 @@ public class Affichage extends JFrame {
 					}
 
 				}  
+			if(monde[0][0][3]==1)
+				AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Feuilles.png", g, 1080, 1080, 800, 800, 0, 0, 0, 0);
 			
 				
 			

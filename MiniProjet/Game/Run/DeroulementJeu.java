@@ -45,7 +45,7 @@ public class DeroulementJeu {
         }
         //Gagnant(compteur, p1, p2);
     }
-//Mise à jour de la position du personnage vers un point de coordonnées X,Y 
+//Mise a jour de la position du personnage vers un point de coordonnees X,Y 
  	public static void Move (Personnage perso, Jeu tabledejeu, int X, int Y){
 		perso.MajPosition(X,Y);
 		tabledejeu.DeplacePion(X,Y,perso);
@@ -65,10 +65,10 @@ public class DeroulementJeu {
 		System.out.print(tabledejeu.AffichePlateau());
 		Display(0);
 		Display(persoA.getNom() +" a ton tour !");
-		System.out.println(persoA.getNom() +" à ton tour !");
+		System.out.println(persoA.getNom() +" a ton tour !");
 		persoA.MajStats();
 		while (persoA.getPa()>0){
-			for(int i=0; i<tabledejeu.getPlateau().length; i++) { // synchronise la map d'affichage avec la map de la méthode.
+			for(int i=0; i<tabledejeu.getPlateau().length; i++) { // synchronise la map d'affichage avec la map de la methode.
 				for(int j=0; j<tabledejeu.getPlateau()[0].length; j++) {
 					for(int k=0; k<tabledejeu.getPlateau()[0][0].length; k++) {
 						carte[i][j][k]=tabledejeu.getPlateau()[i][j][k];
@@ -80,19 +80,22 @@ public class DeroulementJeu {
 		Display(persoA.getNom()+", que choisis-tu de faire ?");
 		int[] mouvement;
 			if(fight!=0 && persoA.getPa()>=2){
-				Display("1 = Objets, Entraînement \t 2 = Déplacement \t 3 = Fin du tour\t 4 = Combat \t0 = Infos");
+				Display("1 = Objets, Entrainement \t 2 = Deplacement \t 3 = Fin du tour\t 4 = Combat \t0 = Infos");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
 				switch(numero){
 					case 0 :
+						Display(0);
+						Display(persoA.AffichePerso());
 						Aide(persoA);
 						pause(4000);
 						break;
 					case 1 :
-						Display("1 = Améliorer la force \t 2 = Marché  \t 3 = Utiliser un objet \n 0 = retour");
+						Display("1 = Ameliorer la force \t 2 = Marche  \t 3 = Utiliser un objet \n 0 = retour");
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
-						
+						Display(0);
+						Display(persoA.AffichePerso());
 						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur, tabledejeu.getPlateau());
 						pause(1200);
 						break;
@@ -112,22 +115,26 @@ public class DeroulementJeu {
 						persoA.setPa(0);
 						break;
 					case 4 :
-						Display("1 = Epée \t 2 = Arc \t 3 = Sort"); // /!\methodes manquantes
+						Display("1 = Epee \t 2 = Arc \t 3 = Sort"); // /!\methodes manquantes
 						Scanner a = new Scanner(System.in); 
 						final int numerobis = a.nextInt();
+						Display(0);
+						Display(persoA.AffichePerso());
 						persoA.getPlay().choixAction(numero, numerobis, persoA, persoB, compteur, tabledejeu.getPlateau()); //numero= categorie d'action, numerobis= sous-categorie.
 						pause(1200);
 						break;						
 				}
 			}else{
-				Display("1 = Objets, Entraînements \t 2 = Déplacement\t 3 = Fin du tour \t0 = Infos");
+				Display("1 = Objets, Entrainements \t 2 = Deplacement\t 3 = Fin du tour \t0 = Infos");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
 				switch(numero){
 					case 1 :
-						Display("1 = Améliorer la force  \t 2 = Marché \t 3 = Utiliser un objet \\n 0 = retour"); // /!\methodes manquantes
+						Display("1 = Ameliorer la force  \t 2 = Marche \t 3 = Utiliser un objet \\n 0 = retour"); // /!\methodes manquantes
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
+						Display(0);
+						Display(persoA.AffichePerso());
 						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur, tabledejeu.getPlateau());
 						pause(1200);
 						break;
@@ -146,6 +153,8 @@ public class DeroulementJeu {
 						persoA.setPa(0);
 						break;
 					case 0 :
+						Display(0);
+						Display(persoA.AffichePerso());
 						Aide(persoA);
 						pause(5000);
 						break;
@@ -155,7 +164,7 @@ public class DeroulementJeu {
 		pause(3000);
 		persoA.setPa(3);
 	}
-//Permet l’action "mouvement de personnage" (à bouger dans actions ? ? ?)
+//Permet l’action "mouvement de personnage" (a bouger dans actions ? ? ?)
 	public static int[] Mouvement (Personnage perso, Jeu tabledejeu){
 		int[] mouvement = new int[3];
 		mouvement[2]=0;
@@ -166,14 +175,14 @@ public class DeroulementJeu {
         int mapval;
         int effectval;
 			switch(numero){
-				case 8 : //déplacement vers le haut
+				case 8 : //deplacement vers le haut
 					if(perso.getPosition()[0]!=0){
 						mapval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]][0];
 						effectval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]][1];
 						persval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]][2];
 						if(persval>=0 && mapval != (-3) && mapval!= -4){
 							perso.setPo(perso.getPo()+persval);
-							Display((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
+							Display((!(persval == 0))? "Vous ramassez "+persval+" pieces d'or!" : "");
 							mouvement[0]=-1;
 							mouvement[2]=1;
 							pause ( (!(persval == 0))? 1200 : 0);
@@ -187,7 +196,7 @@ public class DeroulementJeu {
 						persval= tabledejeu.getPlateau()[perso.getPosition()[0]+1][perso.getPosition()[1]][2];
 						if(persval>=0 && mapval != (-3) && mapval!= -4){
 							perso.setPo(perso.getPo()+persval);
-							Display((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
+							Display((!(persval == 0))? "Vous ramassez "+persval+" pieces d'or!" : "");
 							mouvement[0]=1;
 							mouvement[2]=1;
 							pause ( (!(persval == 0))? 1200 : 0);
@@ -201,7 +210,7 @@ public class DeroulementJeu {
 						persval= tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]-1][2];
 						if(persval>=0 && mapval != (-3) && mapval!= -4){
 							perso.setPo(perso.getPo()+persval);
-							Display((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
+							Display((!(persval == 0))? "Vous ramassez "+persval+" pieces d'or!" : "");
 							mouvement[1]=-1;
 							mouvement[2]=1;
 							pause ( (!(persval == 0))? 1200 : 0);
@@ -215,7 +224,7 @@ public class DeroulementJeu {
 						persval= tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]+1][2];
 						if(persval>=0 && mapval != (-3) && mapval!= -4){
 							perso.setPo(perso.getPo()+persval);
-							Display((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
+							Display((!(persval == 0))? "Vous ramassez "+persval+" pieces d'or!" : "");
 							mouvement[1]=1;
 							mouvement[2]=1;
 							pause ( (!(persval == 0))? 1200 : 0);
@@ -223,11 +232,11 @@ public class DeroulementJeu {
 					}
 					break;
 					
-					/* "position": int[][], position[0]= position en ordonnée, position[1]= position en abscisse*/
+					/* "position": int[][], position[0]= position en ordonnee, position[1]= position en abscisse*/
 			}
 			return mouvement;
 	}
-//Vérifie si un personnage est mort
+//Verifie si un personnage est mort
     public static boolean Fini (Personnage perso1, Personnage perso2) { 
         boolean mort=false;
         if (perso1.getPv()<=0||perso2.getPv()<=0){
@@ -237,12 +246,19 @@ public class DeroulementJeu {
     }	
 //Affiche la fin de partie et le gagnant /!\ to fix
     public static void Gagnant(int compteur,Personnage perso1, Personnage perso2){
-        System.out.println("Le combat est terminé.");
+        Display("Le combat est termine.");
         if (perso1.getPv()>0){
-            System.out.println(perso1.getNom()+" a gagné ! Par le sang ou les flammes, tu as su vaincre ton adversaire. Le public t'acclame, et sous les cris de tes admirateurs en furie, dignement, tu t'en vas face au soleil couchant.");
+        	Display(perso1.getNom()+" a gagne ! Par le sang ou les flammes, tu as su vaincre ton adversaire. Le public t'acclame, et sous les cris de tes admirateurs en furie, dignement, tu t'en vas face au soleil couchant.");
         }else if(perso2.getPv()>0){
-            System.out.println(perso2.getNom()+" a gagné ! Par le sang ou les flammes, tu as su vaincre ton adversaire. Le public t'acclame, et sous les cris de tes admirateurs en furie, dignement, tu t'en vas face au soleil couchant.");
+        	Display(perso2.getNom()+" a gagne ! Par le sang ou les flammes, tu as su vaincre ton adversaire. Le public t'acclame, et sous les cris de tes admirateurs en furie, dignement, tu t'en vas face au soleil couchant.");
         }
+        try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.exit(0);
     }
  //Affichage des aides pendant une partie
     public static void Aide(Personnage p1) {
@@ -258,19 +274,19 @@ public class DeroulementJeu {
     		
     	break;
     	case 3:
-    		Display("Vous pouvez acheter les objets au marché contre des pièces d'or.\n Voici les objets existants:");
-    		Display("-Potion de soin: régénère 5 PV par tour pendant 3 tours.");
-    		Display("-Bisoumagique: vous soigne instantanément de 9 PV");
-    		Display("-Epée Kipik: augmente votre force de 4");
-    		Display("-Armure des ténèbres: augmente votre résistance de 5");
-    		Display("-Arc du feu de Dieu: vous permet d'être précis à toute distance et augmente votre agilité de 3.");
-    		Display("-Amulette: lève tous les sorts et effets qui vous affectent. Attention, annule aussi les soins!");
+    		Display("Vous pouvez acheter les objets au marche contre des pieces d'or.\n Voici les objets existants:");
+    		Display("-Potion de soin: regenere 5 PV par tour pendant 3 tours.");
+    		Display("-Bisoumagique: vous soigne instantanement de 9 PV");
+    		Display("-Epee Kipik: augmente votre force de 4");
+    		Display("-Armure des tenebres: augmente votre resistance de 5");
+    		Display("-Arc du feu de Dieu: vous permet d'etre precis a toute distance et augmente votre agilite de 3.");
+    		Display("-Amulette: leve tous les sorts et effets qui vous affectent. Attention, annule aussi les soins!");
     		break;
     	case 4:
-    		Display("-Attaque à l'épée: réservée au corps à corps. Dégats dépendant de la force de votre personnage.\n Attention, vous pouvez subir des dégâts en cas d'échec.");
-    		Display("-Attaque à l'arc: dégats aléatoires dépendant de votre agilité et de la distance de tir. La portée optimale de base est de 3 cases.");
-    		Display("-Sortilège: dégats magiques sur plusieurs tours (dégénérescence) ou lancer de boule de feu, essentiellement améliorés par la sagesse.");
-    		Display("\nVous infligerez parfois des coups critiques. Les dégats sont alors démultipliés.");
+    		Display("-Attaque a l'epee: reservee au corps a corps. Degats dependant de la force de votre personnage.\n Attention, vous pouvez subir des degâts en cas d'echec.");
+    		Display("-Attaque a l'arc: degats aleatoires dependant de votre agilite et de la distance de tir. La portee optimale de base est de 3 cases.");
+    		Display("-Sortilege: degats magiques sur plusieurs tours (degenerescence) ou lancer de boule de feu, essentiellement ameliores par la sagesse.");
+    		Display("\nVous infligerez parfois des coups critiques. Les degats sont alors demultiplies.");
     		break;
     	}
     }

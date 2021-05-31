@@ -43,21 +43,21 @@ public class Personnage {
 		this.Evo = new int[2];
 		this.setchance(50);
 	}	
-	//met à jour le tableau de position du personnage en X et Y
-	public void MajPosition (int X, int Y){	//met à jouer la position en faisant avancer/reculer selon X et Y
+	//met a jour le tableau de position du personnage en X et Y
+	public void MajPosition (int X, int Y){	//met a jouer la position en faisant avancer/reculer selon X et Y
 		this.getPosition()[0]=this.getPosition()[0]+X;
 		this.getPosition()[1]=this.getPosition()[1]+Y;
 	}
-	//met à jour les statistiques du personnage (pour les PV notamment avec une potion de vie ou des dégats de durée magiques
+	//met a jour les statistiques du personnage (pour les PV notamment avec une potion de vie ou des degats de duree magiques
 	public void MajStats() {
 		if(this.Evo[0]<0 && this.Evo[1]>0) {
 			this.setPv(this.getPv()+Evo[0]);
 			this.Evo[1]--;
-			System.out.println("Vous subissez "+ -Evo[0]+ " degats.");
+			DeroulementJeu.Display("Vous subissez "+ -Evo[0]+ " degats.");
 		} else if (this.Evo[0]>0 && this.Evo[1]>0){
 			this.setPv(this.getPv()+Evo[0]);
 			this.Evo[1]--;
-			System.out.println("Vous gagnez "+ Evo[0]+ " pv.");
+			DeroulementJeu.Display("Vous gagnez "+ Evo[0]+ " pv.");
 		}
 		if (this.Evo[1]==0) {
 			this.Evo[0]=0;
@@ -99,7 +99,7 @@ public class Personnage {
 		description = "";
 		description = description+this.getNom()+"                                                     \n";
 		description = description+"Classe :\t"+this.getOrdre()+";                                                  \n\n";
-		description = description+"Caracteristiques :     \n\n";
+		description = description+"Caracteristiques :                                       \n\n";
 		description = description+"Agilite : \t"+this.getAgilite()+"; \n";
 		description = description+"Dexterite : \t"+this.getDexterite()+"; \n";
 		description = description+"Force : \t\t"+this.getForce()+"; \n";
@@ -108,30 +108,30 @@ public class Personnage {
 		description = description+"";
 		return description;
 	}
-	//affiche l’état du personnage (pv,pa,po,mana)
+	//affiche l’etat du personnage (pv,pa,po,mana)
 	public String AffichePerso (){
 
-		String description = "Personnage\n";
-		description = description+"PV 	\t :	\t"+this.getPv()+"\n";
-		description = description+"Mana \t\t :	\t"+this.mana+"\n";	
-		description = description+"PO 	\t :	\t"+this.getPo()+"\n";
-		description = description+"PA	\t :	\t"+this.getPa()+"\n";
+		String description = "";
+		description = description+"PV\t :	\t"+this.getPv()+"     \n";
+		description = description+"Mana\t\t :	\t"+this.mana+"     \n";	
+		description = description+"PO\t :	\t"+this.getPo()+"     \n";
+		description = description+"PA\t :	\t"+this.getPa()+"   \n";
 		description = description+"--------------------------\n";				
 		return description;
 	}
-	//donne la distance entre les personnages (utile notamment pour le tir à l’arc)
+	//donne la distance entre les personnages (utile notamment pour le tir a l’arc)
 	public double distance(Personnage p2) {
 		double d = Math.sqrt(Math.pow(this.getPosition()[0]-p2.getPosition()[0],2)+Math.pow(this.getPosition()[1]-p2.getPosition()[1],2));
 		return d;
 	}
-	//détecte la présence d'un obstacle (rocher...) pour empêcher l'attaque à l'arc
+	//detecte la presence d'un obstacle (rocher...) pour empecher l'attaque a l'arc
 	public boolean isObstacle (Personnage p2, int[][][] carte ) {
 		boolean obstacle = false;
 		double dir = 0;
 		if(this.getPosition()[1]!=p2.getPosition()[1]) {	dir = (p2.getPosition()[0]-this.getPosition()[0])/(p2.getPosition()[1]-this.getPosition()[1]);} //coef directeur de la droite reliant les 2 joueurs
-		int x = this.getPosition()[1];					//ATTENTION changement de convention: x= ordonnées, y=abscisses.
+		int x = this.getPosition()[1];					//ATTENTION changement de convention: x= ordonnees, y=abscisses.
 		double y= (double)  this.getPosition()[0];
-		if (this.getPosition()[1]<p2.getPosition()[1] && this.getPosition()[0]<p2.getPosition()[0]) {     //p1 en haut à gauche de p2
+		if (this.getPosition()[1]<p2.getPosition()[1] && this.getPosition()[0]<p2.getPosition()[0]) {     //p1 en haut a gauche de p2
 			//System.out.println("1");
 		while (x<p2.getPosition()[1]&& y<p2.getPosition()[0]) { 
 			if(carte[(int)y][x][0]==-4) {
@@ -140,7 +140,7 @@ public class Personnage {
 			y=(y+dir);
 			x++;
 		}
-		}else if(this.getPosition()[1]<p2.getPosition()[1] && this.getPosition()[0]>p2.getPosition()[0]) {   //p1 en bas à gauche de p2
+		}else if(this.getPosition()[1]<p2.getPosition()[1] && this.getPosition()[0]>p2.getPosition()[0]) {   //p1 en bas a gauche de p2
 			//System.out.println("2");
 			while (x<p2.getPosition()[1]&& y>p2.getPosition()[0]) {
 				if(carte[(int)y][x][0]==-4) {

@@ -68,7 +68,7 @@ public class RunGame {
 		
 		
 		int compteur=0;
-		Display("Joueur 1 à toi\n");
+		Display("Joueur 1 a toi\n");
 		compteur++;
 		Personnage Perso1 = new Personnage(1);
 		Perso1.getInit();
@@ -80,7 +80,7 @@ public class RunGame {
 		
 
 		//init perso2
-		Display("Joueur 2 à toi\n");
+		Display("Joueur 2 a toi\n");
 		compteur++;
 		Personnage Perso2 = new Personnage(2);
 		Perso2.getInit();
@@ -90,7 +90,7 @@ public class RunGame {
 		}while(TableDeJeu.getPlateau()[Perso2.getPosition()[0]][Perso2.getPosition()[1]][2]!=0);
 		TableDeJeu.PosePion(Perso2.getPosition()[0],Perso2.getPosition()[1],Perso2);//pose le joueur sur un pt du tableau
 		Intro.stop();
-		//music début
+		//music debut
 				Timer timer = new Timer(true);
 				TimerTask PlayCbt1 = new IntroCombat();
 				TimerTask PlayCbt2 = new PlayCombat();

@@ -51,6 +51,13 @@ public class Map {
 						}
 					}
 					tmp= Carte2();
+					for(int i=0; i<carte.length; i++) {
+						for(int j=0; j<carte[0].length; j++) {
+							for(int k=0; k<carte[0][0].length; k++) {
+								carte[i][j][k]=tmp[i][j][k];
+							}
+						}
+					}
 					for(int i=0; i<map.length; i++) {
 						for(int j=0; j<map[0].length; j++) {
 							for(int k=0; k<map[0][0].length; k++) {
@@ -64,7 +71,7 @@ public class Map {
 					}else{
 						break;
 					}
-				/*case 3 ://5x5 with obstacles carré central
+				/*case 3 ://5x5 with obstacles carre central
 					this.carte = Carte3();
 					if(ValidationCarte()) {
 						Verif = true;
@@ -194,7 +201,7 @@ public class Map {
 					description = description+"|  B\t";
 				}else if(carte[i][j][0]==-4) {
 					description = description+"|  R\t";
-				}else if(carte[i][j][2]>0){ //exception: pièces rangées dans la colonne joueur pour combiner avec obstacles & effets
+				}else if(carte[i][j][2]>0){ //exception: pieces rangees dans la colonne joueur pour combiner avec obstacles & effets
 					description = description+"|  °°°\t";
 				}
 			}

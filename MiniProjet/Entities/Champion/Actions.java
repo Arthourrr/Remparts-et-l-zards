@@ -2,6 +2,7 @@ package Champion;
 import java.util.Scanner;
 import java.util.Random;
 import Run.AePlayWave;
+import Run.DeroulementJeu;
 public class Actions{	
 	public Actions() {
 
@@ -19,28 +20,28 @@ public class Actions{
 				p1.getPlay().trainForce(p1);
 				break;
 			case 2:
-				System.out.println("Bienvenue au marché. Voici les articles disponibles:");
-				System.out.println("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)");
-				System.out.println("4= Potion de soin (\"+p1.getStuff().potionSoin.prix +\"po) \\t 5= Amulette (\"+p1.getStuff().amulette.prix +\"po) \t 6= Bisou magique ("+p1.getStuff().bisoumagique.prix +"po)");
-				System.out.println("7 = Potion de Mana ("+p1.getStuff().potionMana.prix +"po)");
-				System.out.println("Vous possédez "+p1.getPo()+" pièces d'or.");
+				DeroulementJeu.Display("Bienvenue au marche. Voici les articles disponibles:");
+				DeroulementJeu.Display("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)");
+				DeroulementJeu.Display("4= Potion de soin ("+p1.getStuff().potionSoin.prix +"po) \\t 5= Amulette ("+p1.getStuff().amulette.prix +"po) \t 6= Bisou magique ("+p1.getStuff().bisoumagique.prix +"po)");
+				DeroulementJeu.Display("7 = Potion de Mana ("+p1.getStuff().potionMana.prix +"po)");
+				DeroulementJeu.Display("Vous possedez "+p1.getPo()+" pieces d'or.");
 				Scanner d = new Scanner(System.in); 
 				final int c = d.nextInt();
 				p1.getPlay().acheter(p1, c);
-				System.out.println("Objet acheté. Allez voir l'inventaire!");
+				DeroulementJeu.Display("Objet achete. Allez voir l'inventaire!");
 				break;
 
 			case 3 :
 				if(p1.getStuff().potionMana.quantite==0 && p1.getStuff().potionSoin.quantite==0 && p1.getStuff().armure.quantite==0 && p1.getStuff().epee.quantite==0 && p1.getStuff().bisoumagique.quantite==0 && p1.getStuff().amulette.quantite==0 && p1.getStuff().arc.quantite==0) {
-					System.out.println("Vous ne possédez aucun objet. Rendez vous au marché pour vous en procurer.");
+					DeroulementJeu.Display("Vous ne possedez aucun objet. Rendez vous au marche pour vous en procurer.");
 				} else {
-					System.out.println("Vous disposez des objets suivants. Lequel souhaitez vous utiliser?");
+					DeroulementJeu.Display("Vous disposez des objets suivants. Lequel souhaitez vous utiliser?");
 					String contenu = new String();
-					contenu = (p1.getStuff().amulette.quantite>0)? contenu+ "- 1: Amulette enchantée" : contenu;
+					contenu = (p1.getStuff().amulette.quantite>0)? contenu+ "- 1: Amulette enchantee" : contenu;
 					contenu = (p1.getStuff().potionSoin.quantite>0)? contenu+ "- 2: Potion de soin" : contenu;
 					contenu = (p1.getStuff().bisoumagique.quantite>0)? contenu+ "- 3: Bisou magique" : contenu; 
 					contenu = (p1.getStuff().potionMana.quantite>0)? contenu+ "- 4: Potion de mana" : contenu;
-					System.out.println(contenu);
+					DeroulementJeu.Display(contenu);
 					Scanner e = new Scanner(System.in); 
 					final int choix = e.nextInt();
 					p1.getPlay().utiliser(p1, choix);
@@ -49,12 +50,12 @@ public class Actions{
 			}
 		}
 	}
-	//Améliore la force du personnage
+	//Ameliore la force du personnage
 	public void trainForce (Personnage p1) {
 		if(p1.getPa()>=1) {
 			p1.setForce(p1.getForce() + 1);
 			p1.setPa(p1.getPa()-2);
-			System.out.println("Vos efforts acharnés portent leurs fruits. Vous gagnez +1 de force!");
+			DeroulementJeu.Display("Vos efforts acharnes portent leurs fruits. Vous gagnez +1 de force!");
 		}
 	}
 	//selon un choix fait dans choixAction, permet d’ajouter
@@ -147,21 +148,21 @@ public class Actions{
 				p1.getStuff().amulette.quantite--;
 				p1.getEvo()[0]=0;
 				p1.getEvo()[1]=0;
-				System.out.println("Les sortilèges ont été levés.");
+				DeroulementJeu.Display("Les sortileges ont ete leves.");
 				break;
 			}
 		}
 	}
 	// NOUVELLE MANIERE DE FAIRE DES DEGATS /!\ /!\ /!\
-	//générateur de dégats :
-	// Prend en compte la chance des personnages. Si l'attaque échoue, la chance de l'attaquant augmente pour le prochain combat, et inversément si elle réussit
-	// Si l'attaque réussit, les dégats sont la force +- un random entre 0 et 10, avec une augmentation si le critique est activé en fonction d'un random
-	// Le critique est activé en fonction de la chance des personnages
-	// Si l'attaque échoue, l'ennemi inflige des dégats random entre 0 et 10
-	// N est l'indicateur à prendre en compte selon le type d'attaque (force, sagesse, agilite)	
+	//generateur de degats :
+	// Prend en compte la chance des personnages. Si l'attaque echoue, la chance de l'attaquant augmente pour le prochain combat, et inversement si elle reussit
+	// Si l'attaque reussit, les degats sont la force +- un random entre 0 et 10, avec une augmentation si le critique est active en fonction d'un random
+	// Le critique est active en fonction de la chance des personnages
+	// Si l'attaque echoue, l'ennemi inflige des degats random entre 0 et 10
+	// N est l'indicateur a prendre en compte selon le type d'attaque (force, sagesse, agilite)	
 	public int degats (int N1, int N2, Personnage Joueur, Personnage Adversaire) {
 		int DiffChance =  Joueur.getchance() - Adversaire.getchance();
-		int Diff =(int) ((N1-N2)*100/30 + DiffChance + (50*Math.random()-25)); //entre -250 et 250, la diffchance a moyen d'être entre 60 et -60, force -30 et 30, random -25 et 25
+		int Diff =(int) ((N1-N2)*100/30 + DiffChance + (50*Math.random()-25)); //entre -250 et 250, la diffchance a moyen d'etre entre 60 et -60, force -30 et 30, random -25 et 25
 		double Res2 = (int)(Adversaire.getResistance())/30; //entre 0 et 1
 		int Dex = (int)(Joueur.getDexterite())*100/30; // entre -100 et 100
 		int degats;
@@ -214,7 +215,7 @@ public class Actions{
 	}
 
 	public void sort2 (Personnage p1, Personnage p2) {
-		System.out.println("1= Boule de feu ; 2= Dégénérescence");
+		DeroulementJeu.Display("1= Boule de feu ; 2= Degenerescence");
 		Scanner d = new Scanner(System.in); 
 		final int c = d.nextInt();	
 		switch(c) {
@@ -224,13 +225,13 @@ public class Actions{
 			AppliqueAttaque(degatInflige,p1,p2);
 
 			if(degatInflige==0) {
-				System.out.println("Votre sort a échoué. L'incantation n'était pas parfait et vous pestez contre votre mémoire défaillante.");
-				System.out.println("Vos barrières psychiques vous ont cependant protégé, au prix de quelque peu de mana.");
+				DeroulementJeu.Display("Votre sort a echoue. L'incantation n'etait pas parfait et vous pestez contre votre memoire defaillante.");
+				DeroulementJeu.Display("Vos barrieres psychiques vous ont cependant protege, au prix de quelque peu de mana.");
 			}else if(degatInflige<0) {
-				System.out.println("Vous lancez votre boule de feu, qui s'avance et... revient vers vous... ");
-				System.out.println("VOus cheveux sentent le roussi, vous l'avez échappé belle. De petites brulures vous font perdre "+degatInflige+"PV");
+				DeroulementJeu.Display("Vous lancez votre boule de feu, qui s'avance et... revient vers vous... ");
+				DeroulementJeu.Display("VOus cheveux sentent le roussi, vous l'avez echappe belle. De petites brulures vous font perdre "+degatInflige+"PV");
 			}else {
-				System.out.println("Vous invoquez le feu et votre adversaire voit les enfers se déchaîner sur lui, lui infligeant "+degatInflige+"PV");
+				DeroulementJeu.Display("Vous invoquez le feu et votre adversaire voit les enfers se dechainer sur lui, lui infligeant "+degatInflige+"PV");
 			}
 			p1.setPa(p1.getPa()-2);
 			p1.setMana(p1.getMana()-15);
@@ -255,7 +256,7 @@ public class Actions{
 				}else {
 					duree=4;
 				}
-				System.out.println("L'ennemi est ensorcelé! Vous lui infligez "+degats+ " degats pendant "+ duree+ " tours.");
+				DeroulementJeu.Display("L'ennemi est ensorcele! Vous lui infligez "+degats+ " degats pendant "+ duree+ " tours.");
 				int[] effet = {-degats, duree};
 				p2.setEvo(effet);
 			}
@@ -275,17 +276,17 @@ public class Actions{
 				degatInflige = degats(p1.getForce(),p2.getForce(),p1,p2);
 				AppliqueAttaque(degatInflige,p1,p2);
 				if(degatInflige==0) {
-					System.out.println("Vous n'avez pu saisir une ouverture dans la défense de votre adversaire.");
-					System.out.println("Mais heureusement, vous ne lui avez pas laissé le temps de vous attaquer !");
+					DeroulementJeu.Display("Vous n'avez pu saisir une ouverture dans la defense de votre adversaire.");
+					DeroulementJeu.Display("Mais heureusement, vous ne lui avez pas laisse le temps de vous attaquer !");
 				}else if(degatInflige<0) {
-					System.out.println("L'attaque a échoué... l'adversaire vous a touché \net vous perdez "+degatInflige+"PV");
+					DeroulementJeu.Display("L'attaque a echoue... l'adversaire vous a touche \net vous perdez "+degatInflige+"PV");
 				}else {
-					System.out.println("Vous sortez victorieux de cette passe d'armes ! \nVotre adversaire a subi des blessures, et perd "+degatInflige+"PV");
+					DeroulementJeu.Display("Vous sortez victorieux de cette passe d'armes ! \nVotre adversaire a subi des blessures, et perd "+degatInflige+"PV");
 				}
 				p1.setPa(p1.getPa()-2);
 				break;
 			}else {
-				System.out.println("Bien essayé petit malin, attaquer à distance avec une épée,\n quelle idée ! Tu perds tes points d'actions si c'est comme ça !");
+				DeroulementJeu.Display("Bien essaye petit malin, attaquer a distance avec une epee,\n quelle idee ! Tu perds tes points d'actions si c'est comme ça !");
 				p1.setPa(0);
 				break;
 			}
@@ -296,17 +297,17 @@ public class Actions{
 				bow.start();
 				degatInflige = ArcDegatsChange(degats(p1.getAgilite(),p2.getAgilite(),p1,p2),p1,p2);
 				if(degatInflige==0) {
-					System.out.println("Vous avez raté votre coup de peu ! La prochaine sera la bonne !");
+					DeroulementJeu.Display("Vous avez rate votre coup de peu ! La prochaine sera la bonne !");
 				}else if(degatInflige<0) {
-					System.out.println("Votre flèche est partie au loin, vous pestez contre le vent en vous préparant à encaisser le prochain assaut ennemi");
+					DeroulementJeu.Display("Votre fleche est partie au loin, vous pestez contre le vent en vous preparant a encaisser le prochain assaut ennemi");
 				}else {
 					AppliqueAttaque(degatInflige,p1,p2);
-					System.out.println("Votre flèche a atteint son but. Continuez comme ça et votre adversaire deviendra un véritable hérisson !");
-					System.out.println("Votre adversaire a perdu"+degatInflige+"PV");
+					DeroulementJeu.Display("Votre fleche a atteint son but. Continuez comme ça et votre adversaire deviendra un veritable herisson !");
+					DeroulementJeu.Display("Votre adversaire a perdu"+degatInflige+"PV");
 				}
 				p1.setPa(p1.getPa()-2);
 			}else if (p1.getPa()>=2 && p1.isObstacle(p2, carte)) {
-				System.out.println("Votre adversaire est à couvert, vous ne pouvez pas l'atteindre.");
+				DeroulementJeu.Display("Votre adversaire est a couvert, vous ne pouvez pas l'atteindre.");
 			}
 			break;				
 		case 3:

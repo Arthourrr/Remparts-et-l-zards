@@ -26,7 +26,6 @@ public class Fini extends Thread{
 		}
 		if(p1.getPv()<=0 || p2.getPv()<=0) {
 			Run.DeroulementJeu.Gagnant(0, p1, p2);
-			System.exit(MAX_PRIORITY);
 		} else
 			//System.out.println(tmp);
 			//tmp++;

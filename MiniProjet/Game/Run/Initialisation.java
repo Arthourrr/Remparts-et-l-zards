@@ -15,7 +15,7 @@ public class Initialisation {
 
 		
 	}
-	//Permet d’initialiser les statistiques du personnage en début de partie
+	//Permet d’initialiser les statistiques du personnage en debut de partie
 	public static void InitPerso (Personnage perso, int[][][] carte){
 		/*for(int i=0; i<carte.length; i++) {
 			for(int j=0; j<carte[0].length; j++) {
@@ -36,7 +36,7 @@ public class Initialisation {
 		RunGame.Display("Saisis ton nom :");
 		final String nom= clavier.nextLine(); //le joueur saisit son pseudo
 		perso.setOrdre(numero);
-		perso.SetStatistiques(numero, nom);// met à jour les statistiques du perso en fonction de l'ordre choisi
+		perso.SetStatistiques(numero, nom);// met a jour les statistiques du perso en fonction de l'ordre choisi
 		RunGame.Display(perso.AfficheStats());
 		//Refresh.cancel();
 	
@@ -67,7 +67,7 @@ public class Initialisation {
 		description = "";
 		description = description+"Bonjour, "+perso.getNom()+"          \n";
 		description = description+"Ta classe est\t"+perso.getOrdre()+"\n\n";
-		description = description+"Tes caracteristiques sont :\n\n";
+		description = description+"Tes caracteristiques sont :                              \n\n";
 		description = description+"Agilite :\t"+perso.getAgilite()+"\n";
 		description = description+"Dexterite :\t"+perso.getDexterite()+"\n";
 		description = description+"Force :\t\t"+perso.getForce()+"\n";
@@ -76,9 +76,9 @@ public class Initialisation {
 		description = description+"";
 		return description;	
 	}
-	//Permet de faire apparaître le personnage dans une zone aléatoire sur la table de jeu. 
-	//tempx et tempy désignent l’emplacement de l’autre personnage (si existant) pour éviter d’apparaître sur la même case 
-	//(possibilité d’utiliser cette méthode pour un téléporteur ?
+	//Permet de faire apparaitre le personnage dans une zone aleatoire sur la table de jeu. 
+	//tempx et tempy designent l’emplacement de l’autre personnage (si existant) pour eviter d’apparaitre sur la meme case 
+	//(possibilite d’utiliser cette methode pour un teleporteur ?
 	public void Spawn (int tempx, int tempy,Personnage perso, Jeu map ){
 		int x=0;
 		int y=0;

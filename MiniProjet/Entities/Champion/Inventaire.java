@@ -10,7 +10,7 @@ public class Inventaire {
     
     
     public Inventaire() {
-    	/* Paramètres:
+    	/* Parametres:
         0 armure
         1 soin
         2 quantite
@@ -43,8 +43,8 @@ public class Inventaire {
     		(this.bisoumagique.quantite>1)? contenu + "- "+ this.bisoumagique.quantite+ " bisoumagiques \n": 
     		contenu;
     	contenu = (this.arc.quantite != 0)? contenu+ "- L'arc du feu de Dieu" : contenu;
-    	contenu = (this.armure.quantite != 0)? contenu+ "- L'armure des ténèbres" : contenu;
-    	contenu = (this.epee.quantite != 0)? contenu+ "- L'épée Kipik" : contenu;
+    	contenu = (this.armure.quantite != 0)? contenu+ "- L'armure des tenebres" : contenu;
+    	contenu = (this.epee.quantite != 0)? contenu+ "- L'epee Kipik" : contenu;
     	contenu = (this.amulette.quantite == 0)? contenu : 
     		(this.amulette.quantite==1)? contenu + "- "+ this.amulette.quantite+ " amulette \n":
     		(this.amulette.quantite>1)? contenu + "- "+ this.amulette.quantite+ " amulettes \n": 
