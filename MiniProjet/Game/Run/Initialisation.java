@@ -50,12 +50,14 @@ public class Initialisation {
 	
 	//Permet l’affichage des classes (pour InitPerso)
 	public static void AfficherLesClasses (){ //methode pour afficher les choix d'ordres
+		
+		RunGame.Display("");
 		RunGame.Display("Voici les classes disponibles, avec leurs caracteristiques.");
 		RunGame.Display("" );
 		RunGame.Display("1= Archer (+10 agilite; -10 en sagesse; -10 force; -5 resistance)");
 		RunGame.Display("2= Assassin (+10 dexterite; -5 sagesse; -5 force; -5 resistance)");
-		RunGame.Display("3= Guerrier (+10 force, +5 resistance; -10 sagesse; -10 agilité)");
-		RunGame.Display("4= Mage (+10 sagesse; -10 force; -10 agilité; -10 resistance)");
+		RunGame.Display("3= Guerrier (+10 force, +5 resistance; -10 sagesse; -10 agilite)");
+		RunGame.Display("4= Mage (+10 sagesse; -10 force; -10 agilite; -10 resistance)");
 		System.out.println();
 	}
 	

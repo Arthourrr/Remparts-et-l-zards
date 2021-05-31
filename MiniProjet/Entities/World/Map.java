@@ -1,14 +1,8 @@
 package World;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import Affichage.RefreshAff;
 import Run.RunGame;
 public class Map {
 	static int[][][] carte= new int[5][5][4];	
-	//static Timer loop= new Timer();
-	//static TimerTask Refresh = new RefreshAff(carte);
 	public Map (){
 	}
 	
@@ -17,7 +11,6 @@ public class Map {
 		boolean Verif = false;
 		int[][][]tmp;
 		
-		//loop.scheduleAtFixedRate(Refresh, 0, 300 );
 		while(Verif == false) {
 			RunGame.Display( 0);
 			RunGame.Display( "Vous et votre adversaire vous concertez pour savoir quel sera");
@@ -27,14 +20,15 @@ public class Map {
 			final int numero = n.nextInt();
 			switch(numero){
 				case 1 ://5x5 clairiere
-					for(int i=0; i<Carte1().length; i++) {
-						for(int j=0; j<Carte1()[0].length; j++) {
-							for(int k=0; k<Carte1()[0][0].length; k++) {
-								carte[i][j][k]=Carte1()[i][j][k];
+					tmp= Carte1();
+					for(int i=0; i<carte.length; i++) {
+						for(int j=0; j<carte[0].length; j++) {
+							for(int k=0; k<carte[0][0].length; k++) {
+								carte[i][j][k]=tmp[i][j][k];
 							}
 						}
 					}
-					tmp= Carte1();
+					
 					for(int i=0; i<map.length; i++) {
 						for(int j=0; j<map[0].length; j++) {
 							for(int k=0; k<map[0][0].length; k++) {
@@ -101,7 +95,7 @@ public class Map {
 			}
 			x = (int) (Carte.length*Math.random());
 			y = (int) (Carte[0].length*Math.random());
-			System.out.println(nbBuissons);
+			//System.out.println(nbBuissons);
 			if(Carte[x][y][0] == 0 && nbBuissons<4){ 	
 				Carte[x][y][0]=-3;
 			}
@@ -117,11 +111,12 @@ public class Map {
 			}
 			x = (int) (Carte.length*Math.random());
 			y = (int) (Carte[0].length*Math.random());
-			System.out.println(nbMenhirs);
+			//System.out.println(nbMenhirs);
 			if(Carte[x][y][0] == 0 && nbMenhirs<2){ 	
 				Carte[x][y][0]=-4;
 			}
 		}while(nbMenhirs<2);
+		
 		return Carte;
 	}
 	
@@ -141,7 +136,7 @@ public class Map {
 			}
 			x = (int) (Carte.length*Math.random());
 			y = (int) (Carte[0].length*Math.random());
-			System.out.println(nbMenhirs);
+			//System.out.println(nbMenhirs);
 			if(Carte[x][y][0] == 0 && nbMenhirs<2){ 	
 				Carte[x][y][0]=-4;
 			}
@@ -157,6 +152,13 @@ public class Map {
 	
 	public boolean ValidationCarte() {
 		System.out.println(AffichePlateau(carte));
+		
+		/*for(int i=0; i< carte.length; i++) {
+			for(int j=0; j<carte[0].length; j++) {
+				System.out.print(carte[i][j][0]);
+			}
+			System.out.println("");
+		}*/
 		//Affichage.afficherMonde(this.carte);
 		RunGame.Display( "");
 		RunGame.Display( "Etes-vous sur ? (1: oui ; 0: retour)");

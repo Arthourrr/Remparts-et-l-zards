@@ -36,6 +36,28 @@ public class RefreshAff extends TimerTask{
 		}
 		//System.out.println(modeJeu);
 		Affichage.afficherMonde(monde, 100, det, modeJeu, comp, 2, Text);
+		/*
+		for(int i=0; i< monde.length; i++) {
+			for(int j=0; j<monde[0].length; j++) {
+				System.out.print(monde[i][j][0]);
+			}
+			System.out.println("");
+		}System.out.println("");
+		
+		for(int i=0; i< monde.length; i++) {
+			for(int j=0; j<monde[2].length; j++) {
+				System.out.print(monde[i][j][0]);
+			}
+			System.out.println("");
+		}System.out.println("");
+		
+		for(int i=0; i< monde.length; i++) {
+			for(int j=0; j<monde[1].length; j++) {
+				System.out.print(monde[i][j][0]);
+			}
+			System.out.println("");
+		}System.out.println("");
+		*/
 	}
 	public void run(String text) {
 		comp++;

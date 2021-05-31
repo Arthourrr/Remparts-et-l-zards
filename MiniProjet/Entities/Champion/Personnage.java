@@ -96,16 +96,16 @@ public class Personnage {
 	//affiche les stats du personnage
 	public String AfficheStats(){
 		String description;
-		description = "--------------------------\n";
-		description = description+this.getNom()+"\n";
-		description = description+"Classe :\t"+this.getOrdre()+"\n\n";
-		description = description+"Caractéristiques :\n\n";
-		description = description+"Agilite :\t"+this.getAgilite()+"\n";
-		description = description+"Dexterite :\t"+this.getDexterite()+"\n";
-		description = description+"Force :\t\t"+this.getForce()+"\n";
-		description = description+"Resistance :\t"+this.getResistance()+"\n";
-		description = description+"Sagesse :\t"+this.getSagesse()+"\n\n";
-		description = description+"--------------------------\n";
+		description = "";
+		description = description+this.getNom()+"                                                     \n";
+		description = description+"Classe :\t"+this.getOrdre()+";                                                  \n\n";
+		description = description+"Caracteristiques :     \n\n";
+		description = description+"Agilite : \t"+this.getAgilite()+"; \n";
+		description = description+"Dexterite : \t"+this.getDexterite()+"; \n";
+		description = description+"Force : \t\t"+this.getForce()+"; \n";
+		description = description+"Resistance : \t"+this.getResistance()+"; \n";
+		description = description+"Sagesse : \t"+this.getSagesse()+"; \n\n";
+		description = description+"";
 		return description;
 	}
 	//affiche l’état du personnage (pv,pa,po,mana)

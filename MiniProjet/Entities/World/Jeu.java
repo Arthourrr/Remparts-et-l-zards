@@ -10,7 +10,7 @@ public class Jeu {
 	public int[][][] InitJeu(int[][][]tmp){
 		int[][][] PlateauDeJeu;
 		ChoixCarte.InitCarte(tmp);
-		PlateauDeJeu = ChoixCarte.carte;
+		PlateauDeJeu = Map.carte;
 		return PlateauDeJeu;
 	}
 	//Dépose le personnage sur une case vide du tableau

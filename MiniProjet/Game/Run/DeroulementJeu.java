@@ -6,8 +6,8 @@ import Affichage.RefreshAff;
 import Champion.Personnage;
 import World.Jeu;
 public class DeroulementJeu {
-	public static Personnage P1;
-	public static Personnage P2;
+	public static Personnage P1 = new Personnage(0);
+	public static Personnage P2 = new Personnage(0);
 	static int[][][]carte = new int[5][5][4];
 	public static Timer loop= new Timer();
 	public static TimerTask Refresh = new RefreshAff(carte);
@@ -24,7 +24,8 @@ public class DeroulementJeu {
 					carte[i][j][k]=tabledejeu.getPlateau()[i][j][k];
 				}
 			}
-		}
+		}		
+		loop.scheduleAtFixedRate(Refresh, 0, 300 );
 		int compteur=1;
         Fini fin = new Fini(p1, p2, tabledejeu.getPlateau());
         fin.start();
@@ -53,20 +54,33 @@ public class DeroulementJeu {
     public static void Tour(Personnage persoA, Personnage persoB, Jeu tabledejeu, int compteur){
     		//Auto-refresh de l'Affichage 
     	
-		loop.scheduleAtFixedRate(Refresh, 0, 300 );
-    	
+    	for(int i=0; i<tabledejeu.getPlateau().length; i++) {
+			for(int j=0; j<tabledejeu.getPlateau()[0].length; j++) {
+				for(int k=0; k<tabledejeu.getPlateau()[0][0].length; k++) {
+					carte[i][j][k]=tabledejeu.getPlateau()[i][j][k];
+				}
+			}
+		}
     	int fight=1;
 		System.out.print(tabledejeu.AffichePlateau());
 		Display(0);
-		Display(persoA.getNom() +" à ton tour !");
+		Display(persoA.getNom() +" a ton tour !");
 		System.out.println(persoA.getNom() +" à ton tour !");
 		persoA.MajStats();
 		while (persoA.getPa()>0){
+			for(int i=0; i<tabledejeu.getPlateau().length; i++) { // synchronise la map d'affichage avec la map de la méthode.
+				for(int j=0; j<tabledejeu.getPlateau()[0].length; j++) {
+					for(int k=0; k<tabledejeu.getPlateau()[0][0].length; k++) {
+						carte[i][j][k]=tabledejeu.getPlateau()[i][j][k];
+					}
+				}
+			}
+		Display(0);
 		Display(persoA.AffichePerso());
-		System.out.println("Que choisis-tu de faire ?");
+		Display(persoA.getNom()+", que choisis-tu de faire ?");
 		int[] mouvement;
 			if(fight!=0 && persoA.getPa()>=2){
-				System.out.println("1 = Objets, Entraînement \t 2 = Déplacement \t 3 = Fin du tour\t 4 = Combat \t0 = Infos");
+				Display("1 = Objets, Entraînement \t 2 = Déplacement \t 3 = Fin du tour\t 4 = Combat \t0 = Infos");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
 				switch(numero){
@@ -75,7 +89,7 @@ public class DeroulementJeu {
 						pause(4000);
 						break;
 					case 1 :
-						System.out.println("1 = Améliorer la force \t 2 = Marché  \t 3 = Utiliser un objet \n 0 = retour");
+						Display("1 = Améliorer la force \t 2 = Marché  \t 3 = Utiliser un objet \n 0 = retour");
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
 						
@@ -91,14 +105,14 @@ public class DeroulementJeu {
 							//Affichage.afficherMonde(tabledejeu.getPlateau());
 							break;
 						}else{
-							System.out.println("\n\nAction Impossible\n\n");
+							Display("\n\nAction Impossible\n\n");
 							break;
 						}						
 					case 3 :
 						persoA.setPa(0);
 						break;
 					case 4 :
-						System.out.println("1 = Epée \t 2 = Arc \t 3 = Sort"); // /!\methodes manquantes
+						Display("1 = Epée \t 2 = Arc \t 3 = Sort"); // /!\methodes manquantes
 						Scanner a = new Scanner(System.in); 
 						final int numerobis = a.nextInt();
 						persoA.getPlay().choixAction(numero, numerobis, persoA, persoB, compteur, tabledejeu.getPlateau()); //numero= categorie d'action, numerobis= sous-categorie.
@@ -106,12 +120,12 @@ public class DeroulementJeu {
 						break;						
 				}
 			}else{
-				System.out.println("1 = Objets, Entraînements \t 2 = Déplacement\t 3 = Fin du tour \t0 = Infos");
+				Display("1 = Objets, Entraînements \t 2 = Déplacement\t 3 = Fin du tour \t0 = Infos");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
 				switch(numero){
 					case 1 :
-						System.out.println("1 = Améliorer la force  \t 2 = Marché \t 3 = Utiliser un objet \\n 0 = retour"); // /!\methodes manquantes
+						Display("1 = Améliorer la force  \t 2 = Marché \t 3 = Utiliser un objet \\n 0 = retour"); // /!\methodes manquantes
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
 						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur, tabledejeu.getPlateau());
@@ -125,7 +139,7 @@ public class DeroulementJeu {
 							System.out.print(tabledejeu.AffichePlateau());
 							break;
 						}else{
-							System.out.println("Action Impossible");
+							Display("Action Impossible");
 							break;
 						}
 					case 3 :
@@ -145,7 +159,7 @@ public class DeroulementJeu {
 	public static int[] Mouvement (Personnage perso, Jeu tabledejeu){
 		int[] mouvement = new int[3];
 		mouvement[2]=0;
-		System.out.println("Gauche (4), droite (6), haut(8), bas(2)");
+		Display("Gauche (4), droite (6), haut(8), bas(2)");
         Scanner n = new Scanner(System.in); 
         int numero = n.nextInt();
         int persval;
@@ -159,7 +173,7 @@ public class DeroulementJeu {
 						persval= tabledejeu.getPlateau()[perso.getPosition()[0]-1][perso.getPosition()[1]][2];
 						if(persval>=0 && mapval != (-3) && mapval!= -4){
 							perso.setPo(perso.getPo()+persval);
-							System.out.println((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
+							Display((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
 							mouvement[0]=-1;
 							mouvement[2]=1;
 							pause ( (!(persval == 0))? 1200 : 0);
@@ -173,7 +187,7 @@ public class DeroulementJeu {
 						persval= tabledejeu.getPlateau()[perso.getPosition()[0]+1][perso.getPosition()[1]][2];
 						if(persval>=0 && mapval != (-3) && mapval!= -4){
 							perso.setPo(perso.getPo()+persval);
-							System.out.println((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
+							Display((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
 							mouvement[0]=1;
 							mouvement[2]=1;
 							pause ( (!(persval == 0))? 1200 : 0);
@@ -187,7 +201,7 @@ public class DeroulementJeu {
 						persval= tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]-1][2];
 						if(persval>=0 && mapval != (-3) && mapval!= -4){
 							perso.setPo(perso.getPo()+persval);
-							System.out.println((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
+							Display((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
 							mouvement[1]=-1;
 							mouvement[2]=1;
 							pause ( (!(persval == 0))? 1200 : 0);
@@ -201,7 +215,7 @@ public class DeroulementJeu {
 						persval= tabledejeu.getPlateau()[perso.getPosition()[0]][perso.getPosition()[1]+1][2];
 						if(persval>=0 && mapval != (-3) && mapval!= -4){
 							perso.setPo(perso.getPo()+persval);
-							System.out.println((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
+							Display((!(persval == 0))? "Vous ramassez "+persval+" pièces d'or!" : "");
 							mouvement[1]=1;
 							mouvement[2]=1;
 							pause ( (!(persval == 0))? 1200 : 0);
@@ -232,31 +246,31 @@ public class DeroulementJeu {
     }
  //Affichage des aides pendant une partie
     public static void Aide(Personnage p1) {
-    	System.out.println("1 : Mon inventaire\t 2 : Mes stats\t 3 : Objets ?\t 4 : Attaques ?");
+    	Display("1 : Mon inventaire\t 2 : Mes stats\t 3 : Objets ?\t 4 : Attaques ?");
     	Scanner sc = new Scanner(System.in); 
     	int a = sc.nextInt();
     	switch (a) {
     	case 1:
-    		System.out.println(p1.getStuff().AfficheInv());
+    		Display(p1.getStuff().AfficheInv());
     		break;
     	case 2:
-    		System.out.println(p1.AfficheStats());
+    		Display(p1.AfficheStats());
     		
     	break;
     	case 3:
-    		System.out.println("Vous pouvez acheter les objets au marché contre des pièces d'or.\n Voici les objets existants:");
-    		System.out.println("-Potion de soin: régénère 5 PV par tour pendant 3 tours.");
-    		System.out.println("-Bisoumagique: vous soigne instantanément de 9 PV");
-    		System.out.println("-Epée Kipik: augmente votre force de 4");
-    		System.out.println("-Armure des ténèbres: augmente votre résistance de 5");
-    		System.out.println("-Arc du feu de Dieu: vous permet d'être précis à toute distance et augmente votre agilité de 3.");
-    		System.out.println("-Amulette: lève tous les sorts et effets qui vous affectent. Attention, annule aussi les soins!");
+    		Display("Vous pouvez acheter les objets au marché contre des pièces d'or.\n Voici les objets existants:");
+    		Display("-Potion de soin: régénère 5 PV par tour pendant 3 tours.");
+    		Display("-Bisoumagique: vous soigne instantanément de 9 PV");
+    		Display("-Epée Kipik: augmente votre force de 4");
+    		Display("-Armure des ténèbres: augmente votre résistance de 5");
+    		Display("-Arc du feu de Dieu: vous permet d'être précis à toute distance et augmente votre agilité de 3.");
+    		Display("-Amulette: lève tous les sorts et effets qui vous affectent. Attention, annule aussi les soins!");
     		break;
     	case 4:
-    		System.out.println("-Attaque à l'épée: réservée au corps à corps. Dégats dépendant de la force de votre personnage.\n Attention, vous pouvez subir des dégâts en cas d'échec.");
-    		System.out.println("-Attaque à l'arc: dégats aléatoires dépendant de votre agilité et de la distance de tir. La portée optimale de base est de 3 cases.");
-    		System.out.println("-Sortilège: dégats magiques sur plusieurs tours (dégénérescence) ou lancer de boule de feu, essentiellement améliorés par la sagesse.");
-    		System.out.println("\nVous infligerez parfois des coups critiques. Les dégats sont alors démultipliés.");
+    		Display("-Attaque à l'épée: réservée au corps à corps. Dégats dépendant de la force de votre personnage.\n Attention, vous pouvez subir des dégâts en cas d'échec.");
+    		Display("-Attaque à l'arc: dégats aléatoires dépendant de votre agilité et de la distance de tir. La portée optimale de base est de 3 cases.");
+    		Display("-Sortilège: dégats magiques sur plusieurs tours (dégénérescence) ou lancer de boule de feu, essentiellement améliorés par la sagesse.");
+    		Display("\nVous infligerez parfois des coups critiques. Les dégats sont alors démultipliés.");
     		break;
     	}
     }

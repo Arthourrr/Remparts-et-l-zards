@@ -113,10 +113,19 @@ public class Affichage extends JFrame {
 			g.fillRect(800, 0, 5, 800	);
 			Display(Txt , g, Comp);
 			
-			//int pv1 =DeroulementJeu.P1.getPv();
-			//g.setColor(Color.BLUE);
-			//g.fillRect(850, 20, pv1, 10);
+			if (DeroulementJeu.P1.getJoueur()!=0) {
+			int pv1 =DeroulementJeu.P1.getPv();
+			g.setColor(new Color(15,15,15));
+			g.fillRect(848, 18, 204, 10);
+			g.setColor(Color.BLUE);
+			g.fillRect(850, 20, pv1*2, 6);
 			
+			int pv2 =DeroulementJeu.P2.getPv();
+			g.setColor(new Color(15,15,15));
+			g.fillRect(1148, 18, 204, 10);
+			g.setColor(Color.RED);
+			g.fillRect(1150, 20, pv2*2, 6);
+			}
 			for (int i = 0; i < nbL; i++)
 				for (int j = 0; j < nbC; j++) {
 					switch (monde[i][j][0]) {
@@ -162,9 +171,15 @@ public class Affichage extends JFrame {
 					switch (monde[i][j][2]) {
 					case (-1):
 						AfficheEntite("Guerrier.B"+det+".png", g, i, j);
+						g.setFont(new Font("DPComic", Font.ITALIC, 25));
+						g.setColor(Color.WHITE);
+						g.drawString(DeroulementJeu.P1.getNom(), j*160+40, i*160+10);
 					break;
 					case (-2):
 						AfficheEntite("Guerrier.R"+det+".png", g, i, j);
+						g.setFont(new Font("DPComic", Font.ITALIC, 25));
+						g.setColor(Color.WHITE);
+						g.drawString(DeroulementJeu.P2.getNom(), j*160+40, i*160+10);
 					break;
 					case (-3):
 						AfficheEntite("Obstacle.Buisson"+".png", g, i, j);
