@@ -24,9 +24,10 @@ public class Inventaire {
         this.amulette = new Objets (0, 0, 0, 10, 0, 0);
         this.arc = new Objets (0, 0, 0, 60, 0, 0);
     }
+    //affichage de l'inventaire (cf info)
     public String AfficheInv () {
     	String contenu= new String();
-    	if(this.potionSoin.quantite==0 && this.armure.quantite==0 && this.epee.quantite==0 && this.bisoumagique.quantite==0 && this.amulette.quantite==0 && this.arc.quantite==0) {
+    	if(this.potionSoin.quantite==0 && this.potionMana.quantite==0 && this.armure.quantite==0 && this.epee.quantite==0 && this.bisoumagique.quantite==0 && this.amulette.quantite==0 && this.arc.quantite==0) {
     		contenu = "Votre inventaire est vide...";
     	}else {
     	contenu = "Votre sac contient:\n";

@@ -1,7 +1,5 @@
 package Run;
-
 import Champion.Personnage;
-
 public class Fini extends Thread{
 	Personnage p1;
 	Personnage p2;
@@ -11,6 +9,7 @@ public class Fini extends Thread{
 		this.p2=p2;
 		this.plateau = plateau;
 	}
+	//si jamais le personnage est sur une case en lave (destruction de case sur la map lave), il meurt instantanément
 	@Override
 	public void run() {
 		for (int i=0; i< plateau.length; i++) {
@@ -27,8 +26,6 @@ public class Fini extends Thread{
 		if(p1.getPv()<=0 || p2.getPv()<=0) {
 			Run.DeroulementJeu.Gagnant(0, p1, p2);
 		} else
-			//System.out.println(tmp);
-			//tmp++;
 			try {
 				Fini.sleep(1000);
 			} catch (InterruptedException e) {

@@ -1,31 +1,13 @@
 package Run;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import Affichage.RefreshAff;
 import Champion.Personnage;
 import World.Jeu;	
 public class Initialisation {
-	//static int[][][] map= new int[5][5][4];
-	//static Timer loop= new Timer();
-	//static TimerTask Refresh = new RefreshAff(map);
 	public Initialisation() {	
-		
 
-		
 	}
 	//Permet d’initialiser les statistiques du personnage en debut de partie
 	public static void InitPerso (Personnage perso, int[][][] carte){
-		/*for(int i=0; i<carte.length; i++) {
-			for(int j=0; j<carte[0].length; j++) {
-				for(int k=0; k<carte[0][0].length; k++) {
-					map[i][j][k]=carte[i][j][k];
-				}
-			}
-		}
-		*/
-		//loop.scheduleAtFixedRate(Refresh, 0, 300 );
 		RunGame.Display(0);
 		RunGame.Display(perso.AfficheStats());
 		AfficherLesClasses(); //affiche les diff ordres/ classes dispo
@@ -37,17 +19,8 @@ public class Initialisation {
 		final String nom= clavier.nextLine(); //le joueur saisit son pseudo
 		perso.setOrdre(numero);
 		perso.SetStatistiques(numero, nom);// met a jour les statistiques du perso en fonction de l'ordre choisi
-		RunGame.Display(perso.AfficheStats());
-		//Refresh.cancel();
-	
+		RunGame.Display(perso.AfficheStats());	
 	}
-	
-	
-	
-	
-	
-	
-	
 	//Permet l’affichage des classes (pour InitPerso)
 	public static void AfficherLesClasses (){ //methode pour afficher les choix d'ordres
 		
@@ -60,7 +33,6 @@ public class Initialisation {
 		RunGame.Display("4= Mage (+10 sagesse; -10 force; -10 agilite; -10 resistance)");
 		System.out.println();
 	}
-	
 	//Permet d’afficher les statistiques du personnages courant
 	public String AfficheStats(Personnage perso){
 		String description;

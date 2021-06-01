@@ -1,4 +1,4 @@
-package Main;
+package Main; 
 import Run.RunGame;
 public class Launch {
 	public static void main (String[] arg){
