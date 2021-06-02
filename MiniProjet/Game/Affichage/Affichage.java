@@ -107,7 +107,7 @@ public class Affichage extends JFrame {
 			//System.out.println(res);
 			
 			AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Plateau."+modeJeu+det+".png", g, 1080, 1080, 800, 800, 0, 0, 0, 0);
-			g.setColor(new Color(111, 125, 79));
+			g.setColor(new Color(105, 135, 76));
 			g.fillRect(800, 0, 600, 800);
 			g.setColor(new Color(15, 15, 15));
 			g.fillRect(800, 0, 5, 800	);

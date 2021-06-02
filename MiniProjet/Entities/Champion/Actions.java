@@ -22,7 +22,7 @@ public class Actions{
 			case 2:
 				DeroulementJeu.Display("Bienvenue au marche. Voici les articles disponibles:");
 				DeroulementJeu.Display("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)");
-				DeroulementJeu.Display("4= Potion de soin ("+p1.getStuff().potionSoin.prix +"po) \\t 5= Amulette ("+p1.getStuff().amulette.prix +"po) \t 6= Bisou magique ("+p1.getStuff().bisoumagique.prix +"po)");
+				DeroulementJeu.Display("4= Potion de soin ("+p1.getStuff().potionSoin.prix +"po) \t 5= Amulette ("+p1.getStuff().amulette.prix +"po) \t 6= Bisou magique ("+p1.getStuff().bisoumagique.prix +"po)");
 				DeroulementJeu.Display("7 = Potion de Mana ("+p1.getStuff().potionMana.prix +"po)");
 				DeroulementJeu.Display("Vous possedez "+p1.getPo()+" pieces d'or.");
 				Scanner d = new Scanner(System.in); 

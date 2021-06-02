@@ -130,7 +130,7 @@ public class DeroulementJeu {
 				final int numero = n.nextInt();
 				switch(numero){
 					case 1 :
-						Display("1 = Ameliorer la force  \t 2 = Marche \t 3 = Utiliser un objet \\n 0 = retour"); // /!\methodes manquantes
+						Display("1 = Ameliorer la force  \t 2 = Marche \t 3 = Utiliser un objet \n 0 = retour"); // /!\methodes manquantes
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
 						Display(0);
