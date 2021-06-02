@@ -65,7 +65,7 @@ public class Actions{
 	//personnage courant
 	public void acheter (Personnage p1, int a) {
 		switch (a) {
-		case (1):
+		case (1)://arc : amélioration des aptitudes à l'arc
 			if (p1.getStuff().arc.dispo && p1.getPo()>p1.getStuff().arc.prix) {
 				p1.getStuff().arc.quantite ++;
 				p1.setPo(p1.getPo()-p1.getStuff().arc.prix);
@@ -75,7 +75,7 @@ public class Actions{
 				p1.getStuff().arc.dispo= false;
 				break;
 			}
-		case(2):
+		case(2)://armure : amélioration de la résistance
 			if (p1.getStuff().armure.dispo && p1.getPo()>p1.getStuff().armure.prix) {
 				p1.getStuff().armure.quantite++;
 				p1.setPo(p1.getPo() - p1.getStuff().armure.prix);
@@ -84,7 +84,7 @@ public class Actions{
 				p1.getStuff().armure.dispo= false;
 				break;
 			}
-		case(3):
+		case(3)://épée : amélioration des aptitudes à la mélée
 			if (p1.getStuff().epee.dispo && p1.getPo()>p1.getStuff().epee.prix) {
 				p1.getStuff().epee.quantite++;
 				p1.setPo(p1.getPo() - p1.getStuff().epee.prix);
@@ -93,28 +93,28 @@ public class Actions{
 				p1.getStuff().epee.dispo=false;
 				break;
 			}
-		case(4):
+		case(4)://régénération instantanée de vie
 			if(p1.getStuff().potionSoin.dispo && p1.getPo()>p1.getStuff().potionSoin.prix) {
 				p1.getStuff().potionSoin.quantite++;
 				p1.setPo(p1.getPo() - p1.getStuff().potionSoin.prix);
 				p1.setPa(p1.getPa() - 1);
 				break;
 			}
-		case(6):
+		case(6)://régénération continue de vie sur quelques tours
 			if(p1.getStuff().bisoumagique.dispo && p1.getPo()>p1.getStuff().bisoumagique.prix) {
 				p1.getStuff().bisoumagique.quantite++;
 				p1.setPo(p1.getPo() - p1.getStuff().bisoumagique.prix);
 				p1.setPa(p1.getPa() - 1);
 				break;
 			}
-		case (5):
+		case (5)://protection magique
 			if(p1.getStuff().amulette.dispo && p1.getPo()>p1.getStuff().amulette.prix){
 				p1.getStuff().amulette.quantite++;
 				p1.setPo(p1.getPo() - p1.getStuff().amulette.prix);
 				p1.setPa(p1.getPa() - 1);
 				break;
 			}
-		case (7):
+		case (7)://régénération du mana
 			if(p1.getStuff().potionMana.dispo && p1.getPo()>p1.getStuff().potionMana.prix) {
 				p1.getStuff().potionMana.quantite++;
 				p1.setPo(p1.getPo() - p1.getStuff().potionMana.prix);
@@ -199,7 +199,7 @@ public class Actions{
 		}
 		return degats;
 	}
-
+// transformation des dégats selon la distance
 	public int ArcDegatsChange (int degats, Personnage p1, Personnage p2) {
 		double coefdist= Math.exp(-(Math.pow(p1.distance(p2)-3,2)/p1.getStuff().arc.portee));
 		degats = (int) (degats*coefdist);
@@ -207,7 +207,7 @@ public class Actions{
 	}
 
 
-
+// déduit les pvs du personnage touché
 	public void AppliqueAttaque (int Degats, Personnage Joueur, Personnage Adversaire) {
 		if(Degats<0) {
 			Joueur.setPv(Joueur.getPv()+Degats);
@@ -215,7 +215,7 @@ public class Actions{
 			Adversaire.setPv(Adversaire.getPv()-Degats);
 		}
 	}
-
+// méthode de gestion des sorts
 	public void sort2 (Personnage p1, Personnage p2) {
 		DeroulementJeu.Display("1= Boule de feu ; 2= Degenerescence");
 		Scanner d = new Scanner(System.in); 
@@ -267,7 +267,7 @@ public class Actions{
 	}
 
 
-
+// gestion des combats
 	public void Attaque (int N, Personnage p1, Personnage p2, int[][][]carte) {
 		int degatInflige;
 		switch(N) {

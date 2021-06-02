@@ -4,7 +4,6 @@ import Champion.Personnage;
 import World.Jeu;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import Affichage.RefreshAff;
 public class RunGame {
 	static int[][][]carte = new int[5][5][4];
@@ -13,15 +12,10 @@ public class RunGame {
 	public RunGame() {	
 	
 	}
-	
-	
+	//Intro du jeu avec initialisation du jeu (personnages, map)
 	public static void Partie1v1() {
-	    //music INTRO
-		
-		
-		
+	    //music INTRO	
 		loop.scheduleAtFixedRate(Refresh, 0, 300 );
-		
 		AePlayWave Intro = new AePlayWave(System.getProperty("user.dir") + "\\Audio\\Title_Screen01.wav");
 		Intro.start();
 		Update skip = new Update();
@@ -59,11 +53,8 @@ public class RunGame {
 		Display( "confiant en vos aptitudes guerrieres.");	
 		pause(skip.val);
 		skip.stop();
-		//Refresh.cancel();
 		System.out.println();
 		Jeu TableDeJeu = new Jeu(carte);
-		
-		
 		int compteur=0;
 		Display("Joueur 1 a toi\n");
 		compteur++;
@@ -74,8 +65,6 @@ public class RunGame {
 			Perso1.getInit().Spawn(0,0,Perso1,TableDeJeu);
 		}while(TableDeJeu.getPlateau()[Perso1.getPosition()[0]][Perso1.getPosition()[1]][2]!=0);
 		TableDeJeu.PosePion(Perso1.getPosition()[0],Perso1.getPosition()[1],Perso1);//pose le joueur sur un pt du tableau
-		
-
 		//init perso2
 		Display("Joueur 2 a toi\n");
 		compteur++;

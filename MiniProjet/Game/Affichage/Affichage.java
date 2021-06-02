@@ -13,10 +13,7 @@ import java.awt.*;
  * @author Brice Chardin, modifiee par Jean-Francois TREGOUET
  */
 public class Affichage extends JFrame {
-
 	//BufferedImage img1 = new BufferedImage(50,50, BufferedImage.TYPE_INT_RGB);
-
-
 	private static Affichage world = null;
 	private PanneauGrille pg;
 	private static String det;
@@ -71,7 +68,7 @@ public class Affichage extends JFrame {
 	}
 
 	/**
-	 * Calcul la resolution la plus appropriee a la taille du monde de
+	 * Calcule la resolution la plus appropriee a la taille du monde de
 	 * facon a ce que la fenetre occupe 80% de la hauteur ou de la
 	 * largeur de la zone utile de l'ecran
 	 * de l'ecran.

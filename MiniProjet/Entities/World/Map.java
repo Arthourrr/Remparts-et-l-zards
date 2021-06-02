@@ -6,7 +6,7 @@ public class Map {
 	public Map (){
 	}
 	
-	
+	//choix de la carte de départ, initialisation des rochers et des buissons
 	public void InitCarte(int[][][] map) {
 		boolean Verif = false;
 		int[][][]tmp;
@@ -71,17 +71,8 @@ public class Map {
 					}else{
 						break;
 					}
-				/*case 3 ://5x5 with obstacles carre central
-					this.carte = Carte3();
-					if(ValidationCarte()) {
-						Verif = true;
-						break;
-					}else{
-						break;
-					}*/
 			}
 		}
-		//Refresh.cancel();
 	}
 	
 	public int[][][] Carte1 () {

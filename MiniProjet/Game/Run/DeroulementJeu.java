@@ -6,30 +6,34 @@ import Affichage.RefreshAff;
 import Champion.Personnage;
 import World.Jeu;
 public class DeroulementJeu {
-	public static Personnage P1 = new Personnage(0);
-	public static Personnage P2 = new Personnage(0);
-	static int[][][]carte = new int[5][5][4];
-	public static Timer loop= new Timer();
-	public static TimerTask Refresh = new RefreshAff(carte);
+	public static Personnage P1 = new Personnage(0);//attribut personnage 1
+	public static Personnage P2 = new Personnage(0);//attribut personnage 2
+	static int[][][]carte = new int[5][5][4];//attribut table de jeu
+	public static Timer loop= new Timer();//timer pour les pauses
+	public static TimerTask Refresh = new RefreshAff(carte);//timer pour les pauses
+	
 	public DeroulementJeu() {	
 	
 	}
 //Fait tourner la partie tant que aucun personnage n'est mort
 //Compteur base sur pair/impair
-//Affiche le gagnant Ã  la fin
+//Affiche le gagnant à la fin
 	public static void DeroulementPartie(Personnage p1 , Personnage p2, Jeu tabledejeu){
+		//initialisation carte
 		for(int i=0; i<tabledejeu.getPlateau().length; i++) {
 			for(int j=0; j<tabledejeu.getPlateau()[0].length; j++) {
 				for(int k=0; k<tabledejeu.getPlateau()[0][0].length; k++) {
 					carte[i][j][k]=tabledejeu.getPlateau()[i][j][k];
 				}
 			}
-		}		
+		}
 		loop.scheduleAtFixedRate(Refresh, 0, 300 );
 		int compteur=1;
-        Fini fin = new Fini(p1, p2, tabledejeu.getPlateau());
+        //vérifie si un joueur n'est pas mort dans la lave
+		Fini fin = new Fini(p1, p2, tabledejeu.getPlateau());
         fin.start();
-        while (true){
+        //fait avancer la partie
+        while(true){
         	P1=p1;
         	P2=p2;
             if (compteur%2!=0){
@@ -40,10 +44,8 @@ public class DeroulementJeu {
                 compteur++;
             }
             tabledejeu.SpawnGoldRegulier();
-            //tabledejeu.RandomGoldSpawn();
             tabledejeu.fissures(compteur);
         }
-        //Gagnant(compteur, p1, p2);
     }
 //Mise a jour de la position du personnage vers un point de coordonnees X,Y 
  	public static void Move (Personnage perso, Jeu tabledejeu, int X, int Y){
@@ -52,8 +54,7 @@ public class DeroulementJeu {
 	}
 //Interface permettant d’activer chaque action possible par tour pour un personnage dans les objets correspondants
     public static void Tour(Personnage persoA, Personnage persoB, Jeu tabledejeu, int compteur){
-    		//Auto-refresh de l'Affichage 
-    	
+    		//Auto-refresh de l'Affichage
     	for(int i=0; i<tabledejeu.getPlateau().length; i++) {
 			for(int j=0; j<tabledejeu.getPlateau()[0].length; j++) {
 				for(int k=0; k<tabledejeu.getPlateau()[0][0].length; k++) {
@@ -62,7 +63,7 @@ public class DeroulementJeu {
 			}
 		}
     	int fight=1;
-		System.out.print(tabledejeu.AffichePlateau());
+		//System.out.print(tabledejeu.AffichePlateau());//permet d'afficher le plateau sur la console
 		Display(0);
 		Display(persoA.getNom() +" a ton tour !");
 		System.out.println(persoA.getNom() +" a ton tour !");
@@ -79,18 +80,18 @@ public class DeroulementJeu {
 		Display(persoA.AffichePerso());
 		Display(persoA.getNom()+", que choisis-tu de faire ?");
 		int[] mouvement;
-			if(fight!=0 && persoA.getPa()>=2){
+			if(fight!=0 && persoA.getPa()>=2){//si les pa sup à 2, le personnage peut combattre. Sinon il ne peut pas.
 				Display("1 = Objets, Entrainement \t 2 = Deplacement \t 3 = Fin du tour\t 4 = Combat \t0 = Infos");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
 				switch(numero){
-					case 0 :
+					case 0 ://affiche l'aide, l'inventaire etc...
 						Display(0);
 						Display(persoA.AffichePerso());
 						Aide(persoA);
 						pause(4000);
 						break;
-					case 1 :
+					case 1 ://+1 de force au personnage courant
 						Display("1 = Ameliorer la force \t 2 = Marche  \t 3 = Utiliser un objet \n 0 = retour");
 						Scanner b = new Scanner(System.in); 
 						final int numeroter = b.nextInt();
@@ -99,23 +100,22 @@ public class DeroulementJeu {
 						persoA.getPlay().choixAction(numero, numeroter, persoA, persoB, compteur, tabledejeu.getPlateau());
 						pause(1200);
 						break;
-					case 2 :
+					case 2 ://mouvements du personnage sur le plateau
 						mouvement = Mouvement(persoA,tabledejeu);
 						if(mouvement[2]!=0){
 							Move(persoA,tabledejeu,mouvement[0],mouvement[1]);
 							persoA.setPa(persoA.getPa() - 1);
 							System.out.print(tabledejeu.AffichePlateau());
-							//Affichage.afficherMonde(tabledejeu.getPlateau());
 							break;
 						}else{
 							Display("\n\nAction Impossible\n\n");
 							break;
 						}						
-					case 3 :
+					case 3 ://fin du tour, mise à jour des pa à 0
 						persoA.setPa(0);
 						break;
 					case 4 :
-						Display("1 = Epee \t 2 = Arc \t 3 = Sort"); // /!\methodes manquantes
+						Display("1 = Epee \t 2 = Arc \t 3 = Sort");//choix du type d'attaque
 						Scanner a = new Scanner(System.in); 
 						final int numerobis = a.nextInt();
 						Display(0);
@@ -124,7 +124,7 @@ public class DeroulementJeu {
 						pause(1200);
 						break;						
 				}
-			}else{
+			}else{//pareil qu'au dessus, mais sans le combat
 				Display("1 = Objets, Entrainements \t 2 = Deplacement\t 3 = Fin du tour \t0 = Infos");
 				Scanner n = new Scanner(System.in); 
 				final int numero = n.nextInt();
@@ -164,7 +164,7 @@ public class DeroulementJeu {
 		pause(3000);
 		persoA.setPa(3);
 	}
-//Permet l’action "mouvement de personnage" (a bouger dans actions ? ? ?)
+//Permet au personnage de bouger sur le plateau (optimal avec le pad numérique)
 	public static int[] Mouvement (Personnage perso, Jeu tabledejeu){
 		int[] mouvement = new int[3];
 		mouvement[2]=0;
@@ -231,7 +231,6 @@ public class DeroulementJeu {
 						}
 					}
 					break;
-					
 					/* "position": int[][], position[0]= position en ordonnee, position[1]= position en abscisse*/
 			}
 			return mouvement;
@@ -244,7 +243,7 @@ public class DeroulementJeu {
         }
         return mort;
     }	
-//Affiche la fin de partie et le gagnant /!\ to fix
+//Affiche la fin de partie et le gagnant
     public static void Gagnant(int compteur,Personnage perso1, Personnage perso2){
         Display("Le combat est termine.");
         if (perso1.getPv()>0){
@@ -258,6 +257,7 @@ public class DeroulementJeu {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        pause(5000);
         System.exit(0);
     }
  //Affichage des aides pendant une partie
@@ -266,14 +266,14 @@ public class DeroulementJeu {
     	Scanner sc = new Scanner(System.in); 
     	int a = sc.nextInt();
     	switch (a) {
-    	case 1:
+    	case 1://affichage de l'inventaire
     		Display(p1.getStuff().AfficheInv());
     		break;
-    	case 2:
+    	case 2://affichage des stats du personnage
     		Display(p1.AfficheStats());
     		
     	break;
-    	case 3:
+    	case 3://affichage des infos à propos de chaque objet
     		Display("Vous pouvez acheter les objets au marche contre des pieces d'or.\n Voici les objets existants:");
     		Display("-Potion de soin: regenere 5 PV par tour pendant 3 tours.");
     		Display("-Bisoumagique: vous soigne instantanement de 9 PV");
@@ -282,7 +282,7 @@ public class DeroulementJeu {
     		Display("-Arc du feu de Dieu: vous permet d'etre precis a toute distance et augmente votre agilite de 3.");
     		Display("-Amulette: leve tous les sorts et effets qui vous affectent. Attention, annule aussi les soins!");
     		break;
-    	case 4:
+    	case 4://affichage des infos à propos de chaque attaque
     		Display("-Attaque a l'epee: reservee au corps a corps. Degats dependant de la force de votre personnage.\n Attention, vous pouvez subir des degâts en cas d'echec.");
     		Display("-Attaque a l'arc: degats aleatoires dependant de votre agilite et de la distance de tir. La portee optimale de base est de 3 cases.");
     		Display("-Sortilege: degats magiques sur plusieurs tours (degenerescence) ou lancer de boule de feu, essentiellement ameliores par la sagesse.");
@@ -290,6 +290,7 @@ public class DeroulementJeu {
     		break;
     	}
     }
+    //affichage de texte sur la console
     public static void Display(String sentence) { //Afficher "sentence"
 		int lg=61;
 		int quotient = sentence.length()/lg;
