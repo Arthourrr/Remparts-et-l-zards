@@ -18,7 +18,7 @@ public class Actions{
 			switch(b) {
 			case 1: 
 				p1.getPlay().trainForce(p1);
-				break;
+				break; 
 			case 2:
 				DeroulementJeu.Display("Bienvenue au marche. Voici les articles disponibles:");
 				DeroulementJeu.Display("1 = Arc du feu de Dieu ("+p1.getStuff().arc.prix +"po) \t 2 = Armure des tenebres ("+p1.getStuff().armure.prix +"po) \t 3 = Epee Kipik ("+p1.getStuff().epee.prix +"po)");
@@ -27,8 +27,10 @@ public class Actions{
 				DeroulementJeu.Display("Vous possedez "+p1.getPo()+" pieces d'or.");
 				Scanner d = new Scanner(System.in); 
 				final int c = d.nextInt();
+				if(c>0 && c<8) {
 				p1.getPlay().acheter(p1, c);
 				DeroulementJeu.Display("Objet achete. Allez voir l'inventaire!");
+				}
 				break;
 
 			case 3 :

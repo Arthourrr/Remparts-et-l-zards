@@ -2,16 +2,12 @@ package Affichage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import Champion.Personnage;
 import Run.DeroulementJeu;
-
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.awt.*;
-import World.Jeu;
 /**
  * Gestionnaire d'affichage pour le jeu de la vie.
  * @author Brice Chardin, modifiee par Jean-Francois TREGOUET
@@ -131,12 +127,7 @@ public class Affichage extends JFrame {
 			for (int i = 0; i < nbL; i++)
 				for (int j = 0; j < nbC; j++) {
 					switch (monde[i][j][0]) {
-					case (-1):
-						AfficheEntite("Guerrier.B"+det+".png", g, i, j);
-					break;
-					case (-2):
-						AfficheEntite("Guerrier.R"+det+".png", g, i, j);
-					break;
+					
 					case (-3):
 						AfficheEntite("Obstacle.Buisson"+".png", g, i, j);
 					break;
@@ -151,7 +142,7 @@ public class Affichage extends JFrame {
 					break;
 					}
 					switch (monde[i][j][1]) {
-					case (-1):
+					/*case (-1):
 						AfficheEntite("Guerrier.B"+det+".png", g, i, j);
 					break;
 					case (-2):
@@ -168,11 +159,12 @@ public class Affichage extends JFrame {
 					break;
 					case (-6):
 						AfficheEntite("Obstacle.Trou.png", g, i, j);
-					break;
-					}
+					break;*/
+					} 
 					switch (monde[i][j][2]) {
 					case (-1):
-						AfficheEntite("Guerrier.B"+det+".png", g, i, j);
+					if(!(DeroulementJeu.P1.getNom().equals("Adeline")))	 AfficheEntite("Guerrier.B"+det+".png", g, i, j);
+					if(DeroulementJeu.P1.getNom().equals("Adeline")) AfficheEntite("Guerrier.Demon.png", g, i, j);
 						g.setFont(new Font("DPComic", Font.ITALIC, 25));
 						g.setColor(Color.WHITE);
 						g.drawString(DeroulementJeu.P1.getNom(), j*160+40, i*160+15);
@@ -185,7 +177,8 @@ public class Affichage extends JFrame {
 							}
 					break;
 					case (-2):
-						AfficheEntite("Guerrier.R"+det+".png", g, i, j);
+						if(!(DeroulementJeu.P2.getNom().equals("Adeline")))	 AfficheEntite("Guerrier.B"+det+".png", g, i, j);
+					if(DeroulementJeu.P2.getNom().equals("Adeline")) AfficheEntite("Guerrier.Demon.png", g, i, j);
 						g.setFont(new Font("DPComic", Font.ITALIC, 25));
 						g.setColor(Color.WHITE);
 						g.drawString(DeroulementJeu.P2.getNom(), j*160+40, i*160+15);
@@ -213,10 +206,11 @@ public class Affichage extends JFrame {
 					if (monde[i][j][2]>0 && monde[i][j][2]<100) {
 						AfficheEntite("Pièces"+det+".png", g, i, j);
 					}
-
-				}  
+				if (monde[i][j][0]==-6 && monde[i][j][2]<0) AfficheEntite("Image.png", g, i, j);
+				}	
 			if(monde[0][0][3]==1)
 				AfficheImage(System.getProperty("user.dir") +"\\Graphics\\Feuilles.png", g, 1080, 1080, 800, 800, 0, 0, 0, 0);
+				
 			
 				
 			

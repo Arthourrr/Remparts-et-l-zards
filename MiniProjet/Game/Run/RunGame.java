@@ -47,10 +47,7 @@ public class RunGame {
 		Display( "tous se pressent pour observer les combats.");
 		pause(skip.val);
 		Display( "");
-		Display( "Pour les gladiateurs, c'est l'opportunite de se faire une ");
-		Display( "reputation et gagner mille tresors, de s'attirer les faveurs des ");
-		Display( "plus belles courtisanes du royaume, ou encore d'ameliorer ses");
-		Display( "aptitudes au combat.");
+		Display( "Pour les gladiateurs, c'est l'opportunite de se faire une reputation, de gagner mille tresors et richesses, ou encore d'ameliorer ses aptitudes au combat.");
 		pause(skip.val*2);
 		Display( 0);
 		Display( "Que tu sois mage, guerrier, assassin, archer, tous les coups sont");
